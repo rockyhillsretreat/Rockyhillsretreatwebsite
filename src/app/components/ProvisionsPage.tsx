@@ -1,6 +1,6 @@
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Link } from "react-router-dom";
-import heroImg from '../../imports/RockyHillsRetreat_MelanieKate-67.jpg';
+const heroImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/bay-view-islands-cloud.jpg';
 
 export function ProvisionsPage() {
   return (
