@@ -1,8 +1,8 @@
 import { Bed, Bath, Flame, Utensils, Wind, Mountain, Sun, Droplets } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Link } from "react-router-dom";
-const heroImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-exterior-entry-native-garden.jpg';
-const interiorImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/interior-living-sunlight.jpg';
+const heroImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/v1778553751/retreat-exterior-golden-hour.jpg';
+const interiorImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/v1778553757/retreat-exterior-roofline-trees.jpg';
 const bedroomImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/interior-bedroom-full-width.jpg';
 const bathImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-bath-running-golden.jpg';
 const livingImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/interior-leather-chair-sunlight.jpg';
