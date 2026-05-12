@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Calendar, ChevronRight, Clock } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
-import heroImg from '../../imports/RockyHillsRetreat_MelanieKate-75.jpg';
+const heroImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/land-detail-driftwood-rock.jpg';
 
 export function JournalPage() {
   const [selectedCategory, setSelectedCategory] = useState('all');
