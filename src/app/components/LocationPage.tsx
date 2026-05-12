@@ -1,4 +1,4 @@
-import { MapPin, Clock, Plane, Car } from "lucide-react";
+import { MapPin, Clock, Plane, Car, Cloud } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 const heroImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/location-freycinet-sunset-trees.jpg';
 const coastalImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/bay-view-swansea-coast.jpg';
@@ -155,8 +155,8 @@ export function LocationPage() {
               <div className="space-y-2">
                 <h5 className="text-bone">Weather Considerations</h5>
                 <p className="text-bone/60 text-sm leading-relaxed">
-                  Tasmania's weather can change rapidly. We recommend checking forecasts before departure and 
-                  allowing extra time for travel. Helicopter transfers are weather-dependent and may be rescheduled. 
+                  Tasmania's weather can change rapidly. We recommend checking forecasts before departure and
+                  allowing extra time for travel. Helicopter transfers are weather-dependent and may be rescheduled.
                   Winter roads can be icy — drive carefully and arrive before dark if possible.
                 </p>
               </div>
@@ -179,7 +179,7 @@ export function LocationPage() {
                     <span className="text-bone/60 text-sm">25 minutes</span>
                   </div>
                   <p className="text-bone/50 text-sm">
-                    Small coastal village with general store, café, and fuel station. 
+                    Small coastal village with general store, café, and fuel station.
                     We recommend stocking up here if self-catering.
                   </p>
                 </div>
@@ -190,7 +190,7 @@ export function LocationPage() {
                     <span className="text-bone/60 text-sm">45 minutes</span>
                   </div>
                   <p className="text-bone/50 text-sm">
-                    World-famous Wineglass Bay, walking trails, pristine beaches. 
+                    World-famous Wineglass Bay, walking trails, pristine beaches.
                     Day trips easily arranged.
                   </p>
                 </div>
@@ -201,7 +201,7 @@ export function LocationPage() {
                     <span className="text-bone/60 text-sm">1.5 hours north</span>
                   </div>
                   <p className="text-bone/50 text-sm">
-                    Orange-lichen-covered granite, white sand, turquoise water. 
+                    Orange-lichen-covered granite, white sand, turquoise water.
                     Worth the drive.
                   </p>
                 </div>
@@ -212,7 +212,7 @@ export function LocationPage() {
                     <span className="text-bone/60 text-sm">30-60 minutes</span>
                   </div>
                   <p className="text-bone/50 text-sm">
-                    Several cellar doors and distilleries within driving distance. 
+                    Several cellar doors and distilleries within driving distance.
                     Tastings by appointment.
                   </p>
                 </div>
@@ -230,42 +230,42 @@ export function LocationPage() {
                 <div className="flex items-start gap-4">
                   <div className="w-1.5 h-1.5 bg-muted-gold mt-2.5 flex-shrink-0" />
                   <p>
-                    <strong className="text-bone">Mobile reception:</strong> Limited to non-existent. 
+                    <strong className="text-bone">Mobile reception:</strong> Limited to non-existent.
                     WiFi available at the retreat. This disconnection is intentional.
                   </p>
                 </div>
                 <div className="flex items-start gap-4">
                   <div className="w-1.5 h-1.5 bg-muted-gold mt-2.5 flex-shrink-0" />
                   <p>
-                    <strong className="text-bone">Nearest hospital:</strong> 40 minutes. 
+                    <strong className="text-bone">Nearest hospital:</strong> 40 minutes.
                     Emergency services accessible. First aid kit on site.
                   </p>
                 </div>
                 <div className="flex items-start gap-4">
                   <div className="w-1.5 h-1.5 bg-muted-gold mt-2.5 flex-shrink-0" />
                   <p>
-                    <strong className="text-bone">Wildlife:</strong> Wallabies, wombats, echidnas common. 
+                    <strong className="text-bone">Wildlife:</strong> Wallabies, wombats, echidnas common.
                     Tasmanian devils occasionally spotted at dusk. Keep respectful distance.
                   </p>
                 </div>
                 <div className="flex items-start gap-4">
                   <div className="w-1.5 h-1.5 bg-muted-gold mt-2.5 flex-shrink-0" />
                   <p>
-                    <strong className="text-bone">Weather:</strong> Changeable. Layers essential. 
+                    <strong className="text-bone">Weather:</strong> Changeable. Layers essential.
                     Winter temperatures 2-12°C. Fireplace keeps the space warm.
                   </p>
                 </div>
                 <div className="flex items-start gap-4">
                   <div className="w-1.5 h-1.5 bg-muted-gold mt-2.5 flex-shrink-0" />
                   <p>
-                    <strong className="text-bone">Light pollution:</strong> None. 
+                    <strong className="text-bone">Light pollution:</strong> None.
                     The Milky Way is visible on clear nights. Bring a torch for night walks.
                   </p>
                 </div>
                 <div className="flex items-start gap-4">
                   <div className="w-1.5 h-1.5 bg-muted-gold mt-2.5 flex-shrink-0" />
                   <p>
-                    <strong className="text-bone">What to bring:</strong> Warm clothing, walking boots, 
+                    <strong className="text-bone">What to bring:</strong> Warm clothing, walking boots,
                     camera, books, journal. Everything else is provided.
                   </p>
                 </div>
@@ -293,7 +293,7 @@ export function LocationPage() {
                 <h5 className="text-bone tracking-widest">WINTER (JUN–AUG)</h5>
               </div>
               <p className="text-bone/60 text-sm leading-relaxed">
-                Peak season. Cold nights, roaring fires, steaming baths. 
+                Peak season. Cold nights, roaring fires, steaming baths.
                 The retreat at its most romantic. Book 3-6 months in advance.
               </p>
             </div>
@@ -304,7 +304,7 @@ export function LocationPage() {
                 <h5 className="text-bone tracking-widest">SPRING (SEP–NOV)</h5>
               </div>
               <p className="text-bone/60 text-sm leading-relaxed">
-                Wildflowers emerge. Longer days. Still cool enough for fires. 
+                Wildflowers emerge. Longer days. Still cool enough for fires.
                 Wildlife more active. Excellent for hiking.
               </p>
             </div>
@@ -315,7 +315,7 @@ export function LocationPage() {
                 <h5 className="text-bone tracking-widest">SUMMER (DEC–FEB)</h5>
               </div>
               <p className="text-bone/60 text-sm leading-relaxed">
-                Warmest months but still mild. Outdoor bath under stars. 
+                Warmest months but still mild. Outdoor bath under stars.
                 Longer evenings. Swimming possible (ocean is cold).
               </p>
             </div>
@@ -326,7 +326,7 @@ export function LocationPage() {
                 <h5 className="text-bone tracking-widest">AUTUMN (MAR–MAY)</h5>
               </div>
               <p className="text-bone/60 text-sm leading-relaxed">
-                Golden light. Crisp mornings. Forest changing color. 
+                Golden light. Crisp mornings. Forest changing color.
                 Quieter season, easier availability.
               </p>
             </div>
