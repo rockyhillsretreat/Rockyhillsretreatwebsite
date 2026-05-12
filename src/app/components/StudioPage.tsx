@@ -1,8 +1,8 @@
 import { Palette, Activity } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Link } from "react-router-dom";
-import heroImg from '../../imports/RockyHillsRetreat_MelanieKate-24.jpg';
-import studioImg from '../../imports/RockyHillsRetreat_MelanieKate-30.jpg';
+const heroImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/interior-living-sunlight.jpg';
+const studioImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/interior-leather-chair-sunlight.jpg';
 
 export function StudioPage() {
   return (
