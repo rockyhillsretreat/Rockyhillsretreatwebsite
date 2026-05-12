@@ -1,8 +1,8 @@
 import { MapPin, Clock, Plane, Car } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-import heroImg from '../../imports/O Bay sunset 2.jpg';
-import coastalImg from '../../imports/RockyHillsRetreat_MelanieKate-80.jpg';
-import duskImg from '../../imports/O Bay sunset.jpg';
+const heroImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/location-freycinet-sunset-trees.jpg';
+const coastalImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/bay-view-swansea-coast.jpg';
+const duskImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/location-bay-sunset-wide.jpg';
 
 export function LocationPage() {
   return (
