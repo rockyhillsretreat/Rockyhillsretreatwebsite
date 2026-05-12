@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite'
-import path from 'path'
+import { fileURLToPath, URL } from 'node:url'
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 
@@ -8,9 +8,10 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  base: '/', // Explicit SPA base path
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src/app'),
+      '@': fileURLToPath(new URL('./src/app', import.meta.url)),
     },
   },
 })

@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
-import { useEffect } from "react";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { HomePage } from "./components/HomePage";
@@ -20,20 +19,30 @@ function ScrollToTop() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, [pathname]);
 
   return null;
 }
 
+// Simple client-side 404 fallback
+const NotFound = () => (
+  <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
+    <h1 className="text-4xl font-bold mb-4">404 - Page Not Found</h1>
+    <p className="text-lg mb-6">The page you're looking for doesn't exist.</p>
+    <a href="/" className="px-6 py-3 bg-primary-brand text-white rounded hover:opacity-90 transition">
+      Go Home
+    </a>
+  </div>
+);
 
 function App() {
   return (
     <Router>
       <ScrollToTop />
-      <div className="min-h-screen bg-primary-brand">
+      <div className="min-h-screen bg-primary-brand flex flex-col">
         <Header />
-        <main>
+        <main className="flex-grow">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/booking" element={<BookingPage />} />
@@ -45,14 +54,4 @@ function App() {
             <Route path="/packages" element={<PackagesPage />} />
             <Route path="/go-dark" element={<GoDarkPage />} />
             <Route path="/gallery" element={<GalleryPage />} />
-            <Route path="/journal" element={<JournalPage />} />
-            <Route path="/faqs" element={<FAQsPage />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-    </Router>
-  );
-}
-
-export default App;
+            <
