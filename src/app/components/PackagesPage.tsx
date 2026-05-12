@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-import heroImg from '../../imports/RockyHillsRetreat_MelanieKate-45.jpg';
+const heroImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/location-swansea-beach-dunes-wide.jpg';
 
 interface Package {
   id: string;
