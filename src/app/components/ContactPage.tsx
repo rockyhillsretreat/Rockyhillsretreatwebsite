@@ -1,6 +1,6 @@
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Mail, Phone, MapPin } from "lucide-react";
-import bgImg from '../../imports/RockyHillsRetreat_MelanieKate-15.jpg';
+const bgImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-exterior-entry-native-garden.jpg';
 
 export function ContactPage() {
   return (
