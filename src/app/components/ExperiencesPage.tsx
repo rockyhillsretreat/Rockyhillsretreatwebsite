@@ -1,18 +1,18 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import fishingImg from '../../imports/RockyHillsRetreat_MelanieKate-52.jpg';
-import kayakImg from '../../imports/RockyHillsRetreat_MelanieKate-80.jpg';
-import whaleImg from '../../imports/O Bay sunset.jpg';
-import douglasImg from '../../imports/RockyHillsRetreat_MelanieKate-75.jpg';
-import foragingImg from '../../imports/RockyHillsRetreat_MelanieKate-67.jpg';
-import stargazingImg from '../../imports/RockyHillsRetreat_MelanieKate-1.jpg';
-import oystersImg from '../../imports/RockyHillsRetreat_MelanieKate-42.jpg';
-import wineImg from '../../imports/RockyHillsRetreat_MelanieKate-60.jpg';
-import picnicImg from '../../imports/RockyHillsRetreat_MelanieKate-45.jpg';
-import helicopterImg from '../../imports/RockyHillsRetreat_MelanieKate-20.jpg';
-import massageImg from '../../imports/RockyHillsRetreat_MelanieKate-30.jpg';
-import tourImg from '../../imports/RockyHillsRetreat_MelanieKate-24.jpg';
-import heroImg from '../../imports/RockyHillsRetreat_MelanieKate-15.jpg';
+const fishingImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-bath-running-golden.jpg';
+const kayakImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/bay-view-swansea-coast.jpg';
+const whaleImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/location-bay-sunset-wide.jpg';
+const douglasImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/land-detail-driftwood-rock.jpg';
+const foragingImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/bay-view-islands-cloud.jpg';
+const stargazingImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-bath-night.jpg';
+const oystersImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/bay-cove-headland-dusk.jpg';
+const wineImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/bay-view-freycinet-framed.jpg';
+const picnicImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/location-swansea-beach-dunes-wide.jpg';
+const helicopterImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/bay-view-sunset-dramatic.jpg';
+const massageImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/interior-leather-chair-sunlight.jpg';
+const tourImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/interior-living-sunlight.jpg';
+const heroImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-exterior-entry-native-garden.jpg';
 
 export function ExperiencesPage() {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
