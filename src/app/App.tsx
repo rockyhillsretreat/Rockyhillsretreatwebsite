@@ -54,4 +54,15 @@ function App() {
             <Route path="/packages" element={<PackagesPage />} />
             <Route path="/go-dark" element={<GoDarkPage />} />
             <Route path="/gallery" element={<GalleryPage />} />
-            <
+            <Route path="/journal" element={<JournalPage />} />
+            <Route path="/faqs" element={<FAQsPage />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </Router>
+  );
+}
+
+export default App;
