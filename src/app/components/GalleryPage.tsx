@@ -1,26 +1,26 @@
 import { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import img1 from '../../imports/RockyHillsRetreat_MelanieKate-15.jpg';
-import img2 from '../../imports/RockyHillsRetreat_MelanieKate-20.jpg';
-import img3 from '../../imports/RockyHillsRetreat_MelanieKate-24.jpg';
-import img4 from '../../imports/RockyHillsRetreat_MelanieKate-30.jpg';
-import img5 from '../../imports/RockyHillsRetreat_MelanieKate-35.jpg';
-import img6 from '../../imports/RockyHillsRetreat_MelanieKate-42.jpg';
-import img7 from '../../imports/RockyHillsRetreat_MelanieKate-52.jpg';
-import img8 from '../../imports/O Bay sunset.jpg';
-import img9 from '../../imports/RockyHillsRetreat_MelanieKate-67.jpg';
-import img10 from '../../imports/RockyHillsRetreat_MelanieKate-75.jpg';
-import img11 from '../../imports/RockyHillsRetreat_MelanieKate-80.jpg';
-import img12 from '../../imports/RockyHillsRetreat_MelanieKate-1.jpg';
-import img13 from '../../imports/RockyHillsRetreat_MelanieKate-5.jpg';
-import img14 from '../../imports/RockyHillsRetreat_MelanieKate-10.jpg';
-import img15 from '../../imports/Rosevear_RockyHills_006912.jpg';
-import img16 from '../../imports/Rosevear_RockyHills_007615.jpg';
-import img17 from '../../imports/RockyHillsRetreat_MelanieKate-45.jpg';
-import img18 from '../../imports/RockyHillsRetreat_MelanieKate-60.jpg';
+
+const img1 = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-exterior-entry-native-garden.jpg';
+const img2 = 'https://res.cloudinary.com/dfvjhslxp/image/upload/bay-view-sunset-dramatic.jpg';
+const img3 = 'https://res.cloudinary.com/dfvjhslxp/image/upload/interior-living-sunlight.jpg';
+const img4 = 'https://res.cloudinary.com/dfvjhslxp/image/upload/interior-leather-chair-sunlight.jpg';
+const img5 = 'https://res.cloudinary.com/dfvjhslxp/image/upload/interior-bedroom-full-width.jpg';
+const img6 = 'https://res.cloudinary.com/dfvjhslxp/image/upload/interior-dining-symmetrical.jpg';
+const img7 = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-bath-running-golden.jpg';
+const img8 = 'https://res.cloudinary.com/dfvjhslxp/image/upload/location-bay-sunset-wide.jpg';
+const img9 = 'https://res.cloudinary.com/dfvjhslxp/image/upload/bay-view-islands-cloud.jpg';
+const img10 = 'https://res.cloudinary.com/dfvjhslxp/image/upload/land-detail-driftwood-rock.jpg';
+const img11 = 'https://res.cloudinary.com/dfvjhslxp/image/upload/bay-view-swansea-coast.jpg';
+const img12 = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-exterior-night.jpg';
+const img13 = 'https://res.cloudinary.com/dfvjhslxp/image/upload/interior-living-view.jpg';
+const img14 = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-detail-roofline-sky.jpg';
+const img15 = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-exterior-golden-hour.jpg';
+const img16 = 'https://res.cloudinary.com/dfvjhslxp/image/upload/land-dry-sclerophyll-forest.jpg';
+const img17 = 'https://res.cloudinary.com/dfvjhslxp/image/upload/location-swansea-beach-dunes-wide.jpg';
+const img18 = 'https://res.cloudinary.com/dfvjhslxp/image/upload/bay-view-freycinet-framed.jpg';
 
 export function GalleryPage() {
-  // All available images in a single array
   const allImages = [
     { src: img1, caption: 'The Retreat' },
     { src: img2, caption: 'Great Oyster Bay' },
@@ -108,7 +108,6 @@ export function GalleryPage() {
           justifyContent: 'center',
         }}
       >
-        {/* Image Container */}
         <div style={{ position: 'relative', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <img
             src={allImages[currentIndex].src}
@@ -122,7 +121,6 @@ export function GalleryPage() {
             }}
           />
           
-          {/* Image Caption */}
           <div 
             style={{
               position: 'absolute',
