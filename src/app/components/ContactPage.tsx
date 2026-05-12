@@ -96,16 +96,16 @@ export function ContactPage() {
             <form className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <Label className="text-bone/70 mb-2 block">First Name</Label>
-                  <Input
-                    type="text"
-                    placeholder="Your first name"
-                    className="bg-input-background border-border text-bone"
-                  />
+                    <label className="text-bone/70 mb-2 block">First Name</label>
+                    <input
+                      type="text"
+                      placeholder="Your first name"
+                      className="w-full bg-input-background border border-border text-bone p-3"
+                    />
                 </div>
                 <div>
-                  <Label className="text-bone/70 mb-2 block">Last Name</Label>
-                  <Input
+                  <label className="text-bone/70 mb-2 block">Last Name</label>
+                  <input
                     type="text"
                     placeholder="Your last name"
                     className="bg-input-background border-border text-bone"
@@ -114,8 +114,8 @@ export function ContactPage() {
               </div>
 
               <div>
-                <Label className="text-bone/70 mb-2 block">Email Address</Label>
-                <Input
+                <label className="text-bone/70 mb-2 block">Email Address</label>
+                <input
                   type="email"
                   placeholder="your@email.com"
                   className="bg-input-background border-border text-bone"
@@ -123,8 +123,8 @@ export function ContactPage() {
               </div>
 
               <div>
-                <Label className="text-bone/70 mb-2 block">Phone (Optional)</Label>
-                <Input
+                <label className="text-bone/70 mb-2 block">Phone (Optional)</label>
+                <input
                   type="tel"
                   placeholder="+61"
                   className="bg-input-background border-border text-bone"
@@ -132,7 +132,7 @@ export function ContactPage() {
               </div>
 
               <div>
-                <Label className="text-bone/70 mb-2 block">Inquiry Type</Label>
+                <label className="text-bone/70 mb-2 block">Inquiry Type</label>
                 <select className="w-full bg-input-background border border-border text-bone p-3 focus:outline-none focus:ring-2 focus:ring-ring">
                   <option>General Inquiry</option>
                   <option>Booking Question</option>
@@ -144,7 +144,7 @@ export function ContactPage() {
               </div>
 
               <div>
-                <Label className="text-bone/70 mb-2 block">Message</Label>
+                <label className="text-bone/70 mb-2 block">Message</label>
                 <textarea
                   rows={6}
                   placeholder="Tell us what you need. Or what you're hoping for. We read every word."
@@ -181,35 +181,35 @@ export function ContactPage() {
               <div className="pb-4 border-b border-border/30">
                 <h5 className="text-bone mb-2">What's your cancellation policy?</h5>
                 <p className="text-bone/60">
-                  Full refund if cancelled 30+ days before arrival. 50% refund for 14-29 days. 
+                  Full refund if cancelled 30+ days before arrival. 50% refund for 14-29 days.
                   No refund within 14 days (though we're understanding in emergencies).
                 </p>
               </div>
               <div className="pb-4 border-b border-border/30">
                 <h5 className="text-bone mb-2">Is the retreat suitable for children?</h5>
                 <p className="text-bone/60">
-                  Rocky Hills Retreat is designed exclusively for couples. 
+                  Rocky Hills Retreat is designed exclusively for couples.
                   Guests must be 18+. No exceptions.
                 </p>
               </div>
               <div className="pb-4 border-b border-border/30">
                 <h5 className="text-bone mb-2">Do you allow pets?</h5>
                 <p className="text-bone/60">
-                  Unfortunately no. The retreat sits within protected wildlife habitat, 
+                  Unfortunately no. The retreat sits within protected wildlife habitat,
                   and domestic animals can disturb native species.
                 </p>
               </div>
               <div className="pb-4 border-b border-border/30">
                 <h5 className="text-bone mb-2">Is the space wheelchair accessible?</h5>
                 <p className="text-bone/60">
-                  Partially. The main living areas are accessible, but the outdoor bath 
+                  Partially. The main living areas are accessible, but the outdoor bath
                   and some hiking trails are not. Please contact us to discuss your needs.
                 </p>
               </div>
               <div>
                 <h5 className="text-bone mb-2">When should I book?</h5>
                 <p className="text-bone/60">
-                  Winter (June-August) books out 3-6 months in advance. 
+                  Winter (June-August) books out 3-6 months in advance.
                   Spring and autumn offer more flexibility. We occasionally have last-minute availability.
                 </p>
               </div>
