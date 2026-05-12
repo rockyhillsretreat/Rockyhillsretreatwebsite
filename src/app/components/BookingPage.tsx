@@ -1,27 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Calendar } from "./ui/calendar";
 import { Checkbox } from "./ui/checkbox";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
-
-useEffect(() => {
-  const existingScript = document.querySelector(
-    'script[src="https://secure.netbookings.com.au/widgets/accom/dist/index.js"]'
-  );
-
-  if (!existingScript) {
-    const script = document.createElement("script");
-    script.src =
-      "https://secure.netbookings.com.au/widgets/accom/dist/index.js";
-    script.async = true;
-
-    document.body.appendChild(script);
-
-    return () => {
-      document.body.removeChild(script);
-    };
-  }
-}, []);
 
 interface ProvisionItem {
   id: string;
@@ -189,13 +170,8 @@ export function BookingPage() {
               <h3 className="text-2xl text-bone heading-display mb-6">Your Dates</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 
-              <span
-              id="nbaccom"
-              data-server="https://secure.netbookings.com.au"
-              data-db="tourism"
-              data-business="1451"
-              data-ga4=""
-              data-currency_code="AUD"  ></span>
+              <script src="https://secure.netbookings.com.au/widgets/accom/dist/index.js" defer></script>
+              <span id="nbaccom" data-server="https://secure.netbookings.com.au" data-db="tourism" data-business="1451" data-ga4="" data-currency_code="AUD"></span>
 
               </div>
               <p className="text-bone/50 text-sm italic">Two-night minimum. From $750 per night.</p>
