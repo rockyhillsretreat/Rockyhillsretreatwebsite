@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
-import heroImage from 'figma:asset/ed14d7187ab55932c966d9f3a4627beea91203ef.png';
-import goDarkBg from '../../imports/_RockyHillsRetreat_MelanieKate-1.jpg';
-import retreatImg from '../../imports/RockyHillsRetreat_MelanieKate-15.jpg';
-import experiencesImg from '../../imports/RockyHillsRetreat_MelanieKate-52.jpg';
-import provisionsImg from '../../imports/RockyHillsRetreat_MelanieKate-67.jpg';
-import locationImg from '../../imports/O Bay sunset.jpg';
-import tasmaniaImg from '../../imports/RockyHillsRetreat_MelanieKate-80.jpg';
+const heroImage = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-exterior-night.jpg';
+const goDarkBg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/go-dark-fire-kettle-bedroom.jpg';
+const retreatImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-exterior-entry-native-garden.jpg';
+const experiencesImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-bath-running-golden.jpg';
+const provisionsImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/bay-view-islands-cloud.jpg';
+const locationImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/location-bay-sunset-wide.jpg';
+const tasmaniaImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/bay-view-swansea-coast.jpg';
 
 export function HomePage() {
   const [scrollY, setScrollY] = useState(0);
