@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Calendar } from "./ui/calendar";
 import { Checkbox } from "./ui/checkbox";
 import { Input } from "./ui/input";
@@ -29,6 +29,18 @@ interface CelebrationItem {
 }
 
 export function BookingPage() {
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://secure.netbookings.com.au/widgets/accom/dist/index.js';
+    script.defer = true;
+    document.body.appendChild(script);
+    return () => {
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
+    };
+  }, []);
+
   const [checkIn, setCheckIn] = useState<Date>();
   const [checkOut, setCheckOut] = useState<Date>();
   const [guests] = useState(2);
@@ -160,6 +172,19 @@ export function BookingPage() {
           <p className="text-xl text-bone/70 max-w-2xl mx-auto italic">
             Compose your perfect retreat. Every detail matters.
           </p>
+        </div>
+
+        {/* NetBookings Widget */}
+        <div className="mb-16 border border-border/30 bg-card/20 p-8">
+          <h3 className="text-xl text-bone heading-display mb-6 text-center tracking-widest">CHECK AVAILABILITY</h3>
+          <span
+            id="nbaccom"
+            data-server="https://secure.netbookings.com.au"
+            data-db="tourism"
+            data-business="1451"
+            data-ga4=""
+            data-currency_code="AUD"
+          />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
