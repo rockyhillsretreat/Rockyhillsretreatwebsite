@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ImageWithFallback } from './figma/ImageWithFallback';
-import interiorImg from '../../imports/RockyHillsRetreat_MelanieKate-1.jpg';
-import blueHourImg from '../../imports/O Bay sunset.jpg';
+const interiorImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-bath-night.jpg';
+const blueHourImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/location-bay-sunset-wide.jpg';
 
 export function WinterCollectionPage() {
   return (
