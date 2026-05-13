@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Checkbox } from "./ui/checkbox";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
-import { NetBookingsWidget } from "../app/components/NetBookingsWidget";
+import { NetBookingsWidget } from "./NetBookingsWidget";
 
 interface ProvisionItem {
   id: string;
