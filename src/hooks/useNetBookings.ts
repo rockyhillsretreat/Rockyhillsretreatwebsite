@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { mountNetBookings } from "../widgets/netbookings";
+import { mountNetBookings } from  "../lib/netbookings";
 
 type Props = {
   businessId: string;
