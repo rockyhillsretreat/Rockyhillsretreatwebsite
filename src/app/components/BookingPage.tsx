@@ -40,7 +40,7 @@ export function BookingPage() {
       id: "fruit-box",
       name: "Fruit Box",
       description:
-        "Seasonal Tasmanian fruit, sourced locally where possible. Four to five varieties depending on what's growing — stone fruit in summer, citrus and apples in winter.",
+        "Seasonal Tasmanian fruit, sourced locally where possible.",
       price: 35,
       leadTime: "Request at least 48 hours ahead.",
     },
@@ -48,7 +48,7 @@ export function BookingPage() {
       id: "vegetable-box",
       name: "Vegetable Box",
       description:
-        "Seasonal vegetables from a local East Coast grower. Enough for two dinners for two.",
+        "Seasonal vegetables from a local East Coast grower.",
       price: 45,
       leadTime: "Request at least 48 hours ahead.",
     },
@@ -56,25 +56,9 @@ export function BookingPage() {
       id: "charcuterie-box",
       name: "Charcuterie Box",
       description:
-        "Wursthaus prosciutto, salami, coppa, and bresaola. Bay of Fires cheeses. Local preserves and pickles.",
+        "Cured meats, cheeses, and local preserves.",
       price: 185,
       leadTime: "Request at least 72 hours ahead.",
-    },
-    {
-      id: "dinner-box",
-      name: "Dinner Box",
-      description:
-        "Your choice of protein from the freezer — Cape Grim scotch fillet, Wursthaus sausages, or a Wursthaus pie — alongside Bottega Crippa pasta with your choice of sauce, and the seasonal vegetable box. Full recipe included. Serves two.",
-      price: 145,
-      leadTime: "Request at least 72 hours ahead.",
-    },
-    {
-      id: "beach-picnic-hamper",
-      name: "Beach Picnic Hamper",
-      description:
-        "Everything needed for a proper afternoon on the beach. Packed and ready using local producers.",
-      price: 120,
-      leadTime: "Request at least 48 hours ahead.",
     },
   ];
 
@@ -83,32 +67,13 @@ export function BookingPage() {
       id: "sea-kayaking",
       name: "Sea Kayaking",
       description:
-        "Guided sea kayaking along the Freycinet Peninsula coastline. Award-winning local operator.",
+        "Guided kayaking along the Freycinet coastline.",
     },
     {
       id: "fishing-charter",
       name: "Fishing Charter",
       description:
-        "Half day on Great Oyster Bay and Schouten Passage with a local skipper. Flathead, trumpeter, squid.",
-    },
-    {
-      id: "helicopter-flight",
-      name: "Scenic Helicopter Flight",
-      description:
-        "The East Coast from above. Great Oyster Bay, the Hazards, Wineglass Bay, Schouten Island.",
-    },
-    {
-      id: "wine-trail",
-      name: "The Wine Trail, Guided",
-      description:
-        "Four East Coast cellar doors, lunch included, pickup and return from the property.",
-      note: "Off-property experience. RHR does not serve alcohol on site.",
-    },
-    {
-      id: "couples-massage",
-      name: "Couples Massage",
-      description:
-        "A therapist comes to you. Remedial or relaxation. Available with the Huon pine bath on the deck.",
+        "Half day fishing with a local skipper.",
     },
   ];
 
@@ -117,37 +82,24 @@ export function BookingPage() {
       id: "photographer",
       name: "Private Photographer",
       description:
-        "A half day session on the property and surrounding headland. For proposals, anniversaries, or simply being here together.",
+        "Half-day session for special occasions.",
       isArranged: true,
     },
     {
-      id: "beach-picnic-setup",
+      id: "beach-picnic",
       name: "Beach Picnic Setup",
       description:
-        "Hamper assembled from local producers, set up on the beach before you arrive.",
+        "Curated picnic set up before your arrival.",
       price: 120,
       leadTime: "Request at least 48 hours ahead.",
     },
   ];
 
-  const toggleProvision = (id: string) => {
-    setSelectedProvisions((prev) =>
-      prev.includes(id)
-        ? prev.filter((x) => x !== id)
-        : [...prev, id]
-    );
-  };
-
-  const toggleExperience = (id: string) => {
-    setSelectedExperiences((prev) =>
-      prev.includes(id)
-        ? prev.filter((x) => x !== id)
-        : [...prev, id]
-    );
-  };
-
-  const toggleCelebration = (id: string) => {
-    setSelectedCelebrations((prev) =>
+  const toggle = (
+    id: string,
+    setFn: React.Dispatch<React.SetStateAction<string[]>>
+  ) => {
+    setFn((prev) =>
       prev.includes(id)
         ? prev.filter((x) => x !== id)
         : [...prev, id]
@@ -155,16 +107,15 @@ export function BookingPage() {
   };
 
   const calculateTotal = () => {
-    const provisionsTotal = selectedProvisions.reduce((sum, id) => {
+    const pTotal = selectedProvisions.reduce((sum, id) => {
       return sum + (provisions.find((p) => p.id === id)?.price || 0);
     }, 0);
 
-    const celebrationsTotal = selectedCelebrations.reduce((sum, id) => {
-      const item = celebrations.find((c) => c.id === id);
-      return sum + (item?.price || 0);
+    const cTotal = selectedCelebrations.reduce((sum, id) => {
+      return sum + (celebrations.find((c) => c.id === id)?.price || 0);
     }, 0);
 
-    return provisionsTotal + celebrationsTotal;
+    return pTotal + cTotal;
   };
 
   const toBeArranged = [
@@ -172,8 +123,8 @@ export function BookingPage() {
       (id) => experiences.find((e) => e.id === id)?.name
     ),
     ...selectedCelebrations
-      .filter(
-        (id) => celebrations.find((c) => c.id === id)?.isArranged
+      .filter((id) =>
+        celebrations.find((c) => c.id === id)?.isArranged
       )
       .map((id) => celebrations.find((c) => c.id === id)?.name),
   ].filter(Boolean) as string[];
@@ -181,358 +132,171 @@ export function BookingPage() {
   return (
     <div className="min-h-screen bg-primary-brand pt-32 pb-20">
       <div className="max-w-screen-2xl mx-auto px-6 lg:px-12">
-        {/* Header */}
+        {/* HEADER */}
         <div className="text-center mb-16">
-          <h6 className="text-muted-gold tracking-widest mb-4">
-            RESERVATION
-          </h6>
-
-          <h1 className="text-5xl md:text-6xl lg:text-7xl text-bone heading-display mb-6">
+          <h1 className="text-5xl text-bone heading-display mb-4">
             Book Your Stay
           </h1>
-
-          <p className="text-xl text-bone/70 max-w-2xl mx-auto italic">
-            Compose your perfect retreat. Every detail matters.
+          <p className="text-bone/60 italic">
+            Compose your perfect retreat.
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-          {/* LEFT COLUMN */}
+          {/* LEFT */}
           <div className="lg:col-span-2 space-y-12">
-            {/* Dates */}
-            <div className="bg-card/40 backdrop-blur-sm border border-border p-8 space-y-8">
-              <h3 className="text-2xl text-bone heading-display mb-6">
+            {/* NET BOOKINGS */}
+            <div className="bg-card/40 border border-border p-8">
+              <h3 className="text-xl text-bone mb-6">
                 Your Dates
               </h3>
 
-              <NetBookingsWidget businessId="1451" />
+              {/* IMPORTANT: React-controlled widget mount */}
+              <NetBookingsWidget />
 
-              <p className="text-bone/50 text-sm italic">
-                Two-night minimum. From $750 per night.
+              <p className="text-bone/50 text-sm italic mt-4">
+                Two-night minimum. Seasonal pricing applies.
               </p>
             </div>
 
-            {/* Curated Additions */}
-            <div className="space-y-8">
-              <div>
-                <h3 className="text-3xl text-bone heading-display mb-3">
-                  Curated Additions
-                </h3>
+            {/* PROVISIONS */}
+            <div className="bg-card/40 border border-border p-8">
+              <h3 className="text-xl text-bone mb-6">
+                Provisions
+              </h3>
 
-                <p className="text-bone/60 italic">
-                  Each addition is arranged before you arrive.
-                  Confirm when you book.
-                </p>
-              </div>
-
-              {/* Provisions */}
-              <div className="bg-card/40 backdrop-blur-sm border border-border p-8">
-                <h4 className="text-xl text-[#8FA9B3] mb-8 tracking-widest">
-                  Provisions
-                </h4>
-
-                <div className="space-y-8">
-                  {provisions.map((item) => (
-                    <div
-                      key={item.id}
-                      className="pb-8 border-b border-border/30 last:border-0 last:pb-0"
-                    >
-                      <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-                        <div className="flex-1">
-                          <h5 className="text-bone text-lg mb-2">
-                            {item.name}
-                          </h5>
-
-                          <p className="text-bone/70 text-sm mb-1">
-                            {item.description}
-                          </p>
-
-                          <p className="text-bone/50 text-xs italic">
-                            {item.leadTime}
-                          </p>
-                        </div>
-
-                        <div className="flex md:flex-col items-center md:items-end gap-3 md:gap-2 shrink-0">
-                          <span className="text-bone text-lg">
-                            ${item.price} AUD
-                          </span>
-
-                          <div className="flex items-center gap-2">
-                            <label
-                              htmlFor={item.id}
-                              className="text-[#8FA9B3] text-sm cursor-pointer"
-                            >
-                              Add
-                            </label>
-
-                            <Checkbox
-                              id={item.id}
-                              checked={selectedProvisions.includes(item.id)}
-                              onCheckedChange={() =>
-                                toggleProvision(item.id)
-                              }
-                              className="data-[state=checked]:bg-[#8FA9B3] data-[state=checked]:border-[#8FA9B3]"
-                            />
-                          </div>
-                        </div>
-                      </div>
+              <div className="space-y-6">
+                {provisions.map((item) => (
+                  <div key={item.id} className="flex justify-between">
+                    <div>
+                      <p className="text-bone">{item.name}</p>
+                      <p className="text-bone/50 text-sm">
+                        {item.description}
+                      </p>
                     </div>
-                  ))}
-                </div>
-              </div>
 
-              {/* Experiences */}
-              <div className="bg-card/40 backdrop-blur-sm border border-border p-8">
-                <h4 className="text-xl text-[#8FA9B3] mb-3 tracking-widest">
-                  Experiences
-                </h4>
+                    <div className="flex items-center gap-3">
+                      <span className="text-bone">
+                        ${item.price}
+                      </span>
 
-                <p className="text-bone/50 text-sm italic mb-8">
-                  All experiences are arranged on your behalf.
-                </p>
-
-                <div className="space-y-8">
-                  {experiences.map((item) => (
-                    <div
-                      key={item.id}
-                      className="pb-8 border-b border-border/30 last:border-0 last:pb-0"
-                    >
-                      <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-                        <div className="flex-1">
-                          <h5 className="text-bone text-lg mb-2">
-                            {item.name}
-                          </h5>
-
-                          <p className="text-bone/70 text-sm">
-                            {item.description}
-                          </p>
-
-                          {item.note && (
-                            <p className="text-bone/50 text-xs italic mt-2">
-                              {item.note}
-                            </p>
-                          )}
-                        </div>
-
-                        <div className="flex items-center gap-3 shrink-0">
-                          <label
-                            htmlFor={item.id}
-                            className="text-[#8FA9B3] text-sm cursor-pointer"
-                          >
-                            Ask us to arrange
-                          </label>
-
-                          <Checkbox
-                            id={item.id}
-                            checked={selectedExperiences.includes(item.id)}
-                            onCheckedChange={() =>
-                              toggleExperience(item.id)
-                            }
-                            className="data-[state=checked]:bg-[#8FA9B3] data-[state=checked]:border-[#8FA9B3]"
-                          />
-                        </div>
-                      </div>
+                      <Checkbox
+                        checked={selectedProvisions.includes(item.id)}
+                        onCheckedChange={() =>
+                          toggle(item.id, setSelectedProvisions)
+                        }
+                      />
                     </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Celebration */}
-              <div className="bg-card/40 backdrop-blur-sm border border-border p-8">
-                <h4 className="text-xl text-[#8FA9B3] mb-8 tracking-widest">
-                  Celebration
-                </h4>
-
-                <div className="space-y-8">
-                  {celebrations.map((item) => (
-                    <div
-                      key={item.id}
-                      className="pb-8 border-b border-border/30 last:border-0 last:pb-0"
-                    >
-                      <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-                        <div className="flex-1">
-                          <h5 className="text-bone text-lg mb-2">
-                            {item.name}
-                          </h5>
-
-                          <p className="text-bone/70 text-sm">
-                            {item.description}
-                          </p>
-
-                          {item.leadTime && (
-                            <p className="text-bone/50 text-xs italic mt-2">
-                              {item.leadTime}
-                            </p>
-                          )}
-                        </div>
-
-                        <div className="flex items-center gap-3 shrink-0">
-                          <label
-                            htmlFor={item.id}
-                            className="text-[#8FA9B3] text-sm cursor-pointer"
-                          >
-                            {item.isArranged
-                              ? "Ask us to arrange"
-                              : "Add"}
-                          </label>
-
-                          <Checkbox
-                            id={item.id}
-                            checked={selectedCelebrations.includes(
-                              item.id
-                            )}
-                            onCheckedChange={() =>
-                              toggleCelebration(item.id)
-                            }
-                            className="data-[state=checked]:bg-[#8FA9B3] data-[state=checked]:border-[#8FA9B3]"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                  </div>
+                ))}
               </div>
             </div>
 
-            {/* Your Details */}
-            <div className="bg-card/40 backdrop-blur-sm border border-border p-8 space-y-6">
-              <h3 className="text-2xl text-bone heading-display mb-6">
+            {/* EXPERIENCES */}
+            <div className="bg-card/40 border border-border p-8">
+              <h3 className="text-xl text-bone mb-6">
+                Experiences
+              </h3>
+
+              <div className="space-y-6">
+                {experiences.map((item) => (
+                  <div key={item.id} className="flex justify-between">
+                    <div>
+                      <p className="text-bone">{item.name}</p>
+                      <p className="text-bone/50 text-sm">
+                        {item.description}
+                      </p>
+                    </div>
+
+                    <Checkbox
+                      checked={selectedExperiences.includes(item.id)}
+                      onCheckedChange={() =>
+                        toggle(item.id, setSelectedExperiences)
+                      }
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* CELEBRATIONS */}
+            <div className="bg-card/40 border border-border p-8">
+              <h3 className="text-xl text-bone mb-6">
+                Celebrations
+              </h3>
+
+              <div className="space-y-6">
+                {celebrations.map((item) => (
+                  <div key={item.id} className="flex justify-between">
+                    <div>
+                      <p className="text-bone">{item.name}</p>
+                      <p className="text-bone/50 text-sm">
+                        {item.description}
+                      </p>
+                    </div>
+
+                    <div className="flex items-center gap-3">
+                      {item.price && (
+                        <span className="text-bone">
+                          ${item.price}
+                        </span>
+                      )}
+
+                      <Checkbox
+                        checked={selectedCelebrations.includes(
+                          item.id
+                        )}
+                        onCheckedChange={() =>
+                          toggle(item.id, setSelectedCelebrations)
+                        }
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* DETAILS */}
+            <div className="bg-card/40 border border-border p-8">
+              <h3 className="text-xl text-bone mb-6">
                 Your Details
               </h3>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <Label className="text-bone/70 mb-2 block">
-                    Given name
-                  </Label>
-
-                  <Input
-                    type="text"
-                    className="bg-input-background border-border text-bone"
-                  />
-                </div>
-
-                <div>
-                  <Label className="text-bone/70 mb-2 block">
-                    Family name
-                  </Label>
-
-                  <Input
-                    type="text"
-                    className="bg-input-background border-border text-bone"
-                  />
-                </div>
-
-                <div>
-                  <Label className="text-bone/70 mb-2 block">
-                    Email
-                  </Label>
-
-                  <Input
-                    type="email"
-                    className="bg-input-background border-border text-bone"
-                  />
-                </div>
-
-                <div>
-                  <Label className="text-bone/70 mb-2 block">
-                    Phone
-                  </Label>
-
-                  <Input
-                    type="tel"
-                    className="bg-input-background border-border text-bone"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <Label className="text-bone/70 mb-2 block">
-                  Tell us anything we should know
-                </Label>
-
-                <textarea
-                  rows={4}
-                  className="w-full bg-input-background border border-border text-bone p-4 resize-none focus:outline-none focus:ring-2 focus:ring-ring"
-                />
+              <div className="grid grid-cols-2 gap-4">
+                <Input placeholder="First name" />
+                <Input placeholder="Last name" />
+                <Input placeholder="Email" />
+                <Input placeholder="Phone" />
               </div>
             </div>
           </div>
 
-          {/* RIGHT COLUMN */}
-          <div className="lg:col-span-1">
-            <div className="sticky top-32 bg-ink-black border border-muted-gold/30 p-8 space-y-6">
-              <h4 className="text-2xl text-bone heading-display border-b border-muted-gold/30 pb-4">
-                Reservation Summary
-              </h4>
+          {/* RIGHT */}
+          <div className="sticky top-32 bg-ink-black border border-muted-gold/30 p-8">
+            <h4 className="text-bone text-xl mb-4">
+              Summary
+            </h4>
 
-              {(selectedProvisions.length > 0 ||
-                selectedCelebrations.some(
-                  (id) =>
-                    celebrations.find((c) => c.id === id)?.price
-                )) && (
-                <div className="space-y-3 pb-4 border-b border-border/30">
-                  {selectedProvisions.map((id) => {
-                    const item = provisions.find(
-                      (p) => p.id === id
-                    );
+            <p className="text-bone/60 text-sm mb-6">
+              Total: ${calculateTotal()} AUD
+            </p>
 
-                    if (!item) return null;
-
-                    return (
-                      <div
-                        key={id}
-                        className="flex justify-between text-sm"
-                      >
-                        <span className="text-bone/60 flex-1 pr-4">
-                          {item.name}
-                        </span>
-
-                        <span className="text-bone">
-                          ${item.price}
-                        </span>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-
-              {toBeArranged.length > 0 && (
-                <div className="space-y-3 pb-4 border-b border-border/30">
-                  <h5 className="text-[#8FA9B3] text-xs tracking-widest">
-                    TO BE ARRANGED
-                  </h5>
-
-                  {toBeArranged.map((name, index) => (
-                    <div
-                      key={index}
-                      className="text-bone/60 text-sm"
-                    >
-                      {name}
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              <div className="space-y-4 pt-4">
-                <div className="flex justify-between text-xl text-bone">
-                  <span className="heading-display">Total</span>
-
-                  <span className="heading-display">
-                    ${calculateTotal().toLocaleString()} AUD
-                  </span>
-                </div>
-
-                <p className="text-xs text-bone/50 italic">
-                  All prices in Australian Dollars. Excludes
-                  accommodation.
-                </p>
+            {toBeArranged.length > 0 && (
+              <div className="mb-6">
+                <h5 className="text-xs text-muted-gold mb-2">
+                  TO BE ARRANGED
+                </h5>
+                {toBeArranged.map((x, i) => (
+                  <p key={i} className="text-bone/60 text-sm">
+                    {x}
+                  </p>
+                ))}
               </div>
+            )}
 
-              <button className="w-full py-4 bg-muted-gold text-primary-brand hover:bg-bone transition-cinematic tracking-widest mt-6">
-                COMPLETE RESERVATION
-              </button>
-            </div>
+            <button className="w-full py-4 bg-muted-gold text-black">
+              COMPLETE RESERVATION
+            </button>
           </div>
         </div>
       </div>
