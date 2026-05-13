@@ -1,88 +1,84 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 declare global {
-  interface Window {
-    nbaccom?: any;
+  namespace JSX {
+    interface IntrinsicElements {
+      "nb-accom-widget": React.DetailedHTMLProps<
+        React.HTMLAttributes<HTMLElement>,
+        HTMLElement
+      > & {
+        "data-server"?: string;
+        "data-db"?: string;
+        "data-business"?: string;
+        "data-ga4"?: string;
+        "data-currency_code"?: string;
+      };
+    }
   }
 }
 
 export function NetBookingsWidget() {
-  const containerRef = useRef<HTMLDivElement | null>(null);
+  const [ready, setReady] = useState(false);
+  const loadedRef = useRef(false);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    if (loadedRef.current) {
+      setReady(true);
+      return;
+    }
 
-    // prevent duplicate script injection
-    const existingScript = document.querySelector(
-      'script[data-netbookings="true"]'
-    );
+    const existing = document.querySelector(
+      'script[data-netbookings]'
+    ) as HTMLScriptElement | null;
 
-    const renderWidget = () => {
-      if (!containerRef.current) return;
+    if (existing) {
+      loadedRef.current = true;
+      setReady(true);
+      return;
+    }
 
-      // clear old renders
-      containerRef.current.innerHTML = "";
+    const script = document.createElement("script");
 
-      // create target element
-      const widget = document.createElement("span");
+    script.src =
+      "https://secure.netbookings.com.au/widgets/accom/dist/index.js";
 
-      widget.id = "nbaccom";
+    script.async = true;
 
-      widget.setAttribute(
-        "data-server",
-        "https://secure.netbookings.com.au"
-      );
+    script.setAttribute("data-netbookings", "true");
 
-      widget.setAttribute("data-db", "tourism");
+    script.onload = () => {
+      loadedRef.current = true;
 
-      widget.setAttribute("data-business", "1451");
-
-      widget.setAttribute("data-ga4", "");
-
-      widget.setAttribute("data-currency_code", "AUD");
-
-      containerRef.current.appendChild(widget);
-
-      // trigger widget init if available
+      // give browser time to register custom element
       setTimeout(() => {
-        try {
-          if (window.nbaccom?.init) {
-            window.nbaccom.init();
-          }
-        } catch (err) {
-          console.error("NetBookings init failed", err);
-        }
-      }, 300);
+        setReady(true);
+      }, 100);
     };
 
-    if (!existingScript) {
-      const script = document.createElement("script");
+    script.onerror = () => {
+      console.error("Failed to load NetBookings widget");
+    };
 
-      script.src =
-        "https://secure.netbookings.com.au/widgets/accom/dist/index.js";
-
-      script.async = true;
-
-      script.setAttribute("data-netbookings", "true");
-
-      script.onload = () => {
-        renderWidget();
-      };
-
-      script.onerror = () => {
-        console.error("Failed to load NetBookings script");
-      };
-
-      document.body.appendChild(script);
-    } else {
-      renderWidget();
-    }
+    document.body.appendChild(script);
   }, []);
 
+  if (!ready) {
+    return (
+      <div className="text-bone/60 text-sm italic py-8">
+        Loading availability calendar…
+      </div>
+    );
+  }
+
   return (
-    <div
-      ref={containerRef}
-      className="min-h-[400px] w-full"
-    />
+    <div className="w-full min-h-[600px]">
+      <nb-accom-widget
+        data-server="https://secure.netbookings.com.au"
+        data-db="tourism"
+        data-business="1451"
+        data-ga4=""
+        data-currency_code="AUD"
+      />
+    </div>
   );
 }
