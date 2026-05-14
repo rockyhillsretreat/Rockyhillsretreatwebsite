@@ -101,7 +101,7 @@ export function ProvisionsPage() {
                 maxWidth: '900px'
               }}
             >
-              Your first morning is already sorted. Waiting when you arrive: Pigeonhole par-baked croissants ready for the oven, Wursthaus bacon and sausages, Bay of Fires cheese, local free-range eggs, Wild Hives honey, house jams and pickles, and a full selection of loose-leaf teas and Villino coffee. Enough for a slow first morning without having to think about a thing.
+              Your first morning is already sorted. Waiting when you arrive: Pigeonhole par-baked croissants ready for the oven, Wursthaus bacon and sausages, local free-range eggs, Wild Hives honey, house jams and pickles, and a full selection of loose-leaf teas and Villino coffee. Enough for a slow first morning without having to think about a thing.
             </p>
           </div>
 
@@ -146,8 +146,6 @@ export function ProvisionsPage() {
                 "Pigeonhole par-baked croissants (4)",
                 "Wild Hives raw honey (200g)",
                 "Free-range eggs, half dozen",
-                "Duck River cultured butter",
-                "Tasmanian orange juice (1L)",
                 "Villino coffee, ground (250g)",
                 "Devondale long-life milk",
                 "Bonsoy soy milk"
@@ -515,7 +513,7 @@ export function ProvisionsPage() {
                     lineHeight: '1.7'
                   }}
                 >
-                  Wursthaus prosciutto, salami, coppa, and bresaola. Two Bruny Island cheeses - Saint, a soft oozy white mould, and Raw Milk C2, Australia's first raw milk cheese. Bruny Island Apple Pepperberry Paste and Bread & Butter Pickle.
+                  Wursthaus prosciutto, salami, coppa, and bresaola. Two Bruny Island cheeses - Saint, a soft oozy white mould, and Raw Milk C2, Australia's first raw milk cheese. Bruny Island Apple Pepperberry Paste and Bread & Butter Pickle. Tasman Sea salt lavosh and seasonal Tasmanian fruit.
                 </p>
                 <p
                   style={{
@@ -529,74 +527,6 @@ export function ProvisionsPage() {
                 </p>
               </div>
 
-              {/* Dinner Box */}
-              <div
-                className="p-6"
-                style={{
-                  backgroundColor: '#2E3D45',
-                  borderRadius: '0.5rem',
-                  border: '1px solid rgba(143, 169, 179, 0.2)'
-                }}
-              >
-                <div className="flex justify-between items-start mb-3">
-                  <div className="flex-1">
-                    <h3
-                      style={{
-                        fontFamily: "'Inter', sans-serif",
-                        fontSize: '1.125rem',
-                        color: '#EDE9E3',
-                        fontWeight: 600,
-                        marginBottom: '0.25rem'
-                      }}
-                    >
-                      Dinner Box
-                    </h3>
-                    <p
-                      style={{
-                        fontFamily: "'Inter', sans-serif",
-                        fontSize: '0.75rem',
-                        color: '#8FA9B3',
-                        fontWeight: 500
-                      }}
-                    >
-                      Add-on — confirm when you book
-                    </p>
-                  </div>
-                  <p
-                    style={{
-                      fontFamily: "'Inter', sans-serif",
-                      fontSize: '1.125rem',
-                      color: '#8FA9B3',
-                      fontWeight: 500,
-                      flexShrink: 0,
-                      marginLeft: '1rem'
-                    }}
-                  >
-                    $145
-                  </p>
-                </div>
-                <p
-                  className="mb-3"
-                  style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: '0.95rem',
-                    color: '#B8AE9F',
-                    lineHeight: '1.7'
-                  }}
-                >
-                  Your choice of protein from the freezer - Cape Grim scotch fillet, Wursthaus sausages, or a Wursthaus pie - alongside Bottega Crippa pasta with your choice of sauce from the fridge shelf, and the seasonal vegetable box. A full recipe written for the kitchen at Rocky Hills is included. Serves two.
-                </p>
-                <p
-                  style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: '0.875rem',
-                    color: '#8FA9B3',
-                    fontStyle: 'italic'
-                  }}
-                >
-                  Request at least 72 hours ahead.
-                </p>
-              </div>
             </div>
 
             <p
@@ -713,9 +643,8 @@ export function ProvisionsPage() {
                     "Basil pesto",
                     "Tasmanian EVOO",
                     "Capers",
-                    "Balsamic vinegar",
                     "Parmesan",
-                    "Long-life cream"
+                    "Cream"
                   ].map((item, i) => (
                     <p key={i} style={{ fontFamily: "'Inter', sans-serif", fontSize: '0.95rem', color: '#EDE9E3' }}>{item}</p>
                   ))}
@@ -724,7 +653,7 @@ export function ProvisionsPage() {
             </div>
           </div>
 
-          {/* The Long Table */}
+          {/* Grazing */}
           <div className="pb-16" style={{ borderBottom: '1px solid rgba(143, 169, 179, 0.2)' }}>
             <h2
               className="mb-2"
@@ -734,7 +663,7 @@ export function ProvisionsPage() {
                 color: '#EDE9E3'
               }}
             >
-              The Long Table
+              Grazing
             </h2>
             <p
               className="mb-4"
@@ -747,108 +676,15 @@ export function ProvisionsPage() {
             >
               Available to purchase
             </p>
-            <p
-              className="mb-8"
-              style={{
-                fontFamily: "'Inter', sans-serif",
-                fontSize: '1.05rem',
-                color: '#EDE9E3',
-                lineHeight: '1.8',
-                maxWidth: '900px'
-              }}
-            >
-              Lay it out. Eat slowly. Let the conversation go where it wants.
-            </p>
-            <div className="space-y-3 max-w-[900px]">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-[900px]">
               {[
                 "Bay of Fires semi-hard cheese (150g)",
                 "Bay of Fires clothbound cheddar (150g)",
-                "Tasman Sea salt lavosh",
                 "Wursthaus marinated olives",
-                "Potato chips",
-                "Tasmania Preserve"
-              ].map((item, i) => (
-                <p
-                  key={i}
-                  style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: '0.95rem',
-                    color: '#EDE9E3',
-                    lineHeight: '1.6'
-                  }}
-                >
-                  {item}
-                </p>
-              ))}
-              <div className="pt-4">
-                <p
-                  style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: '0.95rem',
-                    color: '#EDE9E3',
-                    fontWeight: 500,
-                    marginBottom: '0.25rem'
-                  }}
-                >
-                  Full long table box
-                </p>
-                <p
-                  style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: '0.9rem',
-                    color: '#B8AE9F',
-                    lineHeight: '1.6'
-                  }}
-                >
-                  Bay of Fires semi-hard and clothbound cheddar, Wursthaus marinated olives, Tasman Sea salt lavosh, Wild Hives honey, Tasmania Preserve, and a selection of house pickles. Laid out and ready on arrival. Serves two generously across an evening.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* The Larder */}
-          <div className="pb-16" style={{ borderBottom: '1px solid rgba(143, 169, 179, 0.2)' }}>
-            <h2
-              className="mb-2"
-              style={{
-                fontFamily: "'Playfair Display', serif",
-                fontSize: 'clamp(2rem, 3.5vw, 2.5rem)',
-                color: '#EDE9E3'
-              }}
-            >
-              The Larder
-            </h2>
-            <p
-              className="mb-4"
-              style={{
-                fontFamily: "'Inter', sans-serif",
-                fontSize: '0.875rem',
-                color: '#8FA9B3',
-                fontWeight: 500
-              }}
-            >
-              Available to purchase
-            </p>
-            <p
-              className="mb-8"
-              style={{
-                fontFamily: "'Inter', sans-serif",
-                fontSize: '1.05rem',
-                color: '#EDE9E3',
-                lineHeight: '1.8',
-                maxWidth: '900px'
-              }}
-            >
-              The basics, done properly. Stocked in the retreat before you arrive.
-            </p>
-            <div className="space-y-3 max-w-[900px]">
-              {[
-                "Tasmanian EVOO",
+                "Tasman Sea salt lavosh",
                 "Wild Hives honey",
                 "Tasmania Preserve",
-                "Capers",
-                "Balsamic vinegar",
-                "Tasman Sea salt lavosh"
+                "Potato chips"
               ].map((item, i) => (
                 <p
                   key={i}
@@ -862,29 +698,6 @@ export function ProvisionsPage() {
                   {item}
                 </p>
               ))}
-              <div className="pt-4">
-                <p
-                  style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: '0.95rem',
-                    color: '#EDE9E3',
-                    fontWeight: 500,
-                    marginBottom: '0.25rem'
-                  }}
-                >
-                  Larder essentials box
-                </p>
-                <p
-                  style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: '0.9rem',
-                    color: '#B8AE9F',
-                    lineHeight: '1.6'
-                  }}
-                >
-                  Tasmanian EVOO, Wild Hives honey, Tasmania Preserve, Tasman Sea salt lavosh, and capers. The things that make a simple meal feel considered. Stocked in the retreat before you arrive.
-                </p>
-              </div>
             </div>
           </div>
 
@@ -979,7 +792,7 @@ export function ProvisionsPage() {
                 maxWidth: '900px'
               }}
             >
-              Rocky Hills stocks only non-alcoholic drinks — a deliberate choice, made with the same care as every other decision here. These are not substitutes. They are good drinks that happen to be alcohol-free.
+              Rocky Hills stocks only non-alcoholic drinks. Guests are welcome to bring their own wine or spirits -- we'll have everything else you need.
             </p>
 
             <div className="space-y-8 max-w-[900px]">
@@ -1133,7 +946,7 @@ export function ProvisionsPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-[900px]">
               {[
                 "Sunscreen SPF50",
-                "Curaprox travel kit",
+                "Curaprox toothbrush kit",
                 "Insect repellent",
                 "Paracetamol",
                 "Tampons",
@@ -1263,3 +1076,4 @@ export function ProvisionsPage() {
     </div>
   );
 }
+
