@@ -52,7 +52,7 @@ export function HomePage() {
     {
       title: "In the Air, Then at Rest",
       summary: 'Three nights. The East Coast from above, a therapist at the door, and the Huon pine bath waiting on the deck.',
-      price: 'From $3,550',
+      price: 'From $5,500',
       link: '/packages',
     },
     {
@@ -110,7 +110,7 @@ export function HomePage() {
           <div
             className="absolute inset-0"
             style={{
-              background: 'linear-gradient(to bottom, rgba(38, 51, 58, 0.2), rgba(38, 51, 58, 0.6))',
+              background: 'linear-gradient(to bottom, rgba(38, 51, 58, 0) 40%, rgba(38, 51, 58, 0.6) 100%)',
             }}
           />
         </div>

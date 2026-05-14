@@ -32,7 +32,7 @@ export function RetreatPage() {
           <div 
             className="absolute inset-0" 
             style={{ 
-              background: 'linear-gradient(to bottom, rgba(38, 51, 58, 0.4), rgba(38, 51, 58, 0.7))' 
+              background: 'linear-gradient(to bottom, rgba(38, 51, 58, 0) 40%, rgba(38, 51, 58, 0.7) 100%)' 
             }} 
           />
         </div>

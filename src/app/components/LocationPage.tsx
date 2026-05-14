@@ -15,7 +15,7 @@ export function LocationPage() {
             alt="Tasmania's east coast"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-primary-brand/70 via-primary-brand/40 to-primary-brand" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary-brand/20 to-primary-brand" />
         </div>
         <div className="relative h-full flex items-center justify-center px-6 text-center">
           <div className="max-w-4xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-1000">
@@ -90,11 +90,11 @@ export function LocationPage() {
                 </div>
                 <div className="flex justify-between">
                   <span>Price (one-way)</span>
-                  <span className="text-bone">$3,800</span>
+                  <span className="text-bone">$3,000</span>
                 </div>
               </div>
               <p className="text-xs text-bone/50 italic pt-4 border-t border-border/30">
-                The most dramatic arrival. Land directly on the property. Weather dependent.
+                The most dramatic arrival. Land directly on the property. A hire car can be arranged and delivered to the property for your stay. Weather dependent.
               </p>
             </div>
 
@@ -119,7 +119,7 @@ export function LocationPage() {
                 </div>
               </div>
               <p className="text-xs text-bone/50 italic pt-4 border-t border-border/30">
-                Mercedes-Benz S-Class. Professional driver. Champagne en route if desired.
+                Mercedes-Benz S-Class. Professional driver. Ask us to arrange when you book.
               </p>
             </div>
 
@@ -150,6 +150,18 @@ export function LocationPage() {
           </div>
 
           <div className="mt-16 p-8 bg-primary-brand/40 border border-muted-gold/20">
+            <div className="flex items-start gap-4">
+              <Car size={24} className="text-muted-gold flex-shrink-0 mt-1" />
+              <div className="space-y-2">
+                <h5 className="text-bone">Hire Car Delivery</h5>
+                <p className="text-bone/60 text-sm leading-relaxed">
+                  Helicopter transfers from Hobart are available on request, with a hire car delivered to the property if you need one during your stay. Ask us when you book and we'll arrange everything.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-8 p-8 bg-primary-brand/40 border border-muted-gold/20">
             <div className="flex items-start gap-4">
               <Cloud size={24} className="text-muted-gold flex-shrink-0 mt-1" />
               <div className="space-y-2">

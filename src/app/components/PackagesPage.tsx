@@ -21,13 +21,14 @@ export function PackagesPage() {
       title: "In the Air, Then at Rest",
       description: "The East Coast from above. A therapist at the door. Nothing else required.",
       nights: "3 nights",
-      price: "From $3,550 per stay",
+      price: "From $5,500 per stay",
       inclusions: [
         "3 nights accommodation",
         "Scenic helicopter flight over Great Oyster Bay, the Hazards, and Wineglass Bay",
         "Couples massage at the property",
         "Huon pine bath prepared on the deck",
-      ]
+      ],
+      note: "Want to arrive by air? A helicopter transfer from Hobart to the property is available on request, with a hire car delivered to the property if you need one. Ask us when you book."
     },
     {
       id: 'the-long-lunch',
@@ -82,7 +83,7 @@ export function PackagesPage() {
           />
           <div
             className="absolute inset-0"
-            style={{ background: 'linear-gradient(to bottom, rgba(38, 51, 58, 0.4), rgba(38, 51, 58, 0.7))' }}
+            style={{ background: 'linear-gradient(to bottom, rgba(38, 51, 58, 0) 40%, rgba(38, 51, 58, 0.7) 100%)' }}
           />
         </div>
         <div className="relative h-full flex items-end justify-center px-6 pb-16">

@@ -46,9 +46,9 @@ export function ExperiencesPage() {
         image: douglasImg
       },
       {
-        title: "Foraging on the Property",
-        description: "The property and surrounding coast are abundant. We'll leave you a guide to what's in season, what's edible, and where to look.",
-        cta: "Ask us to arrange.",
+        title: "Foraging with a Local Guide",
+        description: "The property and surrounding headland, read with a local guide. What's edible, what's in season, where to look. Back with a basket and a different understanding of this place.",
+        cta: "Ask us to arrange. From $280 per session.",
         image: foragingImg
       },
       {
@@ -79,6 +79,12 @@ export function ExperiencesPage() {
       }
     ],
     curated: [
+      {
+        title: "Arrive by Air",
+        description: "Skip the drive. A helicopter transfer from Hobart lands you at the property direct -- the East Coast coastline unfolding beneath you before you've even unpacked. A hire car can be arranged and delivered to the property for the duration of your stay.",
+        cta: "Ask us to arrange.",
+        image: helicopterImg
+      },
       {
         title: "Helicopter Tour Over Freycinet",
         description: "The East Coast from above. Great Oyster Bay, the Hazards, Wineglass Bay, Schouten Island. There is no better way to understand the scale of this coastline.",
@@ -113,7 +119,7 @@ export function ExperiencesPage() {
           <div
             className="absolute inset-0"
             style={{
-              background: 'linear-gradient(to bottom, rgba(38, 51, 58, 0.4), rgba(38, 51, 58, 0.7))'
+              background: 'linear-gradient(to bottom, rgba(38, 51, 58, 0) 40%, rgba(38, 51, 58, 0.7) 100%)'
             }}
           />
         </div>
@@ -212,7 +218,9 @@ export function ExperiencesPage() {
                     borderRadius: '0.5rem',
                     backgroundColor: index % 2 === 0 ? '#2E3D45' : '#26333A',
                     border: `1px solid ${index % 2 === 0 ? 'rgba(143, 169, 179, 0.3)' : 'rgba(143, 169, 179, 0.2)'}`,
-                    boxShadow: index % 2 === 0 ? '0 4px 16px rgba(0, 0, 0, 0.2)' : 'none'
+                    boxShadow: index % 2 === 0 ? '0 4px 16px rgba(0, 0, 0, 0.2)' : 'none',
+                    display: 'flex',
+                    flexDirection: 'column'
                   }}
                 >
                   {/* Image */}
@@ -228,7 +236,7 @@ export function ExperiencesPage() {
                   </div>
 
                   {/* Content */}
-                  <div className="p-6">
+                  <div className="p-6" style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
                     <h3
                       className="mb-3"
                       style={{
@@ -246,7 +254,8 @@ export function ExperiencesPage() {
                         fontFamily: "'Inter', sans-serif",
                         fontSize: '0.95rem',
                         color: '#B8AE9F',
-                        lineHeight: '1.7'
+                        lineHeight: '1.7',
+                        flexGrow: 1
                       }}
                     >
                       {tile.description}
@@ -258,7 +267,8 @@ export function ExperiencesPage() {
                         color: '#8FA9B3',
                         fontWeight: 500,
                         letterSpacing: '0.1em',
-                        textTransform: 'uppercase'
+                        textTransform: 'uppercase',
+                        marginTop: 'auto'
                       }}
                     >
                       {tile.cta}
