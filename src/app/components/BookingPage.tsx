@@ -267,11 +267,9 @@ export function BookingPage() {
               </div>
             </div>
 
-            {/* EXPERIENCES */}
             <div className="bg-card/40 border border-border p-8">
-              <h3 className="text-xl text-bone mb-6">
-                Experiences
-              </h3>
+              <h3 className="text-xl text-bone mb-2">Experiences</h3>
+              <p className="text-bone/50 text-sm italic mb-6">Select anything you'd like more information on and we'll be in touch before your arrival.</p>
 
               <div className="space-y-6">
                 {experiences.map((item) => (
@@ -337,11 +335,21 @@ export function BookingPage() {
                 Your Details
               </h3>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-4 mb-6">
                 <Input placeholder="First name" />
                 <Input placeholder="Last name" />
                 <Input placeholder="Email" />
                 <Input placeholder="Phone" />
+              </div>
+
+              <div>
+                <label className="text-bone/70 text-sm mb-2 block">Anything else we should know?</label>
+                <textarea
+                  rows={4}
+                  placeholder="Dietary requirements, special occasions, access needs, or anything else..."
+                  className="w-full bg-input-background border border-border text-bone p-4 resize-none focus:outline-none focus:ring-2 focus:ring-ring"
+                  style={{ fontFamily: "'Inter', sans-serif", fontSize: '0.95rem', color: '#EDE9E3' }}
+                />
               </div>
             </div>
           </div>
