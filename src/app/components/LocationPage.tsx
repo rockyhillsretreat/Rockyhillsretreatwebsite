@@ -169,7 +169,7 @@ export function LocationPage() {
                 <p className="text-bone/60 text-sm leading-relaxed">
                   Tasmania's weather can change rapidly. We recommend checking forecasts before departure and
                   allowing extra time for travel. Helicopter transfers are weather-dependent and may be rescheduled.
-                  Winter roads can be icy — drive carefully and arrive before dark if possible.
+                  Winter roads can be icy -- drive carefully and arrive before dark if possible.
                 </p>
               </div>
             </div>
@@ -242,15 +242,14 @@ export function LocationPage() {
                 <div className="flex items-start gap-4">
                   <div className="w-1.5 h-1.5 bg-muted-gold mt-2.5 flex-shrink-0" />
                   <p>
-                    <strong className="text-bone">Mobile reception:</strong> Limited to non-existent.
-                    WiFi available at the retreat. This disconnection is intentional.
+                    <strong className="text-bone">Mobile reception:</strong> Limited.
+                    WiFi available at the retreat.
                   </p>
                 </div>
                 <div className="flex items-start gap-4">
                   <div className="w-1.5 h-1.5 bg-muted-gold mt-2.5 flex-shrink-0" />
                   <p>
-                    <strong className="text-bone">Nearest hospital:</strong> 40 minutes.
-                    Emergency services accessible. First aid kit on site.
+                    <strong className="text-bone">Nearest hospital:</strong> Royal Hobart Hospital, approximately 2 hours. Emergency services accessible. First aid kit on site.
                   </p>
                 </div>
                 <div className="flex items-start gap-4">
@@ -295,7 +294,7 @@ export function LocationPage() {
             When to Come
           </h2>
           <p className="text-lg text-bone/70 leading-relaxed">
-            Rocky Hills Retreat is designed for winter — but every season reveals something different.
+            Rocky Hills Retreat is designed for winter -- but every season reveals something different.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-12 text-left">

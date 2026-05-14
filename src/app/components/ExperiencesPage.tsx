@@ -93,7 +93,7 @@ export function ExperiencesPage() {
       },
       {
         title: "In-Retreat Massage",
-        description: "The property is yours. We'll arrange for a therapist to come to you. Remedial or relaxation, finished with the Huon pine bath on the deck if you choose.",
+        description: "A therapist comes to you. Remedial, relaxation, deep tissue, or pregnancy massage -- tailored to what you need. Add Kunzea and sandalwood aromatherapy, a face ritual, or a foot treatment. The Huon pine bath on the deck is waiting when you're done.",
         cta: "Ask us to arrange.",
         image: massageImg
       },
@@ -164,7 +164,7 @@ export function ExperiencesPage() {
               lineHeight: '1.7'
             }}
           >
-            Experiences vary by season. Some are winter-specific — the whale migration, the dark sky, the quiet trails. Ask us what is running during your stay.
+            Experiences vary by season. Some are winter-specific -- the whale migration, the dark sky, the quiet trails. Ask us what is running during your stay.
           </p>
         </div>
       </section>

@@ -28,7 +28,7 @@ export function ContactPage() {
           </div>
 
           {/* Contact Methods */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             {/* Email */}
             <div className="bg-card/40 backdrop-blur-sm border border-border p-8 space-y-4 group hover:border-muted-gold/50 transition-cinematic">
               <div className="w-12 h-12 border border-muted-gold/30 flex items-center justify-center group-hover:border-muted-gold transition-cinematic">
@@ -56,10 +56,10 @@ export function ContactPage() {
                 For urgent matters. Available 9am–6pm AEST.
               </p>
               <a
-                href="tel:+61234567890"
+                href="tel:+61485689488"
                 className="block text-bone hover:text-muted-gold transition-cinematic pt-4 border-t border-border/30"
               >
-                +61 (0) 234 567 890
+                +61 485 689 488
               </a>
             </div>
 

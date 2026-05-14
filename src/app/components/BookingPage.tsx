@@ -66,14 +66,43 @@ export function BookingPage() {
     {
       id: "sea-kayaking",
       name: "Sea Kayaking",
-      description:
-        "Guided kayaking along the Freycinet coastline.",
+      description: "Guided sea kayaking along the Freycinet Peninsula coastline. Award-winning local operator.",
     },
     {
       id: "fishing-charter",
       name: "Fishing Charter",
-      description:
-        "Half day fishing with a local skipper.",
+      description: "Half day on Great Oyster Bay and Schouten Passage with a local skipper. Flathead, trumpeter, squid.",
+    },
+    {
+      id: "helicopter-flight",
+      name: "Scenic Helicopter Flight",
+      description: "The East Coast from above. Great Oyster Bay, the Hazards, Wineglass Bay, Schouten Island.",
+    },
+    {
+      id: "helicopter-transfer",
+      name: "Helicopter Transfer from Hobart",
+      description: "Arrive by air. A helicopter transfer from Hobart lands you at the property direct. No drive, no transition -- just coastline and arrival.",
+    },
+    {
+      id: "hire-car",
+      name: "Hire Car Delivery",
+      description: "A hire car arranged and delivered to the property for your stay. Ideal if you're arriving by air or prefer not to organise a vehicle independently.",
+    },
+    {
+      id: "wine-trail",
+      name: "The Wine Trail, Guided",
+      description: "Four East Coast cellar doors, lunch included, pickup and return from the property.",
+      note: "Off-property experience. RHR does not serve alcohol on site.",
+    },
+    {
+      id: "couples-massage",
+      name: "Couples Massage",
+      description: "A therapist comes to you. Remedial, relaxation, deep tissue, or pregnancy massage. Native Kunzea and sandalwood aromatherapy, face ritual, and foot treatment available as add-ons. Finished with the Huon pine bath on the deck if you choose.",
+    },
+    {
+      id: "foraging",
+      name: "Guided Foraging Session",
+      description: "The property and surrounding headland, read with a local guide. What's edible, what's in season, where to look.",
     },
   ];
 
@@ -81,19 +110,42 @@ export function BookingPage() {
     {
       id: "photographer",
       name: "Private Photographer",
-      description:
-        "Half-day session for special occasions.",
+      description: "A half day session on the property and surrounding headland. For proposals, anniversaries, or simply being here together.",
       isArranged: true,
     },
     {
       id: "beach-picnic",
       name: "Beach Picnic Setup",
-      description:
-        "Curated picnic set up before your arrival.",
+      description: "Hamper assembled from local producers, set up on the beach before you arrive.",
       price: 120,
       leadTime: "Request at least 48 hours ahead.",
     },
   ];
+
+  const packageOptions = [
+    {
+      id: "pkg-air-rest",
+      name: "In the Air, Then at Rest",
+      description: "Scenic helicopter flight, couples massage, Huon pine bath. 3 nights from $5,500.",
+    },
+    {
+      id: "pkg-long-lunch",
+      name: "The Long Lunch",
+      description: "Guided wine trail, four cellar doors, lunch included, couples massage. 3 nights from $3,150.",
+    },
+    {
+      id: "pkg-water",
+      name: "From the Water",
+      description: "Half day fishing charter, catch returned to the retreat with recipe, couples massage. 3 nights from $3,250.",
+    },
+    {
+      id: "pkg-celebrate",
+      name: "Celebrate Here",
+      description: "Private photographer, beach picnic hamper, Huon pine bath. 3 nights from $3,550.",
+    },
+  ];
+
+  const [selectedPackage, setSelectedPackage] = useState<string | null>(null);
 
   const toggle = (
     id: string,
@@ -119,6 +171,7 @@ export function BookingPage() {
   };
 
   const toBeArranged = [
+    ...(selectedPackage ? [packageOptions.find(p => p.id === selectedPackage)?.name] : []),
     ...selectedExperiences.map(
       (id) => experiences.find((e) => e.id === id)?.name
     ),
@@ -157,6 +210,28 @@ export function BookingPage() {
               <p className="text-bone/50 text-sm italic mt-4">
                 Two-night minimum. Seasonal pricing applies.
               </p>
+            </div>
+
+            {/* PACKAGES */}
+            <div className="bg-card/40 border border-border p-8">
+              <h3 className="text-xl text-bone mb-2">Packages</h3>
+              <p className="text-bone/50 text-sm italic mb-6">Select a package and we'll be in touch to confirm details and arrange everything before your arrival.</p>
+              <div className="space-y-6">
+                {packageOptions.map((pkg) => (
+                  <div key={pkg.id} className="flex justify-between items-start">
+                    <div className="flex-1 pr-4">
+                      <p className="text-bone">{pkg.name}</p>
+                      <p className="text-bone/50 text-sm">{pkg.description}</p>
+                    </div>
+                    <Checkbox
+                      checked={selectedPackage === pkg.id}
+                      onCheckedChange={() =>
+                        setSelectedPackage(selectedPackage === pkg.id ? null : pkg.id)
+                      }
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
 
             {/* PROVISIONS */}

@@ -123,7 +123,7 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="tel:+61412345678"
+                  href="tel:+61485689488"
                   className="flex items-center gap-2 transition-colors hover:opacity-70"
                   style={{
                     fontFamily: "'Inter', sans-serif",
@@ -132,7 +132,7 @@ export function Footer() {
                   }}
                 >
                   <Phone size={16} style={{ color: '#8FA9B3' }} />
-                  +61 412 345 678
+                  +61 485 689 488
                 </a>
               </li>
               <li className="pt-2">
@@ -213,7 +213,7 @@ export function Footer() {
                 fontStyle: 'italic'
               }}
             >
-              Sustainable Tourism Certified — Ecotourism Australia. Off-grid solar and rainwater. East Coast Tasmania.
+              Sustainable Tourism Certified -- Ecotourism Australia. Off-grid solar and rainwater. East Coast Tasmania.
             </p>
           </div>
           <p

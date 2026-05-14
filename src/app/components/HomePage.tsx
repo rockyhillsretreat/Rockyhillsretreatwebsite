@@ -81,7 +81,7 @@ export function HomePage() {
       author: 'Sarah & Tom',
     },
     {
-      quote: "Every detail was considered. The view, the quiet, the quality—exceptional.",
+      quote: "Every detail was considered. The view, the quiet, the quality--exceptional.",
       author: 'Emma',
     },
   ];
@@ -208,11 +208,12 @@ export function HomePage() {
       <p
         className="mb-0"
         style={{
-          fontFamily: "'Inter', sans-serif",
+          fontFamily: "'Playfair Display', serif",
           fontSize: '1.5rem',
           color: '#EDE9E3',
           lineHeight: '1.8',
           textAlign: 'center',
+          fontStyle: 'italic',
         }}
       >
         Be Off-Grid.<br />
@@ -568,7 +569,7 @@ export function HomePage() {
                     color: '#B8AE9F',
                   }}
                 >
-                  — {testimonial.author}
+                  -- {testimonial.author}
                 </p>
               </div>
             ))}
@@ -597,7 +598,7 @@ export function HomePage() {
               color: '#B8AE9F',
             }}
           >
-            From $750 per night. Two-night minimum. Book direct for the best rate.
+            Two-night minimum. Book direct for the best rate.
           </p>
           <Link
             to="/contact"
