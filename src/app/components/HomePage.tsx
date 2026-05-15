@@ -105,7 +105,7 @@ export function HomePage() {
             src={heroImage}
             alt="Rocky Hills Retreat Hero View"
             className="w-full h-full object-cover"
-            style={{ objectPosition: 'center' }}
+            style={{ objectPosition: 'center top' }}
           />
           <div
             className="absolute inset-0"
@@ -598,7 +598,7 @@ export function HomePage() {
               color: '#B8AE9F',
             }}
           >
-            Two-night minimum. Book direct for the best rate.
+            Two-night minimum. 
           </p>
           <Link
             to="/contact"
