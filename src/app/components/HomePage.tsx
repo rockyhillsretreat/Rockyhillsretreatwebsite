@@ -105,7 +105,7 @@ export function HomePage() {
             src={heroImage}
             alt="Rocky Hills Retreat Hero View"
             className="w-full h-full object-cover"
-            style={{ objectPosition: 'center top' }}
+            style={{ objectPosition: 'center 70%' }}
           />
           <div
             className="absolute inset-0"
