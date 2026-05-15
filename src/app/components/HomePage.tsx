@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 const heroImage = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-exterior-night.jpg';
-const goDarkBg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/go-dark-fire-kettle-bedroom.jpg';
+const goDarkBg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-exterior-chimney-dusk.jpg';
 const retreatImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-exterior-entry-native-garden.jpg';
 const experiencesImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-bath-running-golden.jpg';
 const provisionsImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/bay-view-islands-cloud.jpg';
