@@ -4,6 +4,7 @@ import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { HomePage } from "./components/HomePage";
 import { BookingPage } from "./components/BookingPage";
+import { ConfirmationPage } from "./components/ConfirmationPage";
 import { RetreatPage } from "./components/RetreatPage";
 import { ProvisionsPage } from "./components/ProvisionsPage";
 import { ExperiencesPage } from "./components/ExperiencesPage";
@@ -25,7 +26,6 @@ function ScrollToTop() {
   return null;
 }
 
-// Simple client-side 404 fallback
 const NotFound = () => (
   <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
     <h1 className="text-4xl font-bold mb-4">404 - Page Not Found</h1>
@@ -46,6 +46,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/booking" element={<BookingPage />} />
+            <Route path="/confirmation" element={<ConfirmationPage />} />
             <Route path="/retreat" element={<RetreatPage />} />
             <Route path="/provisions" element={<ProvisionsPage />} />
             <Route path="/experiences" element={<ExperiencesPage />} />

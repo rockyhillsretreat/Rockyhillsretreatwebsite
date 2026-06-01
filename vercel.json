@@ -1,6 +1,13 @@
 {
+  "functions": {
+    "api/*.ts": {
+      "runtime": "@vercel/node"
+    }
+  },
   "rewrites": [
-    { "source": "/:path*", "destination": "/index.html" }
-  ],
-  "outputDirectory": "dist"
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
+    }
+  ]
 }
