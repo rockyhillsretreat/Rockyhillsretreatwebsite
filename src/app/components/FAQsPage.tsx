@@ -25,7 +25,7 @@ export function FAQsPage() {
         },
         {
           question: "What time is check-in and check-out?",
-          answer: "Check-in from 3pm. Check-out by 10am. Early check-in or late check-out may be possible -- ask us."
+          answer: "Check-in from 3pm. Check-out by 10am. Early check-in or late check-out may be possible ask us."
         },
         {
           question: "Is the retreat suitable for children?",
@@ -37,7 +37,7 @@ export function FAQsPage() {
         },
         {
           question: "Is the retreat good in winter?",
-          answer: "Winter is when Rocky Hills is most itself. The building was designed around thermal mass -- the concrete and besser block hold the day's warmth well into the night. The wood fire, the gas heater, the Huon pine bath on the deck under a genuinely dark sky. The humpbacks move through Great Oyster Bay from May through July. The East Coast trails are empty. If you want stillness, winter delivers it more completely than summer."
+          answer: "Winter is when Rocky Hills is most itself. The building was designed around thermal mass the concrete and besser block hold the day's warmth well into the night. The wood fire, the gas heater, the Huon pine bath on the deck under a genuinely dark sky. The humpbacks move through Great Oyster Bay from May through July. The East Coast trails are empty. If you want stillness, winter delivers it more completely than summer."
         }
       ]
     },
@@ -46,7 +46,7 @@ export function FAQsPage() {
       questions: [
         {
           question: "Do you provide meals?",
-          answer: "All provisions and food packages are delivered to the retreat with full recipes and preparation notes. We like to leave you in peace. Order ahead -- we'll have everything ready on arrival."
+          answer: "All provisions and food packages are delivered to the retreat with full recipes and preparation notes. We like to leave you in peace. Order ahead we'll have everything ready on arrival."
         },
         {
           question: "Can we add provisions after booking?",
@@ -91,16 +91,16 @@ export function FAQsPage() {
           answer: "Rocky Hills sits on the country of the Mumirimina clan of the Oyster Bay Nation, whose language is Paredarerme, and the Big River Nation, whose language is Lairmairrener. These peoples have been the custodians of this land, this coastline, and this water for tens of thousands of years. We acknowledge their continuing connection to country and pay our respects to Elders past and present. This country was never ceded."
         },
         {
-          question: "What does Sustainable Tourism Certified mean?",
-          answer: "We are committed to being a sustainable property and on the path to completing certification. The certification covers environmental management, energy, water, waste, community, and cultural practices."
+          question: "Are you a certified sustainable property?",
+          answer: "Not yet, but we are working toward it. The process covers environmental management, energy, water, waste, community, and cultural practices. Our off-grid infrastructure means we already meet a significant portion of the operational criteria."
         },
         {
           question: "Are you carbon neutral?",
-          answer: "Not yet. We're working toward it. The off-grid infrastructure means our operational emissions are very low -- but we're being careful about what we claim and when we claim it."
+          answer: "Not yet. We're working toward it. The off-grid infrastructure means our operational emissions are very low but we're being careful about what we claim and when we claim it."
         },
         {
           question: "Why off-grid?",
-          answer: "Because the property sits on country that asks something of you. Off-grid felt like the right response to that. The solar, the rainwater, the septic -- they're all part of the same logic. You don't extract from a place like this without noticing."
+          answer: "Because the property sits on country that asks something of you. Off-grid felt like the right response to that. The solar, the rainwater, the septic they're all part of the same logic. You don't extract from a place like this without noticing."
         }
       ]
     }

@@ -213,7 +213,7 @@ export function Footer() {
                 fontStyle: 'italic'
               }}
             >
-              Sustainable Tourism Certified -- Ecotourism Australia. Off-grid solar and rainwater. East Coast Tasmania.
+              Working toward Sustainable Tourism Certification. Off-grid solar and rainwater. East Coast Tasmania.
             </p>
           </div>
           <p

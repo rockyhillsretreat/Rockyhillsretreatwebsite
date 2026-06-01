@@ -81,7 +81,7 @@ export function BookingPage() {
     {
       id: "helicopter-transfer",
       name: "Helicopter Transfer from Hobart",
-      description: "Arrive by air. A helicopter transfer from Hobart lands you at the property direct. No drive, no transition -- just coastline and arrival.",
+      description: "Arrive by air. A helicopter transfer from Hobart lands you at the property direct. No drive, no transition just coastline and arrival.",
     },
     {
       id: "hire-car",
@@ -352,6 +352,62 @@ export function BookingPage() {
                 />
               </div>
             </div>
+            {/* GO DARK REMINDER */}
+            <div
+              className="p-8"
+              style={{
+                backgroundColor: '#0B0F0F',
+                border: '1px solid rgba(143, 169, 179, 0.3)',
+                borderRadius: '0.5rem',
+              }}
+            >
+              <p
+                style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: '0.75rem',
+                  color: '#8FA9B3',
+                  letterSpacing: '0.1em',
+                  textTransform: 'uppercase',
+                  marginBottom: '0.75rem',
+                  fontWeight: 600,
+                }}
+              >
+                Winter Offer
+              </p>
+              <h3
+                style={{
+                  fontFamily: "'Playfair Display', serif",
+                  fontSize: '1.75rem',
+                  color: '#EDE9E3',
+                  marginBottom: '0.75rem',
+                }}
+              >
+                Go Dark
+              </h3>
+              <p
+                style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: '0.95rem',
+                  color: '#B8AE9F',
+                  lineHeight: '1.7',
+                  marginBottom: '1rem',
+                }}
+              >
+                3 nights midweek. June, July, August. $1,500 flat rate. Direct booking only.
+              </p>
+              <p
+                style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: '0.875rem',
+                  color: '#8FA9B3',
+                  lineHeight: '1.6',
+                  fontStyle: 'italic',
+                }}
+              >
+                Enter <strong style={{ color: '#EDE9E3', fontStyle: 'normal' }}>GO DARK</strong> in the voucher field to claim.
+              </p>
+            </div>
+
           </div>
 
           {/* RIGHT */}

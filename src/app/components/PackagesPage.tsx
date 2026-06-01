@@ -23,9 +23,9 @@ export function PackagesPage() {
       nights: "3 nights",
       price: "From $5,500 per stay",
       inclusions: [
-        "3 nights accommodation",
+        "Weekend accommodation",
         "Scenic helicopter flight over Great Oyster Bay, the Hazards, and Wineglass Bay",
-        "Couples massage at the property -- remedial or relaxation, with native Kunzea aromatherapy available as an add-on.",
+        "Couples massage at the property remedial or relaxation, with native Kunzea aromatherapy available as an add-on.",
         "Huon pine bath prepared on the deck",
       ],
       note: "Want to arrive by air? A helicopter transfer from Hobart to the property is available on request, with a hire car delivered to the property if you need one. Ask us when you book."
@@ -37,9 +37,9 @@ export function PackagesPage() {
       nights: "3 nights",
       price: "From $3,150 per stay",
       inclusions: [
-        "3 nights accommodation",
-        "Guided wine trail for two -- four cellar doors, lunch included, pickup and return from the property",
-        "Couples massage at the property -- remedial or relaxation, with native Kunzea aromatherapy available as an add-on.",
+        "Weekend accommodation",
+        "Guided wine trail for two four cellar doors, lunch included, pickup and return from the property",
+        "Couples massage at the property remedial or relaxation, with native Kunzea aromatherapy available as an add-on.",
       ],
       note: "The wine trail is an off-property experience. RHR does not serve alcohol on site."
     },
@@ -50,10 +50,10 @@ export function PackagesPage() {
       nights: "3 nights",
       price: "From $3,250 per stay",
       inclusions: [
-        "3 nights accommodation",
-        "Half day fishing charter on Great Oyster Bay and Schouten Passage -- flathead, trumpeter, squid",
+        "Weekend accommodation",
+        "Half day fishing charter on Great Oyster Bay and Schouten Passage flathead, trumpeter, squid",
         "Catch prepared and returned to the retreat with a recipe written for the kitchen at Rocky Hills",
-        "Couples massage at the property -- remedial or relaxation, with native Kunzea aromatherapy available as an add-on.",
+        "Couples massage at the property remedial or relaxation, with native Kunzea aromatherapy available as an add-on.",
       ]
     },
     {
@@ -63,8 +63,8 @@ export function PackagesPage() {
       nights: "3 nights",
       price: "From $3,550 per stay",
       inclusions: [
-        "3 nights accommodation",
-        "Private photographer for a half day -- on the property, on the headland, wherever the moment takes you",
+        "Weekend accommodation",
+        "Private photographer for a half day on the property, on the headland, wherever the moment takes you",
         "Beach picnic hamper assembled from local producers",
         "Huon pine bath prepared on the deck",
       ]

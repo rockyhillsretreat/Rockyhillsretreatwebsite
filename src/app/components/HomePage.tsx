@@ -81,7 +81,7 @@ export function HomePage() {
       author: 'Sarah & Tom',
     },
     {
-      quote: "Every detail was considered. The view, the quiet, the quality--exceptional.",
+      quote: "Every detail was considered. The view, the quiet, the quality. Exceptional.",
       author: 'Emma',
     },
   ];
@@ -569,7 +569,7 @@ export function HomePage() {
                     color: '#B8AE9F',
                   }}
                 >
-                  -- {testimonial.author}
+                  {testimonial.author}
                 </p>
               </div>
             ))}

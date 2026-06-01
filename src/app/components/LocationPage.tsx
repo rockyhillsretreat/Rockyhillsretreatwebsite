@@ -169,7 +169,7 @@ export function LocationPage() {
                 <p className="text-bone/60 text-sm leading-relaxed">
                   Tasmania's weather can change rapidly. We recommend checking forecasts before departure and
                   allowing extra time for travel. Helicopter transfers are weather-dependent and may be rescheduled.
-                  Winter roads can be icy -- drive carefully and arrive before dark if possible.
+                  Winter roads can be icy drive carefully and arrive before dark if possible.
                 </p>
               </div>
             </div>
@@ -294,7 +294,7 @@ export function LocationPage() {
             When to Come
           </h2>
           <p className="text-lg text-bone/70 leading-relaxed">
-            Rocky Hills Retreat is designed for winter -- but every season reveals something different.
+            Rocky Hills Retreat is designed for winter but every season reveals something different.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-12 text-left">

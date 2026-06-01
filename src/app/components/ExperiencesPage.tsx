@@ -81,7 +81,7 @@ export function ExperiencesPage() {
     curated: [
       {
         title: "Arrive by Air",
-        description: "Skip the drive. A helicopter transfer from Hobart lands you at the property direct -- the East Coast coastline unfolding beneath you before you've even unpacked. A hire car can be arranged and delivered to the property for the duration of your stay.",
+        description: "Skip the drive. A helicopter transfer from Hobart lands you at the property direct the East Coast coastline unfolding beneath you before you've even unpacked. A hire car can be arranged and delivered to the property for the duration of your stay.",
         cta: "Ask us to arrange.",
         image: helicopterImg
       },
@@ -93,7 +93,7 @@ export function ExperiencesPage() {
       },
       {
         title: "In-Retreat Massage",
-        description: "A therapist comes to you. Remedial, relaxation, deep tissue, or pregnancy massage -- tailored to what you need. Add Kunzea and sandalwood aromatherapy, a face ritual, or a foot treatment. The Huon pine bath on the deck is waiting when you're done.",
+        description: "A therapist comes to you. Remedial, relaxation, deep tissue, or pregnancy massage tailored to what you need. Add Kunzea and sandalwood aromatherapy, a face ritual, or a foot treatment. The Huon pine bath on the deck is waiting when you're done.",
         cta: "Ask us to arrange.",
         image: massageImg
       },
@@ -164,7 +164,7 @@ export function ExperiencesPage() {
               lineHeight: '1.7'
             }}
           >
-            Experiences vary by season. Some are winter-specific -- the whale migration, the dark sky, the quiet trails. Ask us what is running during your stay.
+            Experiences vary by season. Some are winter-specific the whale migration, the dark sky, the quiet trails. Ask us what is running during your stay.
           </p>
         </div>
       </section>

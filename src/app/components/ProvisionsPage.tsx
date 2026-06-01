@@ -49,18 +49,39 @@ export function ProvisionsPage() {
               lineHeight: '1.8'
             }}
           >
-            Everything here was made in Tasmania, chosen carefully, and waiting for you when you arrive. The store is stocked. Add provisions or fresh orders when you book - we'll have everything ready.
+            The kitchen at Rocky Hills is stocked before you arrive. Coffee, loose-leaf teas, pasta and sauces, smoked mussels, honeycomb, chocolate, non-alcoholic drinks for every occasion. Most of it comes from Tasmania. All of it was chosen because it belongs here.
+          </p>
+          <p
+            className="mb-6"
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              fontSize: '1.05rem',
+              color: '#EDE9E3',
+              lineHeight: '1.8'
+            }}
+          >
+            The pantry holds dried pasta and handmade sauces from Bottega Crippa in the Huon Valley, loose-leaf teas blended by Tea Equation in Launceston, and honeycomb and chocolate from Kenyak in West Moonah. The fridge is stocked with Pure Tassie water, NON and Elta Ego for something more considered, and smoked mussels and pickled shellfish from Freycinet Marine Farm, ten minutes up the coast. Coffee is from Villino's PodFolk roastery in Moonah.
+          </p>
+          <p
+            className="mb-6"
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              fontSize: '1.05rem',
+              color: '#EDE9E3',
+              lineHeight: '1.8'
+            }}
+          >
+            Some items are included in your stay. Others are available to purchase from The Store and will be added to your account at checkout. A full list is in the compendium.
           </p>
           <p
             style={{
               fontFamily: "'Inter', sans-serif",
-              fontSize: '0.9rem',
-              color: '#B8AE9F',
-              lineHeight: '1.6',
-              fontStyle: 'italic'
+              fontSize: '1.05rem',
+              color: '#EDE9E3',
+              lineHeight: '1.8'
             }}
           >
-            The morning provisions are included with every stay. Everything else is available to purchase from The Store, or to add on when you book.
+            We stock no alcohol. If you want wine, Milton Vineyard is 25 minutes north at Cranbrook and Devil's Corner is 30 minutes north at Apslawn. Both are worth the drive.
           </p>
         </div>
       </section>
@@ -101,7 +122,7 @@ export function ProvisionsPage() {
                 maxWidth: '900px'
               }}
             >
-              Your first morning is already sorted. Waiting when you arrive: Pigeonhole par-baked croissants ready for the oven, Wursthaus bacon and sausages, local free-range eggs, Wild Hives honey, house jams and pickles, and a full selection of loose-leaf teas and Villino coffee. Enough for a slow first morning without having to think about a thing.
+              Your first morning is already sorted. Waiting when you arrive: par-baked croissants ready for the oven, Wursthaus bacon, local free-range eggs, yoghurt, granola, Wild Hives honey, house jams, cheese and a full selection of loose-leaf teas and Villino coffee. Enough for a slow first morning without having to think about a thing.
             </p>
           </div>
 
@@ -792,7 +813,7 @@ export function ProvisionsPage() {
                 maxWidth: '900px'
               }}
             >
-              Rocky Hills stocks only non-alcoholic drinks. Guests are welcome to bring their own wine or spirits -- we'll have everything else you need.
+              Rocky Hills stocks only non-alcoholic drinks. Guests are welcome to bring their own wine or spirits we'll have everything else you need.
             </p>
 
             <div className="space-y-8 max-w-[900px]">
