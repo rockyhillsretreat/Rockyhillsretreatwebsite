@@ -91,7 +91,8 @@ export function ProvisionsPage() {
         <div className="max-w-[1200px] mx-auto space-y-20">
 
           {/* Add-on Boxes */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
+          <div className="pb-16" style={{ borderBottom: '1px solid rgba(143, 169, 179, 0.2)' }}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Fruit Box */}
               <div
                 className="p-6"
@@ -841,6 +842,8 @@ export function ProvisionsPage() {
               </a>
               {' '}when you book.
             </p>
+          </div>
+
           </div>
 
         </div>
