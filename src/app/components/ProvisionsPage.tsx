@@ -60,7 +60,7 @@ export function ProvisionsPage() {
               lineHeight: '1.8'
             }}
           >
-            The pantry holds dried pasta and handmade sauces from Bottega Crippa in the Huon Valley, loose-leaf teas blended by Tea Equation in Launceston, and honeycomb and chocolate from Kenyak in West Moonah. The fridge is stocked with Pure Tassie water, NON and Elta Ego for something more considered, and smoked mussels and pickled shellfish from Freycinet Marine Farm, ten minutes up the coast. Coffee is from Villino's PodFolk roastery in Moonah. The freezer holds Wursthaus pies, soups, bacon and sausages for nights when you don't want to think about dinner.
+            The pantry holds dried pasta and handmade sauces from Bottega Crippa in the Huon Valley, loose-leaf teas blended by Tea Equation in Launceston, and honeycomb and chocolate from Kenyak in West Moonah. The fridge is stocked with Pure Tassie water, NON and Elta Ego for something more considered, and smoked mussels and pickled shellfish from Freycinet Marine Farm, ten minutes up the coast. Coffee is from Villino's PodFolk roastery in Moonah.
           </p>
           <p
             className="mb-6"
@@ -90,9 +90,257 @@ export function ProvisionsPage() {
       <section className="py-12 px-6">
         <div className="max-w-[1200px] mx-auto space-y-20">
 
-          {/* Add-on Boxes */}
+          {/* On Arrival */}
           <div className="pb-16" style={{ borderBottom: '1px solid rgba(143, 169, 179, 0.2)' }}>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <h2
+              className="mb-4"
+              style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: 'clamp(2rem, 3.5vw, 2.5rem)',
+                color: '#EDE9E3'
+              }}
+            >
+              On Arrival
+            </h2>
+            <p
+              className="mb-4"
+              style={{
+                fontFamily: "'Inter', sans-serif",
+                fontSize: '0.95rem',
+                color: '#8FA9B3',
+                fontStyle: 'italic'
+              }}
+            >
+              Complimentary. Included with every stay.
+            </p>
+            <p
+              style={{
+                fontFamily: "'Inter', sans-serif",
+                fontSize: '1.05rem',
+                color: '#EDE9E3',
+                lineHeight: '1.8',
+                maxWidth: '900px'
+              }}
+            >
+              Your first morning is already sorted. Waiting when you arrive: par-baked croissants ready for the oven, Wursthaus bacon, local free-range eggs, yoghurt, granola, Wild Hives honey, house jams, cheese and a full selection of loose-leaf teas and Villino coffee. Enough for a slow first morning without having to think about a thing.
+            </p>
+          </div>
+
+          {/* Morning */}
+          <div className="pb-16" style={{ borderBottom: '1px solid rgba(143, 169, 179, 0.2)' }}>
+            <h2
+              className="mb-2"
+              style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: 'clamp(2rem, 3.5vw, 2.5rem)',
+                color: '#EDE9E3'
+              }}
+            >
+              Morning
+            </h2>
+            <p
+              className="mb-4"
+              style={{
+                fontFamily: "'Inter', sans-serif",
+                fontSize: '0.875rem',
+                color: '#8FA9B3',
+                fontWeight: 500
+              }}
+            >
+              Available to purchase
+            </p>
+            <p
+              className="mb-8"
+              style={{
+                fontFamily: "'Inter', sans-serif",
+                fontSize: '1.05rem',
+                color: '#EDE9E3',
+                lineHeight: '1.8',
+                maxWidth: '900px'
+              }}
+            >
+              More of the good things, if you want them.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-[900px]">
+              {[
+                "Barkmill sourdough loaf",
+                "Pigeonhole par-baked croissants (4)",
+                "Wild Hives raw honey (200g)",
+                "Free-range eggs, half dozen",
+                "Villino coffee, ground (250g)",
+                "Devondale long-life milk",
+                "Bonsoy soy milk"
+              ].map((item, i) => (
+                <p
+                  key={i}
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: '0.95rem',
+                    color: '#EDE9E3',
+                    lineHeight: '1.6'
+                  }}
+                >
+                  {item}
+                </p>
+              ))}
+            </div>
+          </div>
+
+          {/* From the Sea */}
+          <div className="pb-16" style={{ borderBottom: '1px solid rgba(143, 169, 179, 0.2)' }}>
+            <h2
+              className="mb-2"
+              style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: 'clamp(2rem, 3.5vw, 2.5rem)',
+                color: '#EDE9E3'
+              }}
+            >
+              From the Sea
+            </h2>
+            <p
+              className="mb-4"
+              style={{
+                fontFamily: "'Inter', sans-serif",
+                fontSize: '0.875rem',
+                color: '#8FA9B3',
+                fontWeight: 500
+              }}
+            >
+              Available to purchase
+            </p>
+            <p
+              className="mb-6"
+              style={{
+                fontFamily: "'Inter', sans-serif",
+                fontSize: '1.05rem',
+                color: '#EDE9E3',
+                lineHeight: '1.8',
+                maxWidth: '900px'
+              }}
+            >
+              The Tasman Sea is close. These are sourced as close to it as possible.
+            </p>
+            <p
+              className="mb-8"
+              style={{
+                fontFamily: "'Inter', sans-serif",
+                fontSize: '0.95rem',
+                color: '#B8AE9F',
+                lineHeight: '1.7',
+                maxWidth: '900px'
+              }}
+            >
+              Fresh oysters are available to order and delivered to the retreat before your arrival. Request at least 48 hours ahead - not available as an in-store item.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-[900px]">
+              {[
+                "Melshell fresh Pacific oysters, dozen",
+                "Melshell fresh Pacific oysters, two dozen",
+                "East Coast tuna in olive oil (185g)",
+                "East Coast tuna in chilli (185g)",
+                "Freycinet smoked mussels in oil",
+                "Freycinet spicy coconut mussel soup",
+                "Freycinet miso style mussel soup",
+                "Freycinet spicy Asian mussel soup",
+                "Freycinet pickled mussels, Sunrise",
+                "Freycinet pickled mussels, Pink Gin Spices",
+                "Freycinet pickled mussels, The Mediterranean",
+                "Freycinet pickled mussels, Pickled Fisher"
+              ].map((item, i) => (
+                <p
+                  key={i}
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: '0.95rem',
+                    color: '#EDE9E3',
+                    lineHeight: '1.6'
+                  }}
+                >
+                  {item}
+                </p>
+              ))}
+            </div>
+          </div>
+
+          {/* From the Land */}
+          <div className="pb-16" style={{ borderBottom: '1px solid rgba(143, 169, 179, 0.2)' }}>
+            <h2
+              className="mb-2"
+              style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: 'clamp(2rem, 3.5vw, 2.5rem)',
+                color: '#EDE9E3'
+              }}
+            >
+              From the Land
+            </h2>
+            <p
+              className="mb-4"
+              style={{
+                fontFamily: "'Inter', sans-serif",
+                fontSize: '0.875rem',
+                color: '#8FA9B3',
+                fontWeight: 500
+              }}
+            >
+              Available to purchase
+            </p>
+            <p
+              className="mb-6"
+              style={{
+                fontFamily: "'Inter', sans-serif",
+                fontSize: '1.05rem',
+                color: '#EDE9E3',
+                lineHeight: '1.8',
+                maxWidth: '900px'
+              }}
+            >
+              Tasmanian producers, proper ingredients.
+            </p>
+
+            <h3
+              className="mb-4 mt-8"
+              style={{
+                fontFamily: "'Inter', sans-serif",
+                fontSize: '1rem',
+                color: '#8FA9B3',
+                fontWeight: 500
+              }}
+            >
+              In the freezer — available during your stay:
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-[900px] mb-10">
+              {[
+                "Wursthaus bacon",
+                "Wursthaus sausages",
+                "Wursthaus beef bourguignon pie",
+                "Wursthaus chicken, leek and mushroom pie",
+                "Wursthaus potato and leek soup",
+                "Wursthaus country vegetable soup",
+                "Wursthaus Italian minestrone soup",
+                "Wursthaus ham hock and lentil soup",
+                "Cape Grim scotch fillet, 2-pack",
+                "Duck River butter",
+                "Valhalla vanilla bean ice cream (1L)",
+                "Valhalla salted caramel ice cream (1L)"
+              ].map((item, i) => (
+                <p
+                  key={i}
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: '0.95rem',
+                    color: '#EDE9E3',
+                    lineHeight: '1.6'
+                  }}
+                >
+                  {item}
+                </p>
+              ))}
+            </div>
+
+            {/* Add-on Boxes */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
               {/* Fruit Box */}
               <div
                 className="p-6"
@@ -842,8 +1090,6 @@ export function ProvisionsPage() {
               </a>
               {' '}when you book.
             </p>
-          </div>
-
           </div>
 
         </div>
