@@ -844,7 +844,6 @@ export function ProvisionsPage() {
             </p>
           </div>
 
-          </div>
 
         </div>
       </section>
