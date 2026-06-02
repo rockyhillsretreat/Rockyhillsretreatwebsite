@@ -2,6 +2,7 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 const OR_BASE = 'https://app.ownerrez.com/api';
 const PROPERTY_ID = 485328;
+const REDIRECT_URL = 'https://rockyhillsretreatwebsite.vercel.app/confirmation';
 
 function getAuthHeader() {
   const username = process.env.OWNERREZ_USERNAME || '';
@@ -54,13 +55,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     const guestId = guestResult.data.Id || guestResult.data.id;
-    console.log('Guest created, ID:', guestId, 'Response:', JSON.stringify(guestResult.data));
+    console.log('Guest created, ID:', guestId);
 
     if (!guestId) {
       return res.status(500).json({ error: 'Guest created but no ID returned', detail: JSON.stringify(guestResult.data) });
     }
 
-    // Step 2: Create quote using PascalCase as per OwnerRez docs
+    // Step 2: Create quote
     const quoteBody: any = {
       GuestId: guestId,
       PropertyId: PROPERTY_ID,
@@ -69,23 +70,33 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       Adults: adults || 2,
       Children: 0,
       Pets: 0,
+      RedirectAfterBookingUrl: REDIRECT_URL,
     };
     if (voucher) quoteBody.DiscountCode = voucher;
     if (notes) quoteBody.Notes = notes;
 
-    console.log('Creating quote with:', JSON.stringify(quoteBody));
     const quoteResult = await orPost('/quotes', quoteBody);
-    console.log('Quote result:', quoteResult.status, quoteResult.raw.substring(0, 500));
+    console.log('Quote result:', quoteResult.status, quoteResult.raw.substring(0, 800));
 
     if (!quoteResult.ok) {
       return res.status(500).json({ error: 'Failed to create quote', detail: quoteResult.raw });
     }
 
     const quote = quoteResult.data;
-    const paymentUrl = quote.PaymentForm || quote.payment_form_url || quote.paymentForm || null;
+    
+    // Build payment URL from Key field
+    const quoteKey = quote.Key || quote.key;
+    const paymentUrl = quote.PaymentForm 
+      || quote.payment_form_url 
+      || (quoteKey ? `https://app.ownerrez.com/reservation/quote/${quoteKey}` : null);
+
+    console.log('Payment URL:', paymentUrl);
+    console.log('Quote Key:', quoteKey);
+    console.log('Quote Charges:', JSON.stringify(quote.Charges || quote.charges || []));
 
     return res.status(200).json({
       quoteId: quote.Id || quote.id,
+      quoteKey,
       paymentUrl,
       total: quote.TotalAmount || quote.total_amount,
       currency: 'AUD',
