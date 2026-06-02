@@ -5,7 +5,7 @@ import { ChevronLeft, ChevronRight, Check, Loader2 } from 'lucide-react';
 
 const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 const DAYS = ['Su','Mo','Tu','We','Th','Fr','Sa'];
-const PROPERTY_ID = 'b607a4fc675641f4a6737795d38edc74';
+const PROPERTY_ID = 485328;
 
 const packages = [
   { id: 'in-the-air-then-at-rest', name: 'In the Air, Then at Rest', price: 'From $5,500', description: 'Scenic helicopter flight, couples massage, Huon pine bath. 3 nights.' },
