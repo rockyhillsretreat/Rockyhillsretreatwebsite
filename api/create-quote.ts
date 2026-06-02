@@ -35,25 +35,35 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   try {
-    const { arrival, departure, adults, firstName, lastName, email, phone, notes, voucher } = req.body;
+    const { arrival, departure, adults, firstName, lastName, email, phone, street, city, state, postcode, country, notes, voucher } = req.body;
 
     if (!arrival || !departure || !firstName || !lastName || !email) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
 
     // Step 1: Create guest
-    const guestResult = await orPost('/guests', {
-      FirstName: firstName,
-      LastName: lastName,
-      Email: email,
-      Phone: phone || '',
-    });
+    const guestBody: any = {
+      first_name: firstName,
+      last_name: lastName,
+      email_addresses: [{ address: email, is_default: true }],
+    };
+    if (phone) guestBody.phones = [{ number: phone, is_default: true }];
+    if (street || city) guestBody.addresses = [{
+      street1: street || '',
+      city: city || '',
+      state: state || '',
+      postal_code: postcode || '',
+      country: country || 'Australia',
+      is_default: true,
+    }];
+
+    const guestResult = await orPost('/v2/guests', guestBody);
 
     if (!guestResult.ok) {
       return res.status(500).json({ error: 'Failed to create guest', detail: guestResult.raw });
     }
 
-    const guestId = guestResult.data.Id || guestResult.data.id;
+    const guestId = guestResult.data.id || guestResult.data.Id;
     if (!guestId) {
       return res.status(500).json({ error: 'Guest created but no ID returned' });
     }

@@ -16,6 +16,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       lastName,
       email,
       phone,
+      street,
+      city,
+      state,
+      postcode,
+      country,
       // Booking details
       arrival,
       departure,
@@ -45,6 +50,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       guest_name: `${firstName} ${lastName}`,
       guest_email: email,
       guest_phone: phone || '',
+      guest_address: [street, city, state, postcode, country].filter(Boolean).join(', '),
       // Booking
       arrival,
       departure,

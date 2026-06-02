@@ -197,7 +197,7 @@ export function BookingPage() {
   const [selectedExperiences, setSelectedExperiences] = useState<string[]>([]);
   const [selectedProvisions, setSelectedProvisions] = useState<string[]>([]);
   const [selectedCelebrations, setSelectedCelebrations] = useState<string[]>([]);
-  const [form, setForm] = useState({ firstName:'', lastName:'', email:'', phone:'', notes:'', voucher:'' });
+  const [form, setForm] = useState({ firstName:'', lastName:'', email:'', phone:'', street:'', city:'', state:'', postcode:'', country:'Australia', notes:'', voucher:'' });
   const [quoteData, setQuoteData] = useState<any>(null);
   const [quoteLoading, setQuoteLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -251,7 +251,9 @@ export function BookingPage() {
         method:'POST', headers:{'Content-Type':'application/json'},
         body: JSON.stringify({ arrival:checkIn, departure:checkOut, adults:guests,
           firstName:form.firstName, lastName:form.lastName, email:form.email,
-          phone:form.phone, notes:form.notes, voucher:form.voucher }),
+          phone:form.phone, street:form.street, city:form.city, state:form.state,
+          postcode:form.postcode, country:form.country,
+          notes:form.notes, voucher:form.voucher }),
       });
       const data = await res.json();
       if (res.ok) setQuoteData(data);
@@ -269,6 +271,7 @@ export function BookingPage() {
           method:'POST', headers:{'Content-Type':'application/json'},
           body: JSON.stringify({
             firstName:form.firstName, lastName:form.lastName, email:form.email, phone:form.phone,
+            street:form.street, city:form.city, state:form.state, postcode:form.postcode, country:form.country,
             arrival:checkIn, departure:checkOut, nights, quoteId:quoteData?.quoteId,
             selectedPackage: selectedPackage?packages.find(p=>p.id===selectedPackage)?.name:null,
             selectedExperiences: selectedExperiences.map(id=>experiences.find(e=>e.id===id)?.name),
@@ -386,6 +389,36 @@ export function BookingPage() {
                     onChange={e=>setForm(p=>({...p,[f.key]:e.target.value}))} style={inputStyle}/>
                 </div>
               ))}
+            </div>
+
+            <div className="mb-4">
+              <label style={labelStyle}>Street Address</label>
+              <input type="text" placeholder="Street address" value={form.street}
+                onChange={e=>setForm(p=>({...p,street:e.target.value}))} style={inputStyle}/>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+              <div>
+                <label style={labelStyle}>City</label>
+                <input type="text" placeholder="City" value={form.city}
+                  onChange={e=>setForm(p=>({...p,city:e.target.value}))} style={inputStyle}/>
+              </div>
+              <div>
+                <label style={labelStyle}>State</label>
+                <input type="text" placeholder="State" value={form.state}
+                  onChange={e=>setForm(p=>({...p,state:e.target.value}))} style={inputStyle}/>
+              </div>
+              <div>
+                <label style={labelStyle}>Postcode</label>
+                <input type="text" placeholder="Postcode" value={form.postcode}
+                  onChange={e=>setForm(p=>({...p,postcode:e.target.value}))} style={inputStyle}/>
+              </div>
+            </div>
+
+            <div className="mb-4">
+              <label style={labelStyle}>Country</label>
+              <input type="text" placeholder="Country" value={form.country}
+                onChange={e=>setForm(p=>({...p,country:e.target.value}))} style={inputStyle}/>
             </div>
 
             <div className="mb-4">
@@ -527,6 +560,7 @@ export function BookingPage() {
               <p style={{fontFamily:S.inter,fontSize:'0.9rem',color:S.bone,marginBottom:'0.25rem'}}>{form.firstName} {form.lastName}</p>
               <p style={{fontFamily:S.inter,fontSize:'0.875rem',color:S.muted}}>{form.email}</p>
               {form.phone&&<p style={{fontFamily:S.inter,fontSize:'0.875rem',color:S.muted}}>{form.phone}</p>}
+              {form.street&&<p style={{fontFamily:S.inter,fontSize:'0.875rem',color:S.muted}}>{form.street}, {form.city} {form.state} {form.postcode}</p>}
               {form.voucher&&<p style={{fontFamily:S.inter,fontSize:'0.875rem',color:S.accent,marginTop:'0.25rem'}}>Voucher: {form.voucher}</p>}
             </div>
 
