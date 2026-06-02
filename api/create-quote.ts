@@ -1,6 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 const OR_BASE = 'https://app.ownerrez.com/api';
+const OR_V2_BASE = 'https://api.ownerrez.com/v2';
 const PROPERTY_ID = 485328;
 const REDIRECT_URL = 'https://rockyhillsretreatwebsite.vercel.app/confirmation';
 
@@ -57,13 +58,27 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       is_default: true,
     }];
 
-    const guestResult = await orPost('/guests', guestBody);
+    const guestFetch = await fetch(`${OR_V2_BASE}/guests`, {
+      method: 'POST',
+      headers: {
+        'Authorization': getAuthHeader(),
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'User-Agent': 'RockyHillsRetreat/1.0',
+      },
+      body: JSON.stringify(guestBody),
+    });
+    const guestText = await guestFetch.text();
+    let guestData: any = {};
+    try { guestData = JSON.parse(guestText); } catch {}
 
-    if (!guestResult.ok) {
-      return res.status(500).json({ error: 'Failed to create guest', detail: guestResult.raw });
+    if (!guestFetch.ok) {
+      console.error('Guest creation failed:', guestFetch.status, guestText.substring(0, 300));
+      return res.status(500).json({ error: 'Failed to create guest', detail: guestText });
     }
 
-    const guestId = guestResult.data.id || guestResult.data.Id;
+    const guestId = guestData.id || guestData.Id;
+    console.log('Guest created, ID:', guestId, 'data:', JSON.stringify(guestData).substring(0, 200));
     if (!guestId) {
       return res.status(500).json({ error: 'Guest created but no ID returned' });
     }
