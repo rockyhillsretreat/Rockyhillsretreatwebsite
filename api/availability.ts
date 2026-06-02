@@ -1,6 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 const OR_BASE = 'https://app.ownerrez.com/api';
+const OR_V2_BASE = 'https://api.ownerrez.com/v2';
 const PROPERTY_ID = 485328;
 
 function getAuthHeader() {
@@ -20,7 +21,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     // Try the propertycalendar endpoint
     const response = await fetch(
-      `${OR_BASE}/v2/propertycalendars?ids=${PROPERTY_ID}&startdate=${from}&enddate=${to}`,
+      `${OR_V2_BASE}/propertycalendars?ids=${PROPERTY_ID}&startdate=${from}&enddate=${to}`,
       {
         headers: {
           'Authorization': getAuthHeader(),

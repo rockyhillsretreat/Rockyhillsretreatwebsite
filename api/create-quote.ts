@@ -57,7 +57,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       is_default: true,
     }];
 
-    const guestResult = await orPost('/v2/guests', guestBody);
+    const guestResult = await orPost('/guests', guestBody);
 
     if (!guestResult.ok) {
       return res.status(500).json({ error: 'Failed to create guest', detail: guestResult.raw });
