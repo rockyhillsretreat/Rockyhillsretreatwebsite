@@ -2,7 +2,6 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 const OR_BASE = 'https://app.ownerrez.com/api';
 const PROPERTY_ID = 485328;
-const CONFIRMATION_URL = 'https://rockyhillsretreatwebsite.vercel.app/confirmation';
 
 function getAuthHeader() {
   const username = process.env.OWNERREZ_USERNAME || '';
@@ -43,10 +42,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     // Step 1: Create guest
     const guestResult = await orPost('/guests', {
-      first_name: firstName,
-      last_name: lastName,
-      email,
-      phone: phone || '',
+      FirstName: firstName,
+      LastName: lastName,
+      Email: email,
+      Phone: phone || '',
     });
 
     if (!guestResult.ok) {
@@ -54,42 +53,44 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(500).json({ error: 'Failed to create guest', detail: guestResult.raw });
     }
 
-    const guestId = guestResult.data.id;
-    console.log('Guest created:', guestId);
+    const guestId = guestResult.data.Id || guestResult.data.id;
+    console.log('Guest created, ID:', guestId, 'Response:', JSON.stringify(guestResult.data));
 
-    // Step 2: Create quote
+    if (!guestId) {
+      return res.status(500).json({ error: 'Guest created but no ID returned', detail: JSON.stringify(guestResult.data) });
+    }
+
+    // Step 2: Create quote using PascalCase as per OwnerRez docs
     const quoteBody: any = {
-      property_id: PROPERTY_ID,
-      guest_id: guestId,
-      arrival,
-      departure,
-      adults: adults || 2,
-      children: 0,
-      pets: 0,
+      GuestId: guestId,
+      PropertyId: PROPERTY_ID,
+      Arrival: arrival,
+      Departure: departure,
+      Adults: adults || 2,
+      Children: 0,
+      Pets: 0,
     };
-    if (voucher) quoteBody.discount_code = voucher;
-    if (notes) quoteBody.notes = notes;
+    if (voucher) quoteBody.DiscountCode = voucher;
+    if (notes) quoteBody.Notes = notes;
 
+    console.log('Creating quote with:', JSON.stringify(quoteBody));
     const quoteResult = await orPost('/quotes', quoteBody);
+    console.log('Quote result:', quoteResult.status, quoteResult.raw.substring(0, 500));
 
     if (!quoteResult.ok) {
-      console.error('Quote creation failed:', quoteResult.status, quoteResult.raw);
       return res.status(500).json({ error: 'Failed to create quote', detail: quoteResult.raw });
     }
 
     const quote = quoteResult.data;
-    console.log('Quote created:', quote.id, 'PaymentForm:', quote.payment_form_url || quote.PaymentForm);
-
-    // payment_form_url or PaymentForm depending on API version
-    const paymentUrl = quote.payment_form_url || quote.PaymentForm || null;
+    const paymentUrl = quote.PaymentForm || quote.payment_form_url || quote.paymentForm || null;
 
     return res.status(200).json({
-      quoteId: quote.id,
+      quoteId: quote.Id || quote.id,
       paymentUrl,
-      total: quote.total_amount || quote.TotalAmount,
+      total: quote.TotalAmount || quote.total_amount,
       currency: 'AUD',
-      nights: quote.nights || quote.Nights,
-      charges: quote.charges || quote.Charges || [],
+      nights: quote.Nights || quote.nights,
+      charges: quote.Charges || quote.charges || [],
     });
 
   } catch (err: any) {
