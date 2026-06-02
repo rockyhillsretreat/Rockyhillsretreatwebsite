@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
-const OR_BASE = 'https://app.ownerrez.com/api/v2';
+const OR_BASE = 'https://app.ownerrez.com/api';
 const PROPERTY_ID = 485328;
 const CONFIRMATION_URL = 'https://rockyhillsretreatwebsite.vercel.app/confirmation';
 
