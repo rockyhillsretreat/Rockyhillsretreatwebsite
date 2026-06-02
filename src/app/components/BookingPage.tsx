@@ -147,7 +147,7 @@ function CheckboxItem({ id, name, description, price, note, checked, onChange }:
 
 // ── Step Indicator ─────────────────────────────────────────────────────────────
 
-function StepIndicator({ step }: { step: number }) {
+function StepIndicator({ step, onStepClick }: { step: number; onStepClick: (s: number) => void }) {
   const steps = ['Dates', 'Your Details', 'Add-ons', 'Review'];
   return (
     <div className="flex items-center justify-center mb-12">
@@ -155,9 +155,10 @@ function StepIndicator({ step }: { step: number }) {
         const num = i + 1;
         const active = step === num;
         const done = step > num;
+        const clickable = done && num < step;
         return (
           <div key={num} className="flex items-center">
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center" onClick={()=>done&&onStepClick(num)} style={{cursor:done?'pointer':'default'}}>
               <div style={{
                 width: 32, height: 32, borderRadius: '50%',
                 backgroundColor: done ? S.accent : active ? S.accent : 'transparent',
@@ -301,7 +302,7 @@ export function BookingPage() {
           <p style={{fontFamily:S.inter,fontSize:'1.05rem',color:S.muted}}>From $800 per night. Two-night minimum. Book direct for the best rate.</p>
         </div>
 
-        <StepIndicator step={step} />
+        <StepIndicator step={step} onStepClick={(s)=>{setError(null);setStep(s);}} />
 
         {/* ── STEP 1: DATES ── */}
         {step === 1 && (
