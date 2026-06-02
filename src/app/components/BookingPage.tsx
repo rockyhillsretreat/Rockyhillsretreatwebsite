@@ -265,7 +265,7 @@ export function BookingPage() {
   const handleSubmit = async () => {
     setSubmitting(true); setError(null);
     try {
-      const hasAddOns = selectedPackage||selectedExperiences.length||selectedProvisions.length||selectedCelebrations.length;
+      const hasAddOns = !!(selectedPackage||selectedExperiences.length||selectedProvisions.length||selectedCelebrations.length);
       if (hasAddOns) {
         fetch('/api/log-addons', {
           method:'POST', headers:{'Content-Type':'application/json'},
@@ -565,7 +565,7 @@ export function BookingPage() {
             </div>
 
             {/* Add-ons summary */}
-            {(selectedPackage||selectedExperiences.length||selectedProvisions.length||selectedCelebrations.length) && (
+            {!!(selectedPackage||selectedExperiences.length||selectedProvisions.length||selectedCelebrations.length) && (
               <div style={{padding:'1.25rem',borderRadius:'0.375rem',backgroundColor:'rgba(0,0,0,0.2)',border:`1px solid ${S.border}`,marginBottom:'1rem'}}>
                 <p style={{fontFamily:S.inter,fontSize:'0.7rem',color:S.accent,fontWeight:600,letterSpacing:'0.05em',textTransform:'uppercase',marginBottom:'0.75rem'}}>Add-ons Requested</p>
                 <p style={{fontFamily:S.inter,fontSize:'0.8rem',color:S.muted,fontStyle:'italic',marginBottom:'0.75rem'}}>We will confirm and invoice these separately before your arrival.</p>

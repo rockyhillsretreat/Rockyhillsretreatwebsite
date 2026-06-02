@@ -20,7 +20,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const maxDate = new Date(Date.now() + 18 * 30 * 24 * 60 * 60 * 1000);
 
     const response = await fetch(
-      `${OR_V2_BASE}/bookings?property_id=${PROPERTY_ID}&page_size=200`,
+      `${OR_V2_BASE}/bookings?property_id=${PROPERTY_ID}&since_utc=2020-01-01T00:00:00Z&page_size=200`,
       {
         headers: {
           'Authorization': getAuthHeader(),
