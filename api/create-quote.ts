@@ -48,7 +48,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       last_name: lastName,
       email_addresses: [{ address: email, is_default: true }],
     };
-    if (phone) guestBody.phones = [{ number: phone, is_default: true }];
+    if (phone && phone.replace(/[^0-9]/g, '').length >= 6) guestBody.phones = [{ number: phone, is_default: true }];
     if (street || city) guestBody.addresses = [{
       street1: street || '',
       city: city || '',

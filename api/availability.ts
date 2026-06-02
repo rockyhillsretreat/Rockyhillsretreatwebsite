@@ -1,6 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 const OR_BASE = 'https://app.ownerrez.com/api';
+const OR_V2_BASE = 'https://api.ownerrez.com/v2';
 const PROPERTY_ID = 485328;
 
 function getAuthHeader() {
@@ -16,11 +17,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   try {
     const from = new Date().toISOString().split('T')[0];
-    const to = new Date(Date.now() + 18 * 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+    const to = new Date(Date.now() + 12 * 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
 
-    // Use the bookings endpoint to get blocked dates
+    // Try v2 bookings endpoint
     const response = await fetch(
-      `${OR_BASE}/bookings?property_id=${PROPERTY_ID}&arrival=${from}&departure=${to}&include_blocks=true`,
+      `${OR_V2_BASE}/bookings?property_id=${PROPERTY_ID}&since_utc=2020-01-01T00:00:00Z&page_size=200`,
       {
         headers: {
           'Authorization': getAuthHeader(),
@@ -33,36 +34,34 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     if (!response.ok) {
       const text = await response.text();
-      console.error('OwnerRez bookings error:', response.status, text.substring(0, 200));
+      console.error('OwnerRez v2 bookings error:', response.status, text.substring(0, 300));
       return res.status(200).json({ days: [] });
     }
 
     const data = await response.json();
-    console.log('Bookings response sample:', JSON.stringify(data).substring(0, 500));
+    console.log('v2 bookings response:', JSON.stringify(data).substring(0, 400));
 
-    // Build set of blocked dates from bookings and blocks
     const days: { date: string; available: boolean }[] = [];
     const items = data.items || data.Items || (Array.isArray(data) ? data : []);
+    const today = new Date(); today.setHours(0,0,0,0);
 
     items.forEach((booking: any) => {
       const arrival = (booking.arrival || booking.Arrival || '').split('T')[0];
       const departure = (booking.departure || booking.Departure || '').split('T')[0];
       if (!arrival || !departure) return;
 
-      // Block all dates from arrival up to (not including) departure
       const start = new Date(arrival);
       const end = new Date(departure);
+      if (end < today) return; // skip past bookings
+
       const current = new Date(start);
       while (current < end) {
-        days.push({
-          date: current.toISOString().split('T')[0],
-          available: false,
-        });
+        days.push({ date: current.toISOString().split('T')[0], available: false });
         current.setDate(current.getDate() + 1);
       }
     });
 
-    console.log(`Blocked ${days.length} dates from ${items.length} bookings/blocks`);
+    console.log(`Blocked ${days.length} dates from ${items.length} bookings`);
     return res.status(200).json({ days });
 
   } catch (err: any) {
