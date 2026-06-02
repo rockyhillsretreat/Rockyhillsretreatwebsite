@@ -53,6 +53,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       street1: street || '',
       city: city || '',
       state: state || '',
+      province: state || '',
       postal_code: postcode || '',
       country: country || 'Australia',
       is_default: true,
