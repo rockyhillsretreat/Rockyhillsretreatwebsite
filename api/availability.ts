@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 const OR_BASE = 'https://app.ownerrez.com/api/v2';
-const PROPERTY_ID = 'b607a4fc675641f4a6737795d38edc74';
+const PROPERTY_ID = 485328;
 
 function getAuthHeader() {
   const username = process.env.OWNERREZ_USERNAME || '';
@@ -15,12 +15,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method === 'OPTIONS') return res.status(200).end();
 
   try {
-    // Fetch availability for next 18 months
     const from = new Date().toISOString().split('T')[0];
     const to = new Date(Date.now() + 18 * 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
 
     const response = await fetch(
-      `${OR_BASE}/properties/${PROPERTY_ID}/availability?from=${from}&to=${to}`,
+      `${OR_BASE}/availability?property_id=${PROPERTY_ID}&start_date=${from}&end_date=${to}`,
       {
         headers: {
           'Authorization': getAuthHeader(),
@@ -34,13 +33,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (!response.ok) {
       const text = await response.text();
       console.error('OwnerRez availability error:', response.status, text);
-      return res.status(response.status).json({ error: 'Failed to fetch availability', detail: text });
+      // Return empty availability so the calendar still renders
+      return res.status(200).json({ days: [] });
     }
 
     const data = await response.json();
     return res.status(200).json(data);
   } catch (err: any) {
     console.error('Availability handler error:', err);
-    return res.status(500).json({ error: err.message });
+    return res.status(200).json({ days: [] });
   }
 }
