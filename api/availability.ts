@@ -18,8 +18,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const from = new Date().toISOString().split('T')[0];
     const to = new Date(Date.now() + 18 * 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
 
+    // Try the propertycalendar endpoint
     const response = await fetch(
-      `${OR_BASE}/availability?property_id=${PROPERTY_ID}&start_date=${from}&end_date=${to}`,
+      `${OR_BASE}/v2/propertycalendars?ids=${PROPERTY_ID}&startdate=${from}&enddate=${to}`,
       {
         headers: {
           'Authorization': getAuthHeader(),
@@ -33,12 +34,31 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (!response.ok) {
       const text = await response.text();
       console.error('OwnerRez availability error:', response.status, text);
-      // Return empty availability so the calendar still renders
       return res.status(200).json({ days: [] });
     }
 
     const data = await response.json();
-    return res.status(200).json(data);
+    console.log('Availability raw:', JSON.stringify(data).substring(0, 500));
+
+    // Normalize to array of { date, available } objects
+    const days: { date: string; available: boolean }[] = [];
+    const items = data.items || data.Items || data || [];
+
+    if (Array.isArray(items)) {
+      items.forEach((property: any) => {
+        const slots = property.available_slots || property.AvailableSlots || property.days || property.Days || [];
+        if (Array.isArray(slots)) {
+          slots.forEach((slot: any) => {
+            days.push({
+              date: slot.date || slot.Date,
+              available: slot.available !== false && slot.Available !== false && slot.status !== 'booked',
+            });
+          });
+        }
+      });
+    }
+
+    return res.status(200).json({ days });
   } catch (err: any) {
     console.error('Availability handler error:', err);
     return res.status(200).json({ days: [] });

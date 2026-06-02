@@ -504,13 +504,13 @@ export function BookingPage() {
                 <>
                   {(quoteData.charges||[]).map((c:any,i:number)=>(
                     <div key={i} className="flex justify-between mb-2">
-                      <span style={{fontFamily:S.inter,fontSize:'0.9rem',color:S.muted}}>{c.name||c.type}</span>
-                      <span style={{fontFamily:S.inter,fontSize:'0.9rem',color:S.bone}}>${c.amount?.toFixed(2)}</span>
+                      <span style={{fontFamily:S.inter,fontSize:'0.9rem',color:c.isTax?S.muted:S.bone}}>{c.description}</span>
+                      <span style={{fontFamily:S.inter,fontSize:'0.9rem',color:c.isTax?S.muted:S.bone}}>${Number(c.amount).toFixed(2)}</span>
                     </div>
                   ))}
                   <div className="flex justify-between mt-3 pt-3" style={{borderTop:`1px solid ${S.border}`}}>
                     <span style={{fontFamily:S.inter,fontSize:'1rem',color:S.bone,fontWeight:600}}>Total</span>
-                    <span style={{fontFamily:S.playfair,fontSize:'1.25rem',color:S.accent}}>${quoteData.total?.toFixed(2)} AUD</span>
+                    <span style={{fontFamily:S.playfair,fontSize:'1.25rem',color:S.accent}}>${Number(quoteData.total).toFixed(2)} AUD</span>
                   </div>
                 </>
               ) : (

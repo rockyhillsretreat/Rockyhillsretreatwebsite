@@ -50,15 +50,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     });
 
     if (!guestResult.ok) {
-      console.error('Guest creation failed:', guestResult.status, guestResult.raw);
       return res.status(500).json({ error: 'Failed to create guest', detail: guestResult.raw });
     }
 
     const guestId = guestResult.data.Id || guestResult.data.id;
-    console.log('Guest created, ID:', guestId);
-
     if (!guestId) {
-      return res.status(500).json({ error: 'Guest created but no ID returned', detail: JSON.stringify(guestResult.data) });
+      return res.status(500).json({ error: 'Guest created but no ID returned' });
     }
 
     // Step 2: Create quote
@@ -76,32 +73,48 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (notes) quoteBody.Notes = notes;
 
     const quoteResult = await orPost('/quotes', quoteBody);
-    console.log('Quote result:', quoteResult.status, quoteResult.raw.substring(0, 800));
 
     if (!quoteResult.ok) {
       return res.status(500).json({ error: 'Failed to create quote', detail: quoteResult.raw });
     }
 
     const quote = quoteResult.data;
-    
-    // Build payment URL from Key field
     const quoteKey = quote.Key || quote.key;
-    const paymentUrl = quote.PaymentForm 
-      || quote.payment_form_url 
-      || (quoteKey ? `https://app.ownerrez.com/reservation/quote/${quoteKey}` : null);
 
-    console.log('Payment URL:', paymentUrl);
-    console.log('Quote Key:', quoteKey);
-    console.log('Quote Charges:', JSON.stringify(quote.Charges || quote.charges || []));
+    // Build payment URL -- append guest details as URL params for pre-population
+    let paymentUrl = quote.PaymentForm
+      || quote.payment_form_url
+      || (quoteKey ? `https://orez.io/v1/q/${quoteKey.replace(/-/g, '')}` : null);
+
+    // Append guest details to pre-populate the OwnerRez form
+    if (paymentUrl) {
+      const params = new URLSearchParams({
+        firstname: firstName,
+        lastname: lastName,
+        email: email,
+        ...(phone ? { phone } : {}),
+      });
+      paymentUrl = `${paymentUrl}?${params.toString()}`;
+    }
+
+    // Normalize charges -- filter out tax lines for display, keep rent lines
+    const rawCharges = quote.Charges || quote.charges || [];
+    const charges = rawCharges.map((c: any) => ({
+      description: c.Description || c.description,
+      amount: c.Amount || c.amount,
+      isTax: (c.Type || c.type) === 3,
+    }));
+
+    const total = rawCharges.reduce((sum: number, c: any) => sum + (c.Amount || c.amount || 0), 0);
 
     return res.status(200).json({
       quoteId: quote.Id || quote.id,
       quoteKey,
       paymentUrl,
-      total: quote.TotalAmount || quote.total_amount,
+      total,
       currency: 'AUD',
       nights: quote.Nights || quote.nights,
-      charges: quote.Charges || quote.charges || [],
+      charges,
     });
 
   } catch (err: any) {
