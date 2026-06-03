@@ -75,11 +75,9 @@ export function ConfirmationPage() {
             Before you arrive
           </h3>
           {[
-            'Check-in is from 3pm. Check-out by 10am.',
+            'Check-in is from 2pm. Check-out by 10am.',
             'The property is self-contained. Full arrival instructions will be in your confirmation email.',
-            'Phone reception is patchy. Telstra performs best in the area.',
-            'The kitchen is stocked before you arrive.',
-            'Bring firewood if you plan to use the fire. There is a supply on site.',
+            'Your first morning is taken care of. Contact us before arrival if you would like additional provisions stocked.',
           ].map((item, i) => (
             <div key={i} className="flex items-start gap-3" style={{ marginBottom: '0.75rem' }}>
               <div style={{ width: 6, height: 6, borderRadius: '50%', backgroundColor: '#8FA9B3', marginTop: '0.55rem', flexShrink: 0 }} />
