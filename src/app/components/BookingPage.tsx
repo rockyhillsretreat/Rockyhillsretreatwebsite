@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Check, Loader2 } from 'lucide-react';
-
-// ── Types ──────────────────────────────────────────────────────────────────────
+import { ChevronLeft, ChevronRight, Check, Loader2, ChevronDown } from 'lucide-react';
 
 const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 const DAYS = ['Su','Mo','Tu','We','Th','Fr','Sa'];
@@ -20,7 +18,7 @@ const experiences = [
   { id: 'helicopter-flight', name: 'Scenic Helicopter Flight', description: 'The East Coast from above. Great Oyster Bay, the Hazards, Wineglass Bay.' },
   { id: 'helicopter-transfer', name: 'Helicopter Transfer from Hobart', description: 'Arrive by air. A helicopter transfer from Hobart lands you at the property direct.' },
   { id: 'hire-car', name: 'Hire Car Delivery', description: 'A hire car arranged and delivered to the property for your stay.' },
-  { id: 'wine-trail', name: 'The Wine Trail, Guided', description: 'Four East Coast cellar doors, lunch included, pickup and return from the property.', note: 'Off-property experience. RHR does not serve alcohol on site.' },
+  { id: 'wine-trail', name: 'The Wine Trail, Guided', description: 'Four East Coast cellar doors, lunch included, pickup and return from the property.', note: 'Off-property. RHR does not serve alcohol on site.' },
   { id: 'couples-massage', name: 'Couples Massage', description: 'A therapist comes to you. Native Kunzea aromatherapy, face ritual, and foot treatment available as add-ons.' },
   { id: 'foraging', name: 'Guided Foraging Session', description: 'The property and surrounding headland, read with a local guide.' },
 ];
@@ -60,7 +58,7 @@ function Calendar({ unavailableDates, checkIn, checkOut, onSelectDate, loading }
   const daysInMonth = new Date(viewYear, viewMonth+1, 0).getDate();
   const fmt = (y:number,m:number,d:number) => `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
   const isPast = (y:number,m:number,d:number) => new Date(y,m,d) < today;
-  const isInRange = (ds:string) => checkIn && checkOut && ds > checkIn && ds < checkOut;
+  const isInRange = (ds:string) => !!(checkIn && checkOut && ds > checkIn && ds < checkOut);
 
   const cells: (number|null)[] = [];
   for (let i=0;i<firstDay;i++) cells.push(null);
@@ -123,59 +121,79 @@ function CheckboxItem({ id, name, description, price, note, checked, onChange }:
   return (
     <div onClick={()=>onChange(id)} style={{
       display:'flex',justifyContent:'space-between',alignItems:'flex-start',
-      padding:'1rem',borderRadius:'0.375rem',cursor:'pointer',
+      padding:'0.875rem',borderRadius:'0.375rem',cursor:'pointer',
       backgroundColor:checked?'rgba(143,169,179,0.08)':'transparent',
       border:checked?`1px solid rgba(143,169,179,0.4)`:`1px solid rgba(143,169,179,0.1)`,
       transition:'all 0.2s ease',marginBottom:'0.5rem',
     }}>
       <div style={{flex:1,paddingRight:'1rem'}}>
-        <p style={{fontFamily:S.inter,fontSize:'0.95rem',color:S.bone,marginBottom:'0.25rem',fontWeight:500}}>{name}</p>
-        <p style={{fontFamily:S.inter,fontSize:'0.85rem',color:S.muted,lineHeight:'1.6'}}>{description}</p>
-        {note&&<p style={{fontFamily:S.inter,fontSize:'0.8rem',color:S.accent,fontStyle:'italic',marginTop:'0.25rem'}}>{note}</p>}
+        <p style={{fontFamily:S.inter,fontSize:'0.9rem',color:S.bone,marginBottom:'0.2rem',fontWeight:500}}>{name}</p>
+        <p style={{fontFamily:S.inter,fontSize:'0.8rem',color:S.muted,lineHeight:'1.5'}}>{description}</p>
+        {note&&<p style={{fontFamily:S.inter,fontSize:'0.75rem',color:S.accent,fontStyle:'italic',marginTop:'0.2rem'}}>{note}</p>}
       </div>
       <div style={{display:'flex',alignItems:'center',gap:'0.75rem',flexShrink:0}}>
-        {price&&<span style={{fontFamily:S.playfair,fontSize:'1rem',color:S.accent}}>{price}</span>}
-        <div style={{width:20,height:20,borderRadius:4,border:`2px solid ${checked?S.accent:'rgba(143,169,179,0.4)'}`,
+        {price&&<span style={{fontFamily:S.playfair,fontSize:'0.95rem',color:S.accent}}>{price}</span>}
+        <div style={{width:18,height:18,borderRadius:3,border:`2px solid ${checked?S.accent:'rgba(143,169,179,0.4)'}`,
           background:checked?S.accent:'transparent',display:'flex',alignItems:'center',justifyContent:'center',
           transition:'all 0.2s ease',flexShrink:0}}>
-          {checked&&<Check size={12} style={{color:S.bgDark}}/>}
+          {checked&&<Check size={11} style={{color:S.bgDark}}/>}
         </div>
       </div>
     </div>
   );
 }
 
+// ── Concertina ─────────────────────────────────────────────────────────────────
+
+function Concertina({ title, subtitle, selectedCount, children }: {
+  title: string; subtitle: string; selectedCount: number; children: React.ReactNode;
+}) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div style={{borderRadius:'0.375rem',border:`1px solid ${S.border}`,overflow:'hidden',marginBottom:'0.75rem'}}>
+      <button onClick={()=>setOpen(o=>!o)} style={{
+        width:'100%',padding:'1rem',backgroundColor:'rgba(0,0,0,0.2)',border:'none',
+        display:'flex',justifyContent:'space-between',alignItems:'center',cursor:'pointer',
+      }}>
+        <div style={{textAlign:'left'}}>
+          <p style={{fontFamily:S.inter,fontSize:'0.9rem',color:S.bone,fontWeight:500,margin:0}}>
+            {title}
+            {selectedCount>0&&<span style={{color:S.accent,marginLeft:'0.5rem',fontSize:'0.8rem'}}>({selectedCount} selected)</span>}
+          </p>
+          <p style={{fontFamily:S.inter,fontSize:'0.75rem',color:S.muted,margin:'0.2rem 0 0',fontStyle:'italic'}}>{subtitle}</p>
+        </div>
+        <ChevronDown size={18} style={{color:S.accent,transform:open?'rotate(180deg)':'rotate(0)',transition:'transform 0.2s'}}/>
+      </button>
+      {open&&<div style={{padding:'1rem',backgroundColor:'rgba(0,0,0,0.1)'}}>{children}</div>}
+    </div>
+  );
+}
+
 // ── Step Indicator ─────────────────────────────────────────────────────────────
 
-function StepIndicator({ step, onStepClick }: { step: number; onStepClick: (s: number) => void }) {
-  const steps = ['Dates', 'Your Details', 'Add-ons', 'Review'];
+function StepIndicator({ step }: { step: number }) {
+  const steps = ['Your Booking', 'Review'];
   return (
-    <div className="flex items-center justify-center mb-12">
+    <div className="flex items-center justify-center mb-10">
       {steps.map((label, i) => {
         const num = i + 1;
         const active = step === num;
         const done = step > num;
-        const clickable = done && num < step;
         return (
           <div key={num} className="flex items-center">
-            <div className="flex flex-col items-center" onClick={()=>done&&onStepClick(num)} style={{cursor:done?'pointer':'default'}}>
+            <div className="flex flex-col items-center">
               <div style={{
-                width: 32, height: 32, borderRadius: '50%',
-                backgroundColor: done ? S.accent : active ? S.accent : 'transparent',
-                border: `2px solid ${done || active ? S.accent : 'rgba(143,169,179,0.3)'}`,
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                transition: 'all 0.3s ease',
+                width:32,height:32,borderRadius:'50%',
+                backgroundColor:done?S.accent:active?S.accent:'transparent',
+                border:`2px solid ${done||active?S.accent:'rgba(143,169,179,0.3)'}`,
+                display:'flex',alignItems:'center',justifyContent:'center',
               }}>
-                {done
-                  ? <Check size={14} style={{ color: S.bgDark }} />
-                  : <span style={{ fontFamily: S.inter, fontSize: '0.8rem', color: active ? S.bgDark : S.muted, fontWeight: 600 }}>{num}</span>
-                }
+                {done?<Check size={14} style={{color:S.bgDark}}/>
+                  :<span style={{fontFamily:S.inter,fontSize:'0.8rem',color:active?S.bgDark:S.muted,fontWeight:600}}>{num}</span>}
               </div>
-              <span style={{ fontFamily: S.inter, fontSize: '0.7rem', color: active ? S.accent : S.muted, marginTop: '0.375rem', whiteSpace: 'nowrap' }}>{label}</span>
+              <span style={{fontFamily:S.inter,fontSize:'0.7rem',color:active?S.accent:S.muted,marginTop:'0.375rem'}}>{label}</span>
             </div>
-            {i < steps.length - 1 && (
-              <div style={{ width: 40, height: 1, backgroundColor: step > num ? S.accent : 'rgba(143,169,179,0.2)', margin: '0 0.5rem', marginBottom: '1.25rem', transition: 'all 0.3s ease' }} />
-            )}
+            {i<steps.length-1&&<div style={{width:60,height:1,backgroundColor:step>num?S.accent:'rgba(143,169,179,0.2)',margin:'0 0.5rem',marginBottom:'1.25rem'}}/>}
           </div>
         );
       })}
@@ -183,7 +201,7 @@ function StepIndicator({ step, onStepClick }: { step: number; onStepClick: (s: n
   );
 }
 
-// ── Main Component ─────────────────────────────────────────────────────────────
+// ── Main ───────────────────────────────────────────────────────────────────────
 
 export function BookingPage() {
   const [step, setStep] = useState(1);
@@ -197,7 +215,11 @@ export function BookingPage() {
   const [selectedExperiences, setSelectedExperiences] = useState<string[]>([]);
   const [selectedProvisions, setSelectedProvisions] = useState<string[]>([]);
   const [selectedCelebrations, setSelectedCelebrations] = useState<string[]>([]);
-  const [form, setForm] = useState({ firstName:'', lastName:'', email:'', phone:'', street:'', city:'', state:'', postcode:'', country:'Australia', notes:'', voucher:'' });
+  const [form, setForm] = useState({
+    firstName:'', lastName:'', email:'', phone:'',
+    street:'', city:'', state:'', postcode:'', country:'Australia',
+    notes:'', voucher:''
+  });
   const [quoteData, setQuoteData] = useState<any>(null);
   const [quoteLoading, setQuoteLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -208,17 +230,15 @@ export function BookingPage() {
       .then(r=>r.json())
       .then(data=>{
         const blocked = new Set<string>();
-        const days: any[] = data.days||data.availability||data||[];
-        if (Array.isArray(days)) days.forEach((d:any)=>{
-          if (d.available===false||d.status==='unavailable'||d.status==='booked') blocked.add(d.date||d.day);
-        });
+        const days: any[] = data.days||[];
+        days.forEach((d:any)=>{ if(d.available===false) blocked.add(d.date); });
         setUnavailableDates(blocked);
       })
       .catch(err=>console.error('Availability fetch failed:',err))
       .finally(()=>setAvailabilityLoading(false));
   }, []);
 
-  const nights = checkIn && checkOut
+  const nights = checkIn&&checkOut
     ? Math.round((new Date(checkOut).getTime()-new Date(checkIn).getTime())/(1000*60*60*24))
     : 0;
 
@@ -235,25 +255,26 @@ export function BookingPage() {
     }
   };
 
-  const fmt = (d:string) => { const [y,m,day]=d.split('-'); return `${parseInt(day)} ${MONTHS[parseInt(m)-1]} ${y}`; };
+  const fmtDate = (d:string) => { const [y,m,day]=d.split('-'); return `${parseInt(day)} ${MONTHS[parseInt(m)-1]} ${y}`; };
   const toggle = (id:string,setFn:React.Dispatch<React.SetStateAction<string[]>>) =>
     setFn(prev=>prev.includes(id)?prev.filter(x=>x!==id):[...prev,id]);
 
-  // Fetch quote when reaching review step
   const goToReview = async () => {
+    if (!checkIn||!checkOut){ setError('Please select your check-in and check-out dates.'); return; }
+    if (nights<2){ setError('Minimum stay is 2 nights.'); return; }
     if (!form.firstName||!form.lastName||!form.email){ setError('Please fill in your first name, last name, and email.'); return; }
     if (!/\S+@\S+\.\S+/.test(form.email)){ setError('Please enter a valid email address.'); return; }
-    setError(null);
-    setQuoteLoading(true);
-    setStep(4);
+    setError(null); setQuoteLoading(true); setStep(2);
     try {
       const res = await fetch('/api/create-quote', {
         method:'POST', headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({ arrival:checkIn, departure:checkOut, adults:guests,
+        body: JSON.stringify({
+          arrival:checkIn, departure:checkOut, adults:guests,
           firstName:form.firstName, lastName:form.lastName, email:form.email,
           phone:form.phone, street:form.street, city:form.city, state:form.state,
           postcode:form.postcode, country:form.country,
-          notes:form.notes, voucher:form.voucher }),
+          notes:form.notes, voucher:form.voucher,
+        }),
       });
       const data = await res.json();
       if (res.ok) setQuoteData(data);
@@ -295,48 +316,45 @@ export function BookingPage() {
   const cardStyle = { backgroundColor:S.bgCard, borderRadius:'0.5rem', border:`1px solid ${S.border}`, padding:'2rem', marginBottom:'1.5rem' };
   const inputStyle = { width:'100%', padding:'0.625rem 0.875rem', backgroundColor:'rgba(0,0,0,0.3)', border:`1px solid ${S.border}`, borderRadius:'0.375rem', color:S.bone, fontFamily:S.inter, fontSize:'0.95rem', outline:'none' };
   const labelStyle = { fontFamily:S.inter, fontSize:'0.8rem', color:S.muted, display:'block', marginBottom:'0.375rem' };
+  const sectionHead = { fontFamily:S.playfair, fontSize:'1.25rem', color:S.bone, marginBottom:'1rem', marginTop:'1.5rem' };
 
   return (
     <div className="min-h-screen" style={{backgroundColor:S.bg}}>
       <div className="max-w-[900px] mx-auto px-6 pt-32 pb-24">
 
-        <div className="text-center mb-12">
+        <div className="text-center mb-10">
           <h1 style={{fontFamily:S.playfair,fontSize:'clamp(2.5rem,5vw,3.5rem)',color:S.bone,letterSpacing:'-0.01em',marginBottom:'1rem'}}>Book Your Stay</h1>
           <p style={{fontFamily:S.inter,fontSize:'1.05rem',color:S.muted}}>From $800 per night. Two-night minimum. Book direct for the best rate.</p>
         </div>
 
-        <StepIndicator step={step} onStepClick={(s)=>{setError(null);setStep(s);}} />
+        <StepIndicator step={step} />
 
-        {/* ── STEP 1: DATES ── */}
+        {/* ── STEP 1: EVERYTHING ── */}
         {step === 1 && (
           <div style={cardStyle}>
-            <h2 style={{fontFamily:S.playfair,fontSize:'1.75rem',color:S.bone,marginBottom:'0.5rem'}}>Choose Your Dates</h2>
+
+            {/* DATES */}
+            <h2 style={{fontFamily:S.playfair,fontSize:'1.5rem',color:S.bone,marginBottom:'0.5rem'}}>Choose Your Dates</h2>
             <p style={{fontFamily:S.inter,fontSize:'0.875rem',color:S.muted,fontStyle:'italic',marginBottom:'1.5rem'}}>
-              {selectingCheckout ? 'Now select your check-out date.' : checkIn ? 'Dates selected.' : 'Select your check-in date.'}
+              {selectingCheckout?'Now select your check-out date.':checkIn?'Dates selected.':'Select your check-in date.'}
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
               {[{label:'Check-in',val:checkIn},{label:'Check-out',val:checkOut}].map(({label,val})=>(
                 <div key={label} style={{padding:'1rem',borderRadius:'0.375rem',border:`1px solid ${val?S.accent:S.border}`,backgroundColor:'rgba(0,0,0,0.2)'}}>
                   <p style={{fontFamily:S.inter,fontSize:'0.7rem',color:S.accent,fontWeight:600,letterSpacing:'0.05em',textTransform:'uppercase',marginBottom:'0.25rem'}}>{label}</p>
-                  <p style={{fontFamily:S.playfair,fontSize:'1.125rem',color:val?S.bone:S.muted}}>{val?fmt(val):'Select date'}</p>
+                  <p style={{fontFamily:S.playfair,fontSize:'1.125rem',color:val?S.bone:S.muted}}>{val?fmtDate(val):'Select date'}</p>
                 </div>
               ))}
             </div>
 
-            {/* Guest count */}
-            <div className="mb-6">
+            {/* Guests */}
+            <div className="mb-5">
               <p style={{fontFamily:S.inter,fontSize:'0.8rem',color:S.muted,marginBottom:'0.75rem'}}>Number of Guests</p>
               <div className="flex items-center gap-4">
-                <button onClick={()=>setGuests(g=>Math.max(1,g-1))}
-                  style={{width:36,height:36,borderRadius:'50%',border:`1px solid ${S.border}`,background:'transparent',color:S.bone,cursor:'pointer',fontSize:'1.25rem',display:'flex',alignItems:'center',justifyContent:'center'}}>
-                  -
-                </button>
+                <button onClick={()=>setGuests(g=>Math.max(1,g-1))} style={{width:34,height:34,borderRadius:'50%',border:`1px solid ${S.border}`,background:'transparent',color:S.bone,cursor:'pointer',fontSize:'1.2rem',display:'flex',alignItems:'center',justifyContent:'center'}}>-</button>
                 <span style={{fontFamily:S.playfair,fontSize:'1.25rem',color:S.bone,minWidth:'2rem',textAlign:'center'}}>{guests}</span>
-                <button onClick={()=>setGuests(g=>Math.min(2,g+1))}
-                  style={{width:36,height:36,borderRadius:'50%',border:`1px solid ${S.border}`,background:'transparent',color:S.bone,cursor:'pointer',fontSize:'1.25rem',display:'flex',alignItems:'center',justifyContent:'center'}}>
-                  +
-                </button>
+                <button onClick={()=>setGuests(g=>Math.min(2,g+1))} style={{width:34,height:34,borderRadius:'50%',border:`1px solid ${S.border}`,background:'transparent',color:S.bone,cursor:'pointer',fontSize:'1.2rem',display:'flex',alignItems:'center',justifyContent:'center'}}>+</button>
                 <span style={{fontFamily:S.inter,fontSize:'0.85rem',color:S.muted}}>Max 2 guests</span>
               </div>
             </div>
@@ -352,36 +370,15 @@ export function BookingPage() {
               </div>
             )}
 
-            {error&&<p style={{fontFamily:S.inter,fontSize:'0.85rem',color:'#e87878',marginTop:'0.75rem'}}>{error}</p>}
-
-            <button onClick={()=>{
-              if (!checkIn||!checkOut){setError('Please select your check-in and check-out dates.');return;}
-              if (nights<2){setError('Minimum stay is 2 nights.');return;}
-              setError(null);setStep(2);
-            }} style={{
-              marginTop:'1.5rem',width:'100%',padding:'0.875rem',
-              backgroundColor:checkIn&&checkOut&&nights>=2?S.accent:'rgba(143,169,179,0.3)',
-              color:S.bgDark,border:'none',borderRadius:'0.375rem',
-              fontFamily:S.inter,fontSize:'0.95rem',fontWeight:600,
-              cursor:checkIn&&checkOut&&nights>=2?'pointer':'not-allowed',
-            }}>
-              Continue to Your Details
-            </button>
-          </div>
-        )}
-
-        {/* ── STEP 2: DETAILS ── */}
-        {step === 2 && (
-          <div style={cardStyle}>
-            <h2 style={{fontFamily:S.playfair,fontSize:'1.75rem',color:S.bone,marginBottom:'0.5rem'}}>Your Details</h2>
-            <p style={{fontFamily:S.inter,fontSize:'0.875rem',color:S.muted,fontStyle:'italic',marginBottom:'1.5rem'}}>We keep these to create your booking. Nothing else.</p>
+            {/* YOUR DETAILS */}
+            <h2 style={{...sectionHead}}>Your Details</h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
               {[
                 {key:'firstName',label:'First Name',placeholder:'First name',type:'text'},
                 {key:'lastName',label:'Last Name',placeholder:'Last name',type:'text'},
                 {key:'email',label:'Email Address',placeholder:'your@email.com',type:'email'},
-                {key:'phone',label:'Phone (Optional)',placeholder:'+61',type:'tel'},
+                {key:'phone',label:'Phone',placeholder:'+61',type:'tel'},
               ].map(f=>(
                 <div key={f.key}>
                   <label style={labelStyle}>{f.label}</label>
@@ -396,31 +393,15 @@ export function BookingPage() {
               <input type="text" placeholder="Street address" value={form.street}
                 onChange={e=>setForm(p=>({...p,street:e.target.value}))} style={inputStyle}/>
             </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-              <div>
-                <label style={labelStyle}>City</label>
-                <input type="text" placeholder="City" value={form.city}
-                  onChange={e=>setForm(p=>({...p,city:e.target.value}))} style={inputStyle}/>
-              </div>
-              <div>
-                <label style={labelStyle}>State</label>
-                <input type="text" placeholder="State" value={form.state}
-                  onChange={e=>setForm(p=>({...p,state:e.target.value}))} style={inputStyle}/>
-              </div>
-              <div>
-                <label style={labelStyle}>Postcode</label>
-                <input type="text" placeholder="Postcode" value={form.postcode}
-                  onChange={e=>setForm(p=>({...p,postcode:e.target.value}))} style={inputStyle}/>
-              </div>
+            <div className="grid grid-cols-3 gap-4 mb-4">
+              <div><label style={labelStyle}>City</label><input type="text" placeholder="City" value={form.city} onChange={e=>setForm(p=>({...p,city:e.target.value}))} style={inputStyle}/></div>
+              <div><label style={labelStyle}>State</label><input type="text" placeholder="State" value={form.state} onChange={e=>setForm(p=>({...p,state:e.target.value}))} style={inputStyle}/></div>
+              <div><label style={labelStyle}>Postcode</label><input type="text" placeholder="Postcode" value={form.postcode} onChange={e=>setForm(p=>({...p,postcode:e.target.value}))} style={inputStyle}/></div>
             </div>
-
             <div className="mb-4">
               <label style={labelStyle}>Country</label>
-              <input type="text" placeholder="Country" value={form.country}
-                onChange={e=>setForm(p=>({...p,country:e.target.value}))} style={inputStyle}/>
+              <input type="text" placeholder="Country" value={form.country} onChange={e=>setForm(p=>({...p,country:e.target.value}))} style={inputStyle}/>
             </div>
-
             <div className="mb-4">
               <label style={labelStyle}>Voucher / Promo Code</label>
               <input type="text" placeholder="e.g. GO DARK" value={form.voucher}
@@ -429,7 +410,6 @@ export function BookingPage() {
                 Go Dark winter offer: enter GO DARK for $1,500 flat rate (Jun-Aug, 3 nights midweek)
               </p>
             </div>
-
             <div className="mb-6">
               <label style={labelStyle}>Anything else we should know?</label>
               <textarea rows={3} placeholder="Dietary requirements, special occasions, access needs..."
@@ -437,90 +417,72 @@ export function BookingPage() {
                 style={{...inputStyle,resize:'none'}}/>
             </div>
 
-            {error&&<p style={{fontFamily:S.inter,fontSize:'0.85rem',color:'#e87878',marginBottom:'0.75rem'}}>{error}</p>}
-
-            <div className="flex gap-3">
-              <button onClick={()=>{setError(null);setStep(1);}} style={{
-                flex:1,padding:'0.875rem',backgroundColor:'transparent',color:S.muted,
-                border:`1px solid ${S.border}`,borderRadius:'0.375rem',fontFamily:S.inter,fontSize:'0.95rem',cursor:'pointer',
-              }}>Back</button>
-              <button onClick={()=>{
-                if(!form.firstName||!form.lastName||!form.email){setError('Please fill in your first name, last name, and email.');return;}
-                if(!/\S+@\S+\.\S+/.test(form.email)){setError('Please enter a valid email address.');return;}
-                setError(null);setStep(3);
-              }} style={{
-                flex:2,padding:'0.875rem',backgroundColor:S.accent,color:S.bgDark,
-                border:'none',borderRadius:'0.375rem',fontFamily:S.inter,fontSize:'0.95rem',fontWeight:600,cursor:'pointer',
-              }}>Continue to Add-ons</button>
-            </div>
-          </div>
-        )}
-
-        {/* ── STEP 3: ADD-ONS ── */}
-        {step === 3 && (
-          <div>
-            <p style={{fontFamily:S.inter,fontSize:'0.875rem',color:S.muted,textAlign:'center',marginBottom:'1.5rem',fontStyle:'italic'}}>
+            {/* ADD-ONS */}
+            <h2 style={{...sectionHead}}>Optional Add-ons</h2>
+            <p style={{fontFamily:S.inter,fontSize:'0.85rem',color:S.muted,fontStyle:'italic',marginBottom:'1rem'}}>
               All optional. Select anything you would like us to arrange. We will confirm and invoice separately before your arrival.
             </p>
 
-            {[
-              {title:'Signature Packages',subtitle:'Select a package and we will confirm details before your arrival.',items:packages,selected:selectedPackage?[selectedPackage]:[],single:true},
-              {title:'Experiences',subtitle:'Select anything you would like more information on.',items:experiences,selected:selectedExperiences,single:false},
-              {title:'Provisions',subtitle:'Add-ons available to order. Request at least 48 hours before arrival.',items:provisions,selected:selectedProvisions,single:false},
-              {title:'Celebrations',subtitle:'For proposals, anniversaries, or a reason you made up.',items:celebrations,selected:selectedCelebrations,single:false},
-            ].map(section=>(
-              <div key={section.title} style={{...cardStyle,marginBottom:'1rem'}}>
-                <h3 style={{fontFamily:S.playfair,fontSize:'1.375rem',color:S.bone,marginBottom:'0.375rem'}}>{section.title}</h3>
-                <p style={{fontFamily:S.inter,fontSize:'0.8rem',color:S.muted,fontStyle:'italic',marginBottom:'1rem'}}>{section.subtitle}</p>
-                {section.items.map((item:any)=>(
-                  <CheckboxItem key={item.id} id={item.id} name={item.name} description={item.description}
-                    price={item.price} note={item.note}
-                    checked={section.single?selectedPackage===item.id:section.selected.includes(item.id)}
-                    onChange={()=>{
-                      if(section.single) setSelectedPackage(selectedPackage===item.id?null:item.id);
-                      else if(section.title==='Experiences') toggle(item.id,setSelectedExperiences);
-                      else if(section.title==='Provisions') toggle(item.id,setSelectedProvisions);
-                      else toggle(item.id,setSelectedCelebrations);
-                    }}
-                  />
-                ))}
-              </div>
-            ))}
+            <Concertina title="Signature Packages" subtitle="Curated multi-night experiences" selectedCount={selectedPackage?1:0}>
+              {packages.map(pkg=>(
+                <CheckboxItem key={pkg.id} id={pkg.id} name={pkg.name} description={pkg.description} price={pkg.price}
+                  checked={selectedPackage===pkg.id} onChange={()=>setSelectedPackage(selectedPackage===pkg.id?null:pkg.id)}/>
+              ))}
+            </Concertina>
+
+            <Concertina title="Experiences" subtitle="Local activities and guided experiences" selectedCount={selectedExperiences.length}>
+              {experiences.map(exp=>(
+                <CheckboxItem key={exp.id} id={exp.id} name={exp.name} description={exp.description} note={exp.note}
+                  checked={selectedExperiences.includes(exp.id)} onChange={()=>toggle(exp.id,setSelectedExperiences)}/>
+              ))}
+            </Concertina>
+
+            <Concertina title="Provisions" subtitle="Additional food and produce to order" selectedCount={selectedProvisions.length}>
+              {provisions.map(prov=>(
+                <CheckboxItem key={prov.id} id={prov.id} name={prov.name} description={prov.description} price={prov.price}
+                  checked={selectedProvisions.includes(prov.id)} onChange={()=>toggle(prov.id,setSelectedProvisions)}/>
+              ))}
+            </Concertina>
+
+            <Concertina title="Celebrations" subtitle="For proposals, anniversaries, or a reason you made up" selectedCount={selectedCelebrations.length}>
+              {celebrations.map(cel=>(
+                <CheckboxItem key={cel.id} id={cel.id} name={cel.name} description={cel.description} price={cel.price}
+                  checked={selectedCelebrations.includes(cel.id)} onChange={()=>toggle(cel.id,setSelectedCelebrations)}/>
+              ))}
+            </Concertina>
 
             {/* Go Dark reminder */}
-            <div style={{backgroundColor:S.bgDark,borderRadius:'0.5rem',border:'1px solid rgba(143,169,179,0.3)',padding:'1.5rem',marginBottom:'1.5rem'}}>
-              <p style={{fontFamily:S.inter,fontSize:'0.7rem',color:S.accent,letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:'0.5rem',fontWeight:600}}>Winter Offer</p>
-              <h3 style={{fontFamily:S.playfair,fontSize:'1.5rem',color:S.bone,marginBottom:'0.5rem'}}>Go Dark</h3>
-              <p style={{fontFamily:S.inter,fontSize:'0.9rem',color:S.muted,lineHeight:'1.7',marginBottom:'0.75rem'}}>3 nights midweek. June, July, August. $1,500 flat rate. Direct booking only.</p>
-              <p style={{fontFamily:S.inter,fontSize:'0.85rem',color:S.accent,fontStyle:'italic'}}>
-                Enter <strong style={{color:S.bone,fontStyle:'normal'}}>GO DARK</strong> in the voucher field to claim.
+            <div style={{backgroundColor:S.bgDark,borderRadius:'0.5rem',border:'1px solid rgba(143,169,179,0.3)',padding:'1.25rem',marginBottom:'1.5rem',marginTop:'0.5rem'}}>
+              <p style={{fontFamily:S.inter,fontSize:'0.7rem',color:S.accent,letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:'0.4rem',fontWeight:600}}>Winter Offer</p>
+              <h3 style={{fontFamily:S.playfair,fontSize:'1.375rem',color:S.bone,marginBottom:'0.4rem'}}>Go Dark</h3>
+              <p style={{fontFamily:S.inter,fontSize:'0.875rem',color:S.muted,lineHeight:'1.7',marginBottom:'0.5rem'}}>3 nights midweek. June, July, August. $1,500 flat rate. Direct booking only.</p>
+              <p style={{fontFamily:S.inter,fontSize:'0.8rem',color:S.accent,fontStyle:'italic'}}>
+                Enter <strong style={{color:S.bone,fontStyle:'normal'}}>GO DARK</strong> in the voucher field above to claim.
               </p>
             </div>
 
-            <div className="flex gap-3">
-              <button onClick={()=>{setError(null);setStep(2);}} style={{
-                flex:1,padding:'0.875rem',backgroundColor:'transparent',color:S.muted,
-                border:`1px solid ${S.border}`,borderRadius:'0.375rem',fontFamily:S.inter,fontSize:'0.95rem',cursor:'pointer',
-              }}>Back</button>
-              <button onClick={goToReview} style={{
-                flex:2,padding:'0.875rem',backgroundColor:S.accent,color:S.bgDark,
-                border:'none',borderRadius:'0.375rem',fontFamily:S.inter,fontSize:'0.95rem',fontWeight:600,cursor:'pointer',
-              }}>Review Booking</button>
-            </div>
+            {error&&<p style={{fontFamily:S.inter,fontSize:'0.85rem',color:'#e87878',marginBottom:'1rem'}}>{error}</p>}
+
+            <button onClick={goToReview} style={{
+              width:'100%',padding:'1rem',backgroundColor:S.accent,color:S.bgDark,
+              border:'none',borderRadius:'0.375rem',fontFamily:S.inter,fontSize:'1rem',fontWeight:600,cursor:'pointer',
+            }}>
+              Review My Booking
+            </button>
           </div>
         )}
 
-        {/* ── STEP 4: REVIEW ── */}
-        {step === 4 && (
+        {/* ── STEP 2: REVIEW ── */}
+        {step === 2 && (
           <div style={cardStyle}>
             <h2 style={{fontFamily:S.playfair,fontSize:'1.75rem',color:S.bone,marginBottom:'1.5rem'}}>Review Your Booking</h2>
 
-            {/* Dates + guests */}
+            {/* Stay */}
             <div style={{padding:'1.25rem',borderRadius:'0.375rem',backgroundColor:'rgba(0,0,0,0.2)',border:`1px solid ${S.border}`,marginBottom:'1rem'}}>
               <p style={{fontFamily:S.inter,fontSize:'0.7rem',color:S.accent,fontWeight:600,letterSpacing:'0.05em',textTransform:'uppercase',marginBottom:'0.75rem'}}>Stay</p>
               <div className="grid grid-cols-3 gap-4">
-                <div><p style={{fontFamily:S.inter,fontSize:'0.75rem',color:S.muted,marginBottom:'0.25rem'}}>Check-in</p><p style={{fontFamily:S.playfair,fontSize:'1rem',color:S.bone}}>{checkIn?fmt(checkIn):''}</p></div>
-                <div><p style={{fontFamily:S.inter,fontSize:'0.75rem',color:S.muted,marginBottom:'0.25rem'}}>Check-out</p><p style={{fontFamily:S.playfair,fontSize:'1rem',color:S.bone}}>{checkOut?fmt(checkOut):''}</p></div>
+                <div><p style={{fontFamily:S.inter,fontSize:'0.75rem',color:S.muted,marginBottom:'0.25rem'}}>Check-in</p><p style={{fontFamily:S.playfair,fontSize:'1rem',color:S.bone}}>{checkIn?fmtDate(checkIn):''}</p></div>
+                <div><p style={{fontFamily:S.inter,fontSize:'0.75rem',color:S.muted,marginBottom:'0.25rem'}}>Check-out</p><p style={{fontFamily:S.playfair,fontSize:'1rem',color:S.bone}}>{checkOut?fmtDate(checkOut):''}</p></div>
                 <div><p style={{fontFamily:S.inter,fontSize:'0.75rem',color:S.muted,marginBottom:'0.25rem'}}>Guests</p><p style={{fontFamily:S.playfair,fontSize:'1rem',color:S.bone}}>{guests}</p></div>
               </div>
               <p style={{fontFamily:S.inter,fontSize:'0.85rem',color:S.accent,marginTop:'0.75rem'}}>{nights} nights</p>
@@ -529,43 +491,46 @@ export function BookingPage() {
             {/* Pricing */}
             <div style={{padding:'1.25rem',borderRadius:'0.375rem',backgroundColor:'rgba(0,0,0,0.2)',border:`1px solid ${S.border}`,marginBottom:'1rem'}}>
               <p style={{fontFamily:S.inter,fontSize:'0.7rem',color:S.accent,fontWeight:600,letterSpacing:'0.05em',textTransform:'uppercase',marginBottom:'0.75rem'}}>Accommodation</p>
-              {quoteLoading ? (
+              {quoteLoading?(
                 <div className="flex items-center gap-2">
                   <Loader2 size={16} style={{color:S.accent,animation:'spin 1s linear infinite'}}/>
                   <span style={{fontFamily:S.inter,fontSize:'0.875rem',color:S.muted}}>Calculating...</span>
                 </div>
-              ) : quoteData ? (
+              ):quoteData?(
                 <>
                   {(quoteData.charges||[]).map((c:any,i:number)=>(
                     <div key={i} className="flex justify-between mb-2">
-                      <span style={{fontFamily:S.inter,fontSize:'0.9rem',color:c.isTax?S.muted:S.bone}}>{c.description}</span>
-                      <span style={{fontFamily:S.inter,fontSize:'0.9rem',color:c.isTax?S.muted:S.bone}}>${Number(c.amount).toFixed(2)}</span>
+                      <span style={{fontFamily:S.inter,fontSize:'0.875rem',color:c.isTax?S.muted:S.bone}}>{c.description}</span>
+                      <span style={{fontFamily:S.inter,fontSize:'0.875rem',color:c.isTax?S.muted:S.bone}}>${Number(c.amount).toFixed(2)}</span>
                     </div>
                   ))}
+                  {form.voucher&&(
+                    <div className="flex justify-between mb-2">
+                      <span style={{fontFamily:S.inter,fontSize:'0.875rem',color:S.accent}}>Discount: {form.voucher}</span>
+                      <span style={{fontFamily:S.inter,fontSize:'0.875rem',color:S.accent}}>Applied</span>
+                    </div>
+                  )}
                   <div className="flex justify-between mt-3 pt-3" style={{borderTop:`1px solid ${S.border}`}}>
                     <span style={{fontFamily:S.inter,fontSize:'1rem',color:S.bone,fontWeight:600}}>Total</span>
                     <span style={{fontFamily:S.playfair,fontSize:'1.25rem',color:S.accent}}>${Number(quoteData.total).toFixed(2)} AUD</span>
                   </div>
                 </>
-              ) : (
-                <p style={{fontFamily:S.inter,fontSize:'0.875rem',color:S.muted,fontStyle:'italic'}}>
-                  Pricing will be confirmed on the payment page.
-                </p>
+              ):(
+                <p style={{fontFamily:S.inter,fontSize:'0.875rem',color:S.muted,fontStyle:'italic'}}>Pricing will be confirmed on the payment page.</p>
               )}
             </div>
 
-            {/* Guest details */}
+            {/* Guest */}
             <div style={{padding:'1.25rem',borderRadius:'0.375rem',backgroundColor:'rgba(0,0,0,0.2)',border:`1px solid ${S.border}`,marginBottom:'1rem'}}>
               <p style={{fontFamily:S.inter,fontSize:'0.7rem',color:S.accent,fontWeight:600,letterSpacing:'0.05em',textTransform:'uppercase',marginBottom:'0.75rem'}}>Guest</p>
               <p style={{fontFamily:S.inter,fontSize:'0.9rem',color:S.bone,marginBottom:'0.25rem'}}>{form.firstName} {form.lastName}</p>
               <p style={{fontFamily:S.inter,fontSize:'0.875rem',color:S.muted}}>{form.email}</p>
               {form.phone&&<p style={{fontFamily:S.inter,fontSize:'0.875rem',color:S.muted}}>{form.phone}</p>}
               {form.street&&<p style={{fontFamily:S.inter,fontSize:'0.875rem',color:S.muted}}>{form.street}, {form.city} {form.state} {form.postcode}</p>}
-              {form.voucher&&<p style={{fontFamily:S.inter,fontSize:'0.875rem',color:S.accent,marginTop:'0.25rem'}}>Voucher: {form.voucher}</p>}
             </div>
 
-            {/* Add-ons summary */}
-            {!!(selectedPackage||selectedExperiences.length||selectedProvisions.length||selectedCelebrations.length) && (
+            {/* Add-ons */}
+            {!!(selectedPackage||selectedExperiences.length||selectedProvisions.length||selectedCelebrations.length)&&(
               <div style={{padding:'1.25rem',borderRadius:'0.375rem',backgroundColor:'rgba(0,0,0,0.2)',border:`1px solid ${S.border}`,marginBottom:'1rem'}}>
                 <p style={{fontFamily:S.inter,fontSize:'0.7rem',color:S.accent,fontWeight:600,letterSpacing:'0.05em',textTransform:'uppercase',marginBottom:'0.75rem'}}>Add-ons Requested</p>
                 <p style={{fontFamily:S.inter,fontSize:'0.8rem',color:S.muted,fontStyle:'italic',marginBottom:'0.75rem'}}>We will confirm and invoice these separately before your arrival.</p>
@@ -577,7 +542,7 @@ export function BookingPage() {
                 ].filter(Boolean).map((name,i)=>(
                   <div key={i} className="flex items-center gap-2 mb-2">
                     <Check size={12} style={{color:S.accent,flexShrink:0}}/>
-                    <p style={{fontFamily:S.inter,fontSize:'0.9rem',color:S.bone}}>{name}</p>
+                    <p style={{fontFamily:S.inter,fontSize:'0.875rem',color:S.bone}}>{name}</p>
                   </div>
                 ))}
               </div>
@@ -590,7 +555,7 @@ export function BookingPage() {
             )}
 
             <div className="flex gap-3">
-              <button onClick={()=>{setError(null);setStep(3);}} style={{
+              <button onClick={()=>{setError(null);setStep(1);}} style={{
                 flex:1,padding:'0.875rem',backgroundColor:'transparent',color:S.muted,
                 border:`1px solid ${S.border}`,borderRadius:'0.375rem',fontFamily:S.inter,fontSize:'0.95rem',cursor:'pointer',
               }}>Back</button>
@@ -602,7 +567,6 @@ export function BookingPage() {
                 {submitting?<><Loader2 size={16} style={{animation:'spin 1s linear infinite'}}/>Processing...</>:'Proceed to Payment'}
               </button>
             </div>
-
             <p style={{fontFamily:S.inter,fontSize:'0.75rem',color:S.muted,textAlign:'center',marginTop:'0.75rem',lineHeight:'1.5'}}>
               You will be redirected to a secure payment page to complete your booking.
             </p>
