@@ -1,5 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight, Check, Loader2, ChevronDown } from 'lucide-react';
+
+// Load Google Places API
+const GOOGLE_MAPS_KEY = 'AIzaSyD-placeholder'; // Replace with actual key in Vercel env vars
+declare global { interface Window { google: any; initGooglePlaces: () => void; } }
 
 const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 const DAYS = ['Su','Mo','Tu','We','Th','Fr','Sa'];
@@ -143,6 +147,81 @@ function CheckboxItem({ id, name, description, price, note, checked, onChange }:
   );
 }
 
+// ── Address Autocomplete ───────────────────────────────────────────────────────
+
+function AddressAutocomplete({ form, setForm, inputStyle, labelStyle }: any) {
+  const streetRef = useRef<HTMLInputElement>(null);
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    // Load Google Places script if not already loaded
+    const key = import.meta.env.VITE_GOOGLE_MAPS_KEY;
+    if (!key) return; // Skip if no key configured
+
+    if (window.google?.maps?.places) { setLoaded(true); return; }
+
+    window.initGooglePlaces = () => setLoaded(true);
+    const script = document.createElement('script');
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places&callback=initGooglePlaces`;
+    script.async = true;
+    document.head.appendChild(script);
+  }, []);
+
+  useEffect(() => {
+    if (!loaded || !streetRef.current) return;
+    const autocomplete = new window.google.maps.places.Autocomplete(streetRef.current, {
+      types: ['address'],
+    });
+    autocomplete.addListener('place_changed', () => {
+      const place = autocomplete.getPlace();
+      if (!place.address_components) return;
+      let street = '', city = '', state = '', postcode = '', country = '';
+      let streetNumber = '', route = '';
+      place.address_components.forEach((c: any) => {
+        if (c.types.includes('street_number')) streetNumber = c.long_name;
+        if (c.types.includes('route')) route = c.long_name;
+        if (c.types.includes('locality')) city = c.long_name;
+        if (c.types.includes('administrative_area_level_1')) state = c.short_name;
+        if (c.types.includes('postal_code')) postcode = c.long_name;
+        if (c.types.includes('country')) country = c.long_name;
+      });
+      street = [streetNumber, route].filter(Boolean).join(' ');
+      setForm((p: any) => ({ ...p, street, city, state, postcode, country }));
+    });
+  }, [loaded]);
+
+  return (
+    <>
+      <div className="mb-4">
+        <label style={labelStyle}>Street Address</label>
+        <input
+          ref={streetRef}
+          type="text"
+          placeholder="Start typing your address..."
+          value={form.street}
+          onChange={e=>setForm((p:any)=>({...p,street:e.target.value}))}
+          style={inputStyle}
+        />
+        {!import.meta.env.VITE_GOOGLE_MAPS_KEY && (
+          <p style={{fontFamily:"'Inter',sans-serif",fontSize:'0.7rem',color:'rgba(143,169,179,0.5)',marginTop:'0.25rem'}}>
+            Address lookup unavailable
+          </p>
+        )}
+      </div>
+      <div className="grid grid-cols-3 gap-4 mb-4">
+        <div><label style={labelStyle}>City</label><input type="text" placeholder="City" value={form.city} onChange={e=>setForm((p:any)=>({...p,city:e.target.value}))} style={inputStyle}/></div>
+        <div><label style={labelStyle}>State</label><input type="text" placeholder="State" value={form.state} onChange={e=>setForm((p:any)=>({...p,state:e.target.value}))} style={inputStyle}/></div>
+        <div><label style={labelStyle}>Postcode</label><input type="text" placeholder="Postcode" value={form.postcode} onChange={e=>setForm((p:any)=>({...p,postcode:e.target.value}))} style={inputStyle}/></div>
+      </div>
+      <div className="mb-4">
+        <label style={labelStyle}>Country</label>
+        <input type="text" placeholder="Country" value={form.country} onChange={e=>setForm((p:any)=>({...p,country:e.target.value}))} style={inputStyle}/>
+      </div>
+    </>
+  );
+}
+
+
 // ── Concertina ─────────────────────────────────────────────────────────────────
 
 function Concertina({ title, subtitle, selectedCount, children }: {
@@ -264,6 +343,7 @@ export function BookingPage() {
     if (nights<2){ setError('Minimum stay is 2 nights.'); return; }
     if (!form.firstName||!form.lastName||!form.email){ setError('Please fill in your first name, last name, and email.'); return; }
     if (!/\S+@\S+\.\S+/.test(form.email)){ setError('Please enter a valid email address.'); return; }
+    if (!form.phone||form.phone.replace(/[^0-9]/g,'').length<6){ setError('Please enter a valid phone number with country code (e.g. +61 400 000 000).'); return; }
     setError(null); setQuoteLoading(true); setStep(2);
     try {
       const res = await fetch('/api/create-quote', {
@@ -378,7 +458,7 @@ export function BookingPage() {
                 {key:'firstName',label:'First Name',placeholder:'First name',type:'text'},
                 {key:'lastName',label:'Last Name',placeholder:'Last name',type:'text'},
                 {key:'email',label:'Email Address',placeholder:'your@email.com',type:'email'},
-                {key:'phone',label:'Phone',placeholder:'+61',type:'tel'},
+                {key:'phone',label:'Phone (include country code)',placeholder:'+61',type:'tel'},
               ].map(f=>(
                 <div key={f.key}>
                   <label style={labelStyle}>{f.label}</label>
@@ -388,20 +468,7 @@ export function BookingPage() {
               ))}
             </div>
 
-            <div className="mb-4">
-              <label style={labelStyle}>Street Address</label>
-              <input type="text" placeholder="Street address" value={form.street}
-                onChange={e=>setForm(p=>({...p,street:e.target.value}))} style={inputStyle}/>
-            </div>
-            <div className="grid grid-cols-3 gap-4 mb-4">
-              <div><label style={labelStyle}>City</label><input type="text" placeholder="City" value={form.city} onChange={e=>setForm(p=>({...p,city:e.target.value}))} style={inputStyle}/></div>
-              <div><label style={labelStyle}>State</label><input type="text" placeholder="State" value={form.state} onChange={e=>setForm(p=>({...p,state:e.target.value}))} style={inputStyle}/></div>
-              <div><label style={labelStyle}>Postcode</label><input type="text" placeholder="Postcode" value={form.postcode} onChange={e=>setForm(p=>({...p,postcode:e.target.value}))} style={inputStyle}/></div>
-            </div>
-            <div className="mb-4">
-              <label style={labelStyle}>Country</label>
-              <input type="text" placeholder="Country" value={form.country} onChange={e=>setForm(p=>({...p,country:e.target.value}))} style={inputStyle}/>
-            </div>
+            <AddressAutocomplete form={form} setForm={setForm} inputStyle={inputStyle} labelStyle={labelStyle} />
             <div className="mb-4">
               <label style={labelStyle}>Voucher / Promo Code</label>
               <input type="text" placeholder="e.g. GO DARK" value={form.voucher}
@@ -498,12 +565,28 @@ export function BookingPage() {
                 </div>
               ):quoteData?(
                 <>
-                  {(quoteData.charges||[]).map((c:any,i:number)=>(
-                    <div key={i} className="flex justify-between mb-2">
-                      <span style={{fontFamily:S.inter,fontSize:'0.875rem',color:c.isTax?S.muted:S.bone}}>{c.description}</span>
-                      <span style={{fontFamily:S.inter,fontSize:'0.875rem',color:c.isTax?S.muted:S.bone}}>${Number(c.amount).toFixed(2)}</span>
-                    </div>
-                  ))}
+                  {(quoteData.charges||[]).map((c:any,i:number)=>{
+                    // Reformat charge description
+                    let desc = c.description || '';
+                    // Convert US dates like 6/22 to 22 Jun
+                    desc = desc.replace(/(\d{1,2})\/(\d{1,2})/g, (_:string, m:string, d:string) => {
+                      const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+                      return `${d} ${months[parseInt(m)-1]}`;
+                    });
+                    // Remove "during Standard" and rate info, keep night count
+                    desc = desc.replace(/\s*during\s+\S+(\s+at\s+\$[\d.]+\s+per\s+\S+\s+night)?/i, '');
+                    // Add "ex GST" note to rent lines
+                    if (!c.isTax && desc.includes('night')) {
+                      const rate = (c.amount / (quoteData.nights||nights)).toFixed(2);
+                      desc = desc.replace(/\(([^)]+)\)/, `($1)`);
+                    }
+                    return (
+                      <div key={i} className="flex justify-between mb-2">
+                        <span style={{fontFamily:S.inter,fontSize:'0.875rem',color:c.isTax?S.muted:S.bone}}>{desc}</span>
+                        <span style={{fontFamily:S.inter,fontSize:'0.875rem',color:c.isTax?S.muted:S.bone}}>${Number(c.amount).toFixed(2)}</span>
+                      </div>
+                    );
+                  })}
                   {form.voucher&&(
                     <div className="flex justify-between mb-2">
                       <span style={{fontFamily:S.inter,fontSize:'0.875rem',color:S.accent}}>Discount: {form.voucher}</span>
@@ -555,7 +638,7 @@ export function BookingPage() {
             )}
 
             <div className="flex gap-3">
-              <button onClick={()=>{setError(null);setStep(1);}} style={{
+              <button onClick={()=>{setError(null);setSubmitting(false);setStep(1);}} style={{
                 flex:1,padding:'0.875rem',backgroundColor:'transparent',color:S.muted,
                 border:`1px solid ${S.border}`,borderRadius:'0.375rem',fontFamily:S.inter,fontSize:'0.95rem',cursor:'pointer',
               }}>Back</button>
