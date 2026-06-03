@@ -1,9 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Check, Loader2, ChevronDown } from 'lucide-react';
-
-// Load Google Places API
-const GOOGLE_MAPS_KEY = 'AIzaSyD-placeholder'; // Replace with actual key in Vercel env vars
-declare global { interface Window { google: any; initGooglePlaces: () => void; } }
 
 const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 const DAYS = ['Su','Mo','Tu','We','Th','Fr','Sa'];
@@ -146,81 +142,6 @@ function CheckboxItem({ id, name, description, price, note, checked, onChange }:
     </div>
   );
 }
-
-// ── Address Autocomplete ───────────────────────────────────────────────────────
-
-function AddressAutocomplete({ form, setForm, inputStyle, labelStyle }: any) {
-  const streetRef = useRef<HTMLInputElement>(null);
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    // Load Google Places script if not already loaded
-    const key = import.meta.env.VITE_GOOGLE_MAPS_KEY;
-    if (!key) return; // Skip if no key configured
-
-    if (window.google?.maps?.places) { setLoaded(true); return; }
-
-    window.initGooglePlaces = () => setLoaded(true);
-    const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places&callback=initGooglePlaces`;
-    script.async = true;
-    document.head.appendChild(script);
-  }, []);
-
-  useEffect(() => {
-    if (!loaded || !streetRef.current) return;
-    const autocomplete = new window.google.maps.places.Autocomplete(streetRef.current, {
-      types: ['address'],
-    });
-    autocomplete.addListener('place_changed', () => {
-      const place = autocomplete.getPlace();
-      if (!place.address_components) return;
-      let street = '', city = '', state = '', postcode = '', country = '';
-      let streetNumber = '', route = '';
-      place.address_components.forEach((c: any) => {
-        if (c.types.includes('street_number')) streetNumber = c.long_name;
-        if (c.types.includes('route')) route = c.long_name;
-        if (c.types.includes('locality')) city = c.long_name;
-        if (c.types.includes('administrative_area_level_1')) state = c.short_name;
-        if (c.types.includes('postal_code')) postcode = c.long_name;
-        if (c.types.includes('country')) country = c.long_name;
-      });
-      street = [streetNumber, route].filter(Boolean).join(' ');
-      setForm((p: any) => ({ ...p, street, city, state, postcode, country }));
-    });
-  }, [loaded]);
-
-  return (
-    <>
-      <div className="mb-4">
-        <label style={labelStyle}>Street Address</label>
-        <input
-          ref={streetRef}
-          type="text"
-          placeholder="Start typing your address..."
-          value={form.street}
-          onChange={e=>setForm((p:any)=>({...p,street:e.target.value}))}
-          style={inputStyle}
-        />
-        {!import.meta.env.VITE_GOOGLE_MAPS_KEY && (
-          <p style={{fontFamily:"'Inter',sans-serif",fontSize:'0.7rem',color:'rgba(143,169,179,0.5)',marginTop:'0.25rem'}}>
-            Address lookup unavailable
-          </p>
-        )}
-      </div>
-      <div className="grid grid-cols-3 gap-4 mb-4">
-        <div><label style={labelStyle}>City</label><input type="text" placeholder="City" value={form.city} onChange={e=>setForm((p:any)=>({...p,city:e.target.value}))} style={inputStyle}/></div>
-        <div><label style={labelStyle}>State</label><input type="text" placeholder="State" value={form.state} onChange={e=>setForm((p:any)=>({...p,state:e.target.value}))} style={inputStyle}/></div>
-        <div><label style={labelStyle}>Postcode</label><input type="text" placeholder="Postcode" value={form.postcode} onChange={e=>setForm((p:any)=>({...p,postcode:e.target.value}))} style={inputStyle}/></div>
-      </div>
-      <div className="mb-4">
-        <label style={labelStyle}>Country</label>
-        <input type="text" placeholder="Country" value={form.country} onChange={e=>setForm((p:any)=>({...p,country:e.target.value}))} style={inputStyle}/>
-      </div>
-    </>
-  );
-}
-
 
 // ── Concertina ─────────────────────────────────────────────────────────────────
 
@@ -468,7 +389,20 @@ export function BookingPage() {
               ))}
             </div>
 
-            <AddressAutocomplete form={form} setForm={setForm} inputStyle={inputStyle} labelStyle={labelStyle} />
+            <div className="mb-4">
+              <label style={labelStyle}>Street Address</label>
+              <input type="text" placeholder="Street address" value={form.street}
+                onChange={e=>setForm(p=>({...p,street:e.target.value}))} style={inputStyle}/>
+            </div>
+            <div className="grid grid-cols-3 gap-4 mb-4">
+              <div><label style={labelStyle}>City</label><input type="text" placeholder="City" value={form.city} onChange={e=>setForm(p=>({...p,city:e.target.value}))} style={inputStyle}/></div>
+              <div><label style={labelStyle}>State</label><input type="text" placeholder="State" value={form.state} onChange={e=>setForm(p=>({...p,state:e.target.value}))} style={inputStyle}/></div>
+              <div><label style={labelStyle}>Postcode</label><input type="text" placeholder="Postcode" value={form.postcode} onChange={e=>setForm(p=>({...p,postcode:e.target.value}))} style={inputStyle}/></div>
+            </div>
+            <div className="mb-4">
+              <label style={labelStyle}>Country</label>
+              <input type="text" placeholder="Country" value={form.country} onChange={e=>setForm(p=>({...p,country:e.target.value}))} style={inputStyle}/>
+            </div>
             <div className="mb-4">
               <label style={labelStyle}>Voucher / Promo Code</label>
               <input type="text" placeholder="e.g. GO DARK" value={form.voucher}
