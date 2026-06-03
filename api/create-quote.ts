@@ -86,26 +86,40 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     // Step 2: Create quote
     const quoteBody: any = {
-      GuestId: guestId,
-      PropertyId: PROPERTY_ID,
-      Arrival: arrival,
-      Departure: departure,
-      Adults: adults || 2,
-      Children: 0,
-      Pets: 0,
-      RedirectAfterBookingUrl: REDIRECT_URL,
+      guest_id: guestId,
+      property_id: PROPERTY_ID,
+      arrival,
+      departure,
+      adults: adults || 2,
+      children: 0,
+      pets: 0,
     };
-    if (voucher) quoteBody.DiscountCode = voucher;
+    if (voucher) quoteBody.discount_code = voucher;
     if (notes) quoteBody.Notes = notes;
 
-    const quoteResult = await orPost('/quotes', quoteBody);
+    // Use v2 quotes endpoint which supports discount_code
+    const quoteFetch = await fetch(`${OR_V2_BASE}/quotes`, {
+      method: 'POST',
+      headers: {
+        'Authorization': getAuthHeader(),
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'User-Agent': 'RockyHillsRetreat/1.0',
+      },
+      body: JSON.stringify(quoteBody),
+    });
+    const quoteText = await quoteFetch.text();
+    let quoteJson: any = {};
+    try { quoteJson = JSON.parse(quoteText); } catch {}
+    const quoteResult = { ok: quoteFetch.ok, status: quoteFetch.status, data: quoteJson, raw: quoteText };
 
     if (!quoteResult.ok) {
       return res.status(500).json({ error: 'Failed to create quote', detail: quoteResult.raw });
     }
 
     const quote = quoteResult.data;
-    const quoteKey = quote.Key || quote.key;
+    console.log('v2 quote response:', JSON.stringify(quote).substring(0, 600));
+    const quoteKey = quote.key || quote.Key;
 
     // Build payment URL -- append guest details as URL params for pre-population
     let paymentUrl = quote.PaymentForm
@@ -139,7 +153,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       paymentUrl,
       total,
       currency: 'AUD',
-      nights: quote.Nights || quote.nights,
+      nights: quote.nights || quote.Nights,
       charges,
     });
 
