@@ -50,6 +50,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const arrival = new Date(arrivalStr);
       const departure = new Date(departureStr);
 
+      // Skip cancelled bookings
+      const status = (booking.status || booking.Status || '').toLowerCase();
+      if (status === 'cancelled' || status === 'canceled') return;
       // Skip if departure is in the past
       if (departure <= today) return;
       // Skip if arrival is beyond our 18 month window

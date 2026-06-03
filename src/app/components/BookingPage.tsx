@@ -263,6 +263,20 @@ export function BookingPage() {
     ? Math.round((new Date(checkOut).getTime()-new Date(checkIn).getTime())/(1000*60*60*24))
     : 0;
 
+  // Estimate total based on known rates (ex GST)
+  const estimateTotal = () => {
+    if (!checkIn || nights < 1) return null;
+    let total = 0;
+    for (let i = 0; i < nights; i++) {
+      const d = new Date(checkIn);
+      d.setDate(d.getDate() + i);
+      const day = d.getDay();
+      // Fri=5, Sat=6 are weekend nights at $800 inc GST ($727.27 ex)
+      total += (day === 5 || day === 6) ? 800 : 650;
+    }
+    return total;
+  };
+
   const handleDateSelect = (date: string) => {
     if (!checkIn||(checkIn&&checkOut)){
       setCheckIn(date); setCheckOut(null); setSelectingCheckout(true); setError(null);
@@ -370,7 +384,7 @@ export function BookingPage() {
 
         <div className="text-center mb-10">
           <h1 style={{fontFamily:S.playfair,fontSize:'clamp(2.5rem,5vw,3.5rem)',color:S.bone,letterSpacing:'-0.01em',marginBottom:'1rem'}}>Book Your Stay</h1>
-          <p style={{fontFamily:S.inter,fontSize:'1.05rem',color:S.muted}}>From $800 per night. Two-night minimum. Book direct for the best rate.</p>
+          <p style={{fontFamily:S.inter,fontSize:'1.05rem',color:S.muted}}>From $650 per night. Two-night minimum. Book direct for the best rate.</p>
         </div>
 
         <StepIndicator step={step} />
@@ -409,12 +423,38 @@ export function BookingPage() {
 
             {checkIn&&checkOut&&(
               <div style={{marginTop:'1rem',padding:'0.75rem 1rem',borderRadius:'0.375rem',backgroundColor:'rgba(143,169,179,0.08)',border:`1px solid rgba(143,169,179,0.2)`}}>
-                <p style={{fontFamily:S.inter,fontSize:'0.875rem',color:S.accent}}>
-                  {nights} night{nights!==1?'s':''} selected
-                  {nights<2&&<span style={{color:'#e87878',marginLeft:'0.5rem'}}>(minimum 2 nights)</span>}
-                </p>
+                <div className="flex justify-between items-center">
+                  <p style={{fontFamily:S.inter,fontSize:'0.875rem',color:S.accent}}>
+                    {nights} night{nights!==1?'s':''} selected
+                    {nights<2&&<span style={{color:'#e87878',marginLeft:'0.5rem'}}>(minimum 2 nights)</span>}
+                  </p>
+                  {nights>=2&&estimateTotal()&&(
+                    <p style={{fontFamily:S.playfair,fontSize:'1rem',color:S.bone}}>
+                      Est. ${estimateTotal()?.toLocaleString()} AUD
+                      <span style={{fontFamily:S.inter,fontSize:'0.7rem',color:S.muted,marginLeft:'0.25rem'}}>inc GST</span>
+                    </p>
+                  )}
+                </div>
               </div>
             )}
+
+            {/* Go Dark offer -- shown when dates selected */}
+            {checkIn&&checkOut&&nights>=2&&(()=>{
+              const arrival = new Date(checkIn);
+              const month = arrival.getMonth();
+              const isWinter = month>=5&&month<=7;
+              if (!isWinter) return null;
+              return (
+                <div style={{marginTop:'0.75rem',backgroundColor:S.bgDark,borderRadius:'0.5rem',border:'1px solid rgba(143,169,179,0.3)',padding:'1.25rem'}}>
+                  <p style={{fontFamily:S.inter,fontSize:'0.7rem',color:S.accent,letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:'0.4rem',fontWeight:600}}>Winter Offer</p>
+                  <h3 style={{fontFamily:S.playfair,fontSize:'1.25rem',color:S.bone,marginBottom:'0.4rem'}}>Go Dark</h3>
+                  <p style={{fontFamily:S.inter,fontSize:'0.85rem',color:S.muted,lineHeight:'1.6',marginBottom:'0.5rem'}}>3 nights midweek. June, July, August. $1,500 flat rate. Direct booking only.</p>
+                  <p style={{fontFamily:S.inter,fontSize:'0.8rem',color:S.accent,fontStyle:'italic'}}>
+                    Enter <strong style={{color:S.bone,fontStyle:'normal'}}>GO DARK</strong> in the voucher field below to claim.
+                  </p>
+                </div>
+              );
+            })()}
 
             {/* YOUR DETAILS */}
             <h2 style={{...sectionHead}}>Your Details</h2>
@@ -510,15 +550,7 @@ export function BookingPage() {
               ))}
             </Concertina>
 
-            {/* Go Dark reminder */}
-            <div style={{backgroundColor:S.bgDark,borderRadius:'0.5rem',border:'1px solid rgba(143,169,179,0.3)',padding:'1.25rem',marginBottom:'1.5rem',marginTop:'0.5rem'}}>
-              <p style={{fontFamily:S.inter,fontSize:'0.7rem',color:S.accent,letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:'0.4rem',fontWeight:600}}>Winter Offer</p>
-              <h3 style={{fontFamily:S.playfair,fontSize:'1.375rem',color:S.bone,marginBottom:'0.4rem'}}>Go Dark</h3>
-              <p style={{fontFamily:S.inter,fontSize:'0.875rem',color:S.muted,lineHeight:'1.7',marginBottom:'0.5rem'}}>3 nights midweek. June, July, August. $1,500 flat rate. Direct booking only.</p>
-              <p style={{fontFamily:S.inter,fontSize:'0.8rem',color:S.accent,fontStyle:'italic'}}>
-                Enter <strong style={{color:S.bone,fontStyle:'normal'}}>GO DARK</strong> in the voucher field above to claim.
-              </p>
-            </div>
+
 
             {error&&<p style={{fontFamily:S.inter,fontSize:'0.85rem',color:'#e87878',marginBottom:'1rem'}}>{error}</p>}
 
