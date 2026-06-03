@@ -226,6 +226,27 @@ export function BookingPage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    // Restore state if returning from payment page
+    const saved = sessionStorage.getItem('rhr_booking');
+    if (saved) {
+      try {
+        const s = JSON.parse(saved);
+        if (s.checkIn) setCheckIn(s.checkIn);
+        if (s.checkOut) setCheckOut(s.checkOut);
+        if (s.guests) setGuests(s.guests);
+        if (s.form) setForm(s.form);
+        if (s.selectedPackage) setSelectedPackage(s.selectedPackage);
+        if (s.selectedExperiences) setSelectedExperiences(s.selectedExperiences);
+        if (s.selectedProvisions) setSelectedProvisions(s.selectedProvisions);
+        if (s.selectedCelebrations) setSelectedCelebrations(s.selectedCelebrations);
+        if (s.quoteData) setQuoteData(s.quoteData);
+        if (s.step) setStep(s.step);
+        sessionStorage.removeItem('rhr_booking');
+      } catch(e) { console.error('Failed to restore booking state:', e); }
+    }
+  }, []);
+
+  useEffect(() => {
     fetch('/api/availability')
       .then(r=>r.json())
       .then(data=>{
@@ -303,6 +324,13 @@ export function BookingPage() {
           }),
         }).catch(e=>console.error('Add-on log failed:',e));
       }
+      // Save form state before leaving so back button restores it
+      sessionStorage.setItem('rhr_booking', JSON.stringify({
+        checkIn, checkOut, guests, form,
+        selectedPackage, selectedExperiences, selectedProvisions, selectedCelebrations,
+        quoteData, step: 2,
+      }));
+
       if (quoteData?.paymentUrl) {
         window.location.href = quoteData.paymentUrl;
       } else {
