@@ -388,7 +388,7 @@ export function BookingPage() {
 
         <div className="text-center mb-10">
           <h1 style={{fontFamily:S.playfair,fontSize:'clamp(2.5rem,5vw,3.5rem)',color:S.bone,letterSpacing:'-0.01em',marginBottom:'1rem'}}>Book Your Stay</h1>
-          <p style={{fontFamily:S.inter,fontSize:'1.05rem',color:S.muted}}>From $650 per night. Two-night minimum. Book direct for the best rate.</p>
+          <p style={{fontFamily:S.inter,fontSize:'1.05rem',color:S.muted}}>From $650 per weeknight, $800 weekends and holidays. Two-night minimum. Book direct for the best rate.</p>
         </div>
 
         <StepIndicator step={step} />

@@ -311,7 +311,7 @@ export function HomePage() {
           <div className="max-w-[900px] mx-auto">
             <p
               style={{
-                fontFamily: "'Inter', sans-serif",
+                fontFamily: "'Playfair Display', serif",
                 fontSize: '1.05rem',
                 color: '#EDE9E3',
                 lineHeight: '1.8',
