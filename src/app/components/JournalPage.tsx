@@ -5,7 +5,7 @@ const heroImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/land-detail-d
 const winterBayImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/bay-view-sunset-dramatic.jpg';
 const bathNightImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-bath-night.jpg';
 const interiorImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/interior-living-sunlight.jpg';
-const exteriorDuskImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-exterior-dusk-silhoutte.jpg';
+const exteriorDuskImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-exterior-dusk-silhouette.jpg';
 const wildlifeImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/wildlife-wallaby-understorey.jpg';
 
 const categories = ['All', 'Sustainability', 'Place', 'Wildlife', 'Provenance'];
