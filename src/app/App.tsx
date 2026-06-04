@@ -15,6 +15,7 @@ import { GoDarkPage } from "./components/GoDarkPage";
 import { GalleryPage } from "./components/GalleryPage";
 import { JournalPage } from "./components/JournalPage";
 import { FAQsPage } from "./components/FAQsPage";
+import { PoliciesPage } from "./components/PoliciesPage";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
