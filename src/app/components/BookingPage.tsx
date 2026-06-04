@@ -224,6 +224,7 @@ export function BookingPage() {
   const [quoteLoading, setQuoteLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [tcAccepted, setTcAccepted] = useState(false);
 
   useEffect(() => {
     // Restore state if returning from payment page
@@ -241,6 +242,7 @@ export function BookingPage() {
         if (s.selectedCelebrations) setSelectedCelebrations(s.selectedCelebrations);
         if (s.quoteData) setQuoteData(s.quoteData);
         if (s.step) setStep(s.step);
+        if (s.tcAccepted) setTcAccepted(s.tcAccepted);
         sessionStorage.removeItem('rhr_booking');
       } catch(e) { console.error('Failed to restore booking state:', e); }
     }
@@ -310,6 +312,7 @@ export function BookingPage() {
   };
 
   const goToReview = async () => {
+    if (!tcAccepted){ setError('Please read and accept the Terms & Conditions to continue.'); return; }
     if (!checkIn||!checkOut){ setError('Please select your check-in and check-out dates.'); return; }
     if (nights<2){ setError('Minimum stay is 2 nights.'); return; }
     if (!form.firstName||!form.lastName||!form.email){ setError('Please fill in your first name, last name, and email.'); return; }
@@ -357,6 +360,7 @@ export function BookingPage() {
       }
       // Save form state before leaving so back button restores it
       sessionStorage.setItem('rhr_booking', JSON.stringify({
+        tcAccepted,
         checkIn, checkOut, guests, form,
         selectedPackage, selectedExperiences, selectedProvisions, selectedCelebrations,
         quoteData, step: 2,
@@ -552,11 +556,30 @@ export function BookingPage() {
 
 
 
+            {/* T&Cs checkbox */}
+            <div className="flex items-start gap-3 mb-5" style={{padding:'1rem',borderRadius:'0.375rem',border:`1px solid ${tcAccepted?S.accent:S.border}`,backgroundColor:'rgba(0,0,0,0.2)',cursor:'pointer'}}
+              onClick={()=>setTcAccepted(t=>!t)}>
+              <div style={{width:20,height:20,borderRadius:3,border:`2px solid ${tcAccepted?S.accent:'rgba(143,169,179,0.4)'}`,
+                background:tcAccepted?S.accent:'transparent',display:'flex',alignItems:'center',justifyContent:'center',
+                transition:'all 0.2s ease',flexShrink:0,marginTop:'0.1rem'}}>
+                {tcAccepted&&<Check size={12} style={{color:S.bgDark}}/>}
+              </div>
+              <p style={{fontFamily:S.inter,fontSize:'0.875rem',color:S.muted,lineHeight:'1.6'}}>
+                I have read and agree to the{' '}
+                <a href="/policies" target="_blank" onClick={e=>e.stopPropagation()}
+                  style={{color:S.accent,textDecoration:'underline'}}>Terms & Conditions</a>
+                {', '}including the cancellation policy, property hazards and assumption of risk.
+              </p>
+            </div>
+
             {error&&<p style={{fontFamily:S.inter,fontSize:'0.85rem',color:'#e87878',marginBottom:'1rem'}}>{error}</p>}
 
             <button onClick={goToReview} style={{
-              width:'100%',padding:'1rem',backgroundColor:S.accent,color:S.bgDark,
-              border:'none',borderRadius:'0.375rem',fontFamily:S.inter,fontSize:'1rem',fontWeight:600,cursor:'pointer',
+              width:'100%',padding:'1rem',
+              backgroundColor:tcAccepted?S.accent:'rgba(143,169,179,0.3)',
+              color:S.bgDark,border:'none',borderRadius:'0.375rem',
+              fontFamily:S.inter,fontSize:'1rem',fontWeight:600,
+              cursor:tcAccepted?'pointer':'not-allowed',
             }}>
               Review My Booking
             </button>

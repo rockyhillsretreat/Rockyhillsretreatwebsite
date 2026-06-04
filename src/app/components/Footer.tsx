@@ -214,6 +214,7 @@ export function Footer() {
               }}
             >
               Working toward Sustainable Tourism Certification. Off-grid solar and rainwater. East Coast Tasmania.
+              ABN 11 659 409 588
             </p>
           </div>
           <p

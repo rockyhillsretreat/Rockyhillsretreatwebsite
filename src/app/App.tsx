@@ -57,6 +57,7 @@ function App() {
             <Route path="/gallery" element={<GalleryPage />} />
             <Route path="/journal" element={<JournalPage />} />
             <Route path="/faqs" element={<FAQsPage />} />
+            <Route path="/policies" element={<PoliciesPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
