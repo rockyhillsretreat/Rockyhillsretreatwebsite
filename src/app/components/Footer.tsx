@@ -123,7 +123,7 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="tel:+61485689488"
+                  href="tel:+61499645344"
                   className="flex items-center gap-2 transition-colors hover:opacity-70"
                   style={{
                     fontFamily: "'Inter', sans-serif",
@@ -132,7 +132,7 @@ export function Footer() {
                   }}
                 >
                   <Phone size={16} style={{ color: '#8FA9B3' }} />
-                  +61 485 689 488
+                  +61 499 645 344
                 </a>
               </li>
               <li className="pt-2">
@@ -214,6 +214,15 @@ export function Footer() {
               }}
             >
               Working toward Sustainable Tourism Certification. Off-grid solar and rainwater. East Coast Tasmania.
+            </p>
+            <p
+              style={{
+                fontFamily: "'Inter', sans-serif",
+                fontSize: '0.8rem',
+                color: '#8FA9B3',
+                fontStyle: 'italic'
+              }}
+            >
               ABN 11 659 409 588
             </p>
           </div>
