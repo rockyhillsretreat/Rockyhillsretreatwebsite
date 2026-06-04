@@ -73,7 +73,7 @@ export function ProvisionsPage() {
             Some of what's here is included in your stay. The rest is available to purchase from The Store and will be added to your account at checkout. A full list is in the compendium waiting for you at the property.
           </p>
           <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '1.05rem', color: '#EDE9E3', lineHeight: '1.8' }}>
-            We stock no alcohol. Milton Vineyard is 25 minutes north at Cranbrook and Devil's Corner is 30 minutes north at Apslawn. Both are worth the drive.
+            We stock no alcohol. Mayfield Vineyard and Tasman Seasalt are just across the road. Milton Vineyard is 25 minutes north at Cranbrook and Devil's Corner is 30 minutes north at Apslawn. Both are worth the drive.
           </p>
         </div>
       </section>

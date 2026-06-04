@@ -5,7 +5,7 @@ const heroImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/land-detail-d
 const winterBayImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/bay-view-sunset-dramatic.jpg';
 const bathNightImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-bath-night.jpg';
 const interiorImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/interior-living-sunlight.jpg';
-const exteriorDuskImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-exterior-entry-dusk.jpg';
+const exteriorDuskImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-exterior-dusk-silhoutte.jpg';
 const wildlifeImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/wildlife-wallaby-understorey.jpg';
 
 const categories = ['All', 'Sustainability', 'Place', 'Wildlife', 'Provenance'];
@@ -85,12 +85,12 @@ const entries = [
     category: 'Place',
     date: 'January 2026',
     title: 'Getting Here',
-    excerpt: 'Rocky Hills is about 2.5 hours from Hobart. The drive is part of the arrival.',
+    excerpt: 'Rocky Hills is about 1.5 hours from Hobart. The drive is part of the arrival.',
     image: exteriorDuskImg,
     imageAlt: 'Entry door at dusk, Rocky Hills Retreat',
     featured: false,
     content: [
-      'Rocky Hills is about 2.5 hours from Hobart. The drive is part of the arrival.',
+      'Rocky Hills is about 1.5 hours from Hobart. The drive is part of the arrival.',
       'You leave the highway at Swansea and follow the coast north. The Tasman Highway runs right along the edge of Great Oyster Bay here, with the Freycinet Peninsula visible across the water. The turnoff to the property is easy to miss the first time.',
       'The driveway is gravel for the final stretch. Most guests arrive in the late afternoon. There is no one to meet you. That is deliberate. The property is set up so that within about ten minutes of walking through the door, there is nothing left to organise.',
       'Swansea is 15 minutes south if you need anything. Most guests find they do not.',

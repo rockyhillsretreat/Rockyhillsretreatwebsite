@@ -56,10 +56,10 @@ export function ContactPage() {
                 For urgent matters. Available 9am–6pm AEST.
               </p>
               <a
-                href="tel:+61485689488"
+                href="tel:+61499645344"
                 className="block text-bone hover:text-muted-gold transition-cinematic pt-4 border-t border-border/30"
               >
-                +61 485 689 488
+                +61 499 645 344
               </a>
             </div>
 
@@ -74,8 +74,8 @@ export function ContactPage() {
               </p>
               <p className="text-bone/70 text-sm pt-4 border-t border-border/30 leading-relaxed">
                 Rocky Hills Retreat<br />
-                PO Box 247<br />
-                East Coast, TAS 7215<br />
+                11901 Tasman Highway<br />
+                Rocky Hills, TAS, 7190<br />
                 Australia
               </p>
             </div>
@@ -104,11 +104,11 @@ export function ContactPage() {
                     />
                 </div>
                 <div>
-                  <label className="text-bone/70 mb-2 block">Last Name</label>
+                    <label className="text-bone/70 mb-2 block">Last Name</label>
                   <input
                     type="text"
                     placeholder="Your last name"
-                    className="bg-input-background border-border text-bone"
+                    className="w-full bg-input-background border border-border text-bone p-3"
                   />
                 </div>
               </div>
@@ -118,7 +118,7 @@ export function ContactPage() {
                 <input
                   type="email"
                   placeholder="your@email.com"
-                  className="bg-input-background border-border text-bone"
+                  className="w-full bg-input-background border border-border text-bone p-3"
                 />
               </div>
 
@@ -127,7 +127,7 @@ export function ContactPage() {
                 <input
                   type="tel"
                   placeholder="+61"
-                  className="bg-input-background border-border text-bone"
+                  className="w-full bg-input-background border border-border text-bone p-3"
                 />
               </div>
 
@@ -209,7 +209,7 @@ export function ContactPage() {
               <div>
                 <h5 className="text-bone mb-2">When should I book?</h5>
                 <p className="text-bone/60">
-                  Winter (June-August) books out 3-6 months in advance.
+                  Summer (Nov-Feb) and Winter (June-August) book out quickly.
                   Spring and autumn offer more flexibility. We occasionally have last-minute availability.
                 </p>
               </div>
