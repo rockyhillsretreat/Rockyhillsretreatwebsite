@@ -58,7 +58,7 @@ export default function PropertyWorksPage() {
 
   useEffect(() => {
     fetchAllRecords()
-      .then(setRecords)
+      .then(data => { (window as any).__records = data; setRecords(data); })
       .catch(e => setError(e.message))
       .finally(() => setLoading(false));
   }, []);
