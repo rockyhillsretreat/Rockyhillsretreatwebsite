@@ -32,6 +32,7 @@ async function fetchAllRecords(): Promise<Record[]> {
   let offset = "";
   do {
     const url = `https://api.airtable.com/v0/${BASE_ID}/${TABLE_ID}?pageSize=100${offset ? `&offset=${offset}` : ""}`;
+    console.log('PAT defined:', !!import.meta.env.VITE_AIRTABLE_PAT);
     const res = await fetch(url, { headers: { Authorization: `Bearer ${PAT}` } });
     if (!res.ok) throw new Error(`Airtable error ${res.status}`);
     const data = await res.json();
