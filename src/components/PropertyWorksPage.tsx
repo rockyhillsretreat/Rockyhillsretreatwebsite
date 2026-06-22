@@ -5,17 +5,17 @@ const TABLE_ID = "tblZXYKCsFt813W70";
 const PAT = import.meta.env.VITE_AIRTABLE_PAT;
 
 const F = {
-  task:      "Task",
-  category:  "Category",
-  assignee:  "Assigned To",
-  status:    "Status",
-  priority:  "Priority",
-  notes:     "Notes",
-  contact:   "Contact / Reference",
-  estimated: "Estimated Cost ($)",
-  actual:    "Actual Cost ($)",
-  invoice:   "Quote / Invoice #",
-  completed: "Date Completed",
+  task:      "fldvtNVuZPJVVsbpK",
+  category:  "fldsQUUG3cfyPYJ7t",
+  assignee:  "fld2PU6M2DaaPGd22",
+  status:    "fldaw8Uz5BuUG4xuc",
+  priority:  "fld3BsBqsEsWOg8VB",
+  notes:     "fldyYFl8djaDfylrz",
+  contact:   "fldcoWlaBEEnc1eIa",
+  estimated: "fldlYXp6yQEazEDXe",
+  actual:    "fldEynxDbSZ4i3MTA",
+  invoice:   "fldt9cWIZ4vcC7Qsy",
+  completed: "fldghVWn1U2R8PocW",
 };
 
 type Record = { id: string; fields: { [key: string]: any } };
@@ -36,7 +36,7 @@ async function fetchAllRecords(): Promise<Record[]> {
     const res = await fetch(url, { headers: { Authorization: `Bearer ${PAT}` } });
     if (!res.ok) throw new Error(`Airtable error ${res.status}`);
     const data = await res.json();
-    console.log('First record:', JSON.stringify(data.records?.[0]));
+    console.log('First record fields:', JSON.stringify(data.records?.[0]?.fields));
     all = all.concat(data.records || []);
     offset = data.offset || "";
   } while (offset);
