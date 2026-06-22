@@ -25,7 +25,7 @@ export function FAQsPage() {
         },
         {
           question: "What time is check-in and check-out?",
-          answer: "Check-in from 3pm. Check-out by 10am. Early check-in or late check-out may be possible ask us."
+          answer: "Check-in from 2pm. Check-out by 10am. Early check-in or late check-out may be possible ask us."
         },
         {
           question: "Is the retreat suitable for children?",
@@ -71,7 +71,7 @@ export function FAQsPage() {
         },
         {
           question: "Is there WiFi?",
-          answer: "Yes. Satellite internet is available throughout the retreat. It is not fast by city standards, but it is reliable."
+          answer: "Yes. Satellite internet is available throughout the retreat. It is blisteringly fast by city standards, and very reliable."
         },
         {
           question: "Is there phone reception?",
@@ -111,9 +111,9 @@ export function FAQsPage() {
       {/* Hero Section */}
       <section className="py-24 px-6">
         <div className="max-w-[900px] mx-auto text-center">
-          <h1 
+          <h1
             className="mb-6"
-            style={{ 
+            style={{
               fontFamily: "'Playfair Display', serif",
               fontSize: 'clamp(2.5rem, 6vw, 4rem)',
               color: '#EDE9E3',
@@ -123,7 +123,7 @@ export function FAQsPage() {
           >
             FAQs
           </h1>
-          <p 
+          <p
             style={{
               fontFamily: "'Inter', sans-serif",
               fontSize: '1.05rem',
@@ -141,7 +141,7 @@ export function FAQsPage() {
         <div className="max-w-[900px] mx-auto space-y-12">
           {faqCategories.map((category, index) => (
             <div key={index}>
-              <h2 
+              <h2
                 className="mb-6"
                 style={{
                   fontFamily: "'Inter', sans-serif",
@@ -156,8 +156,8 @@ export function FAQsPage() {
               </h2>
               <Accordion type="single" collapsible className="space-y-4">
                 {category.questions.map((item, qIndex) => (
-                  <AccordionItem 
-                    key={qIndex} 
+                  <AccordionItem
+                    key={qIndex}
                     value={`item-${index}-${qIndex}`}
                     style={{
                       backgroundColor: '#2E3D45',
@@ -166,7 +166,7 @@ export function FAQsPage() {
                       padding: '0 1.5rem'
                     }}
                   >
-                    <AccordionTrigger 
+                    <AccordionTrigger
                       style={{
                         fontFamily: "'Inter', sans-serif",
                         fontSize: '1rem',
@@ -177,7 +177,7 @@ export function FAQsPage() {
                     >
                       {item.question}
                     </AccordionTrigger>
-                    <AccordionContent 
+                    <AccordionContent
                       style={{
                         fontFamily: "'Inter', sans-serif",
                         fontSize: '0.95rem',
@@ -200,7 +200,7 @@ export function FAQsPage() {
       {/* Contact CTA */}
       <section className="py-20 px-6" style={{ backgroundColor: '#2E3D45' }}>
         <div className="max-w-[900px] mx-auto text-center">
-          <h2 
+          <h2
             className="mb-6"
             style={{
               fontFamily: "'Playfair Display', serif",
@@ -210,7 +210,7 @@ export function FAQsPage() {
           >
             Still have questions?
           </h2>
-          <p 
+          <p
             className="mb-8"
             style={{
               fontFamily: "'Inter', sans-serif",

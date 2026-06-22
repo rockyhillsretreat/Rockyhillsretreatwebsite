@@ -60,9 +60,9 @@ export function ExperiencesPage() {
     ],
     provenance: [
       {
-        title: "Freycinet Marine Farm (15 minutes north)",
-        description: "15 minutes north on Great Oyster Bay. Family farm, 40 years in the same water. Oysters eaten where they're grown.",
-        cta: "We'll give you directions and let Cassie know you're coming.",
+        title: "Freycinet Marine Farm (45 minutes north)",
+        description: "45 minutes north on Great Oyster Bay. Family farm, decades in the same water. Mussels and oysters eaten where they're grown.",
+        cta: "We'll give you directions and let Julia know you're coming.",
         image: oystersImg
       },
       {

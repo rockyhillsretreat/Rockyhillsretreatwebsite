@@ -312,10 +312,11 @@ export function HomePage() {
             <p
               style={{
                 fontFamily: "'Playfair Display', serif",
-                fontSize: '1.05rem',
+                fontSize: '1.5rem',
                 color: '#EDE9E3',
                 lineHeight: '1.8',
                 textAlign: 'center',
+                fontStyle: 'italic',
               }}
             >
               Fully off-grid. Built to take less than it gives.
@@ -598,7 +599,7 @@ export function HomePage() {
               color: '#B8AE9F',
             }}
           >
-            Two-night minimum. 
+            Two-night minimum.
           </p>
           <Link
             to="/contact"

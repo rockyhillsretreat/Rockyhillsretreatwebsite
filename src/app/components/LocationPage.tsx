@@ -44,7 +44,7 @@ export function LocationPage() {
                   Rocky Hills sits on the traditional country of the Big River Nation and Oyster Bay Nation, between Swansea and the Freycinet Peninsula. We acknowledge this country and those who have known it longest.
                 </p>
                 <p>
-                  Swansea is nearby. Hobart is two hours south. There is one road in.
+                  Swansea is nearby. Hobart is ninety minutes south. There is one road in.
                 </p>
                 <p>
                   That's the point.
@@ -107,7 +107,7 @@ export function LocationPage() {
               <div className="space-y-4 text-bone/70 text-sm">
                 <div className="flex justify-between pb-3 border-b border-border/30">
                   <span>From Hobart</span>
-                  <span className="text-bone">2 hours</span>
+                  <span className="text-bone">1.5 hours</span>
                 </div>
                 <div className="flex justify-between pb-3 border-b border-border/30">
                   <span>From Launceston</span>
@@ -132,7 +132,7 @@ export function LocationPage() {
               <div className="space-y-4 text-bone/70 text-sm">
                 <div className="flex justify-between pb-3 border-b border-border/30">
                   <span>From Hobart</span>
-                  <span className="text-bone">2 hours</span>
+                  <span className="text-bone">1.5 hours</span>
                 </div>
                 <div className="flex justify-between pb-3 border-b border-border/30">
                   <span>From Launceston</span>
@@ -144,7 +144,7 @@ export function LocationPage() {
                 </div>
               </div>
               <p className="text-xs text-bone/50 italic pt-4 border-t border-border/30">
-                Detailed directions provided upon booking. Final 8km is unsealed road. 4WD recommended but not essential.
+                Detailed directions provided upon booking. Final 2km is unsealed road. 4WD recommended but not essential.
               </p>
             </div>
           </div>
@@ -169,7 +169,7 @@ export function LocationPage() {
                 <p className="text-bone/60 text-sm leading-relaxed">
                   Tasmania's weather can change rapidly. We recommend checking forecasts before departure and
                   allowing extra time for travel. Helicopter transfers are weather-dependent and may be rescheduled.
-                  Winter roads can be icy drive carefully and arrive before dark if possible.
+                  Winter roads can be icy - drive carefully and arrive before dark if possible.
                 </p>
               </div>
             </div>
@@ -187,7 +187,7 @@ export function LocationPage() {
               <div className="space-y-6">
                 <div className="pb-6 border-b border-border/30">
                   <div className="flex justify-between items-baseline mb-2">
-                    <h5 className="text-bone">Nearest Town (Supplies)</h5>
+                    <h5 className="text-bone">Swansea - Nearest Town</h5>
                     <span className="text-bone/60 text-sm">25 minutes</span>
                   </div>
                   <p className="text-bone/50 text-sm">
@@ -221,10 +221,10 @@ export function LocationPage() {
                 <div className="pb-6 border-b border-border/30">
                   <div className="flex justify-between items-baseline mb-2">
                     <h5 className="text-bone">Wineries & Distilleries</h5>
-                    <span className="text-bone/60 text-sm">30-60 minutes</span>
+                    <span className="text-bone/60 text-sm">5 - 60 minutes</span>
                   </div>
                   <p className="text-bone/50 text-sm">
-                    Several cellar doors and distilleries within driving distance.
+                    Many cellar doors and distilleries within driving distance.
                     Tastings by appointment.
                   </p>
                 </div>
@@ -249,14 +249,14 @@ export function LocationPage() {
                 <div className="flex items-start gap-4">
                   <div className="w-1.5 h-1.5 bg-muted-gold mt-2.5 flex-shrink-0" />
                   <p>
-                    <strong className="text-bone">Nearest hospital:</strong> Royal Hobart Hospital, approximately 2 hours. Emergency services accessible. First aid kit on site.
+                    <strong className="text-bone">Nearest major hospital:</strong> Royal Hobart Hospital, approximately 2 hours. Emergency services accessible. First aid kit on site.
                   </p>
                 </div>
                 <div className="flex items-start gap-4">
                   <div className="w-1.5 h-1.5 bg-muted-gold mt-2.5 flex-shrink-0" />
                   <p>
                     <strong className="text-bone">Wildlife:</strong> Wallabies, wombats, echidnas common.
-                    Tasmanian devils occasionally spotted at dusk. Keep respectful distance.
+                    Tasmanian devils and quolls occasionally spotted at dusk. Keep respectful distance.
                   </p>
                 </div>
                 <div className="flex items-start gap-4">
@@ -294,7 +294,7 @@ export function LocationPage() {
             When to Come
           </h2>
           <p className="text-lg text-bone/70 leading-relaxed">
-            Rocky Hills Retreat is designed for winter but every season reveals something different.
+            Rocky Hills Retreat is designed for year round comfort but every season reveals something different.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-12 text-left">

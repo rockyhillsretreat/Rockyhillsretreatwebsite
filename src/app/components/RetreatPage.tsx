@@ -29,17 +29,17 @@ export function RetreatPage() {
             alt="Rocky Hills Retreat architecture"
             className="w-full h-full object-cover"
           />
-          <div 
-            className="absolute inset-0" 
-            style={{ 
-              background: 'linear-gradient(to bottom, rgba(38, 51, 58, 0) 40%, rgba(38, 51, 58, 0.7) 100%)' 
-            }} 
+          <div
+            className="absolute inset-0"
+            style={{
+              background: 'linear-gradient(to bottom, rgba(38, 51, 58, 0) 40%, rgba(38, 51, 58, 0.7) 100%)'
+            }}
           />
         </div>
         <div className="relative h-full flex items-end justify-center px-6 pb-20">
           <div className="max-w-4xl text-center space-y-6">
-            <h1 
-              style={{ 
+            <h1
+              style={{
                 fontFamily: "'Playfair Display', serif",
                 fontSize: 'clamp(2.5rem, 6vw, 4rem)',
                 color: '#EDE9E3',
@@ -56,8 +56,8 @@ export function RetreatPage() {
       {/* Introduction */}
       <section className="py-24 px-6" style={{ backgroundColor: '#26333A' }}>
         <div className="max-w-[900px] mx-auto">
-          <p 
-            style={{ 
+          <p
+            style={{
               fontFamily: "'Inter', sans-serif",
               fontSize: '1.05rem',
               color: '#EDE9E3',
@@ -73,7 +73,7 @@ export function RetreatPage() {
       {/* The Space */}
       <section className="py-24 px-6" style={{ backgroundColor: '#2E3D45' }}>
         <div className="max-w-[1200px] mx-auto">
-          <h2 
+          <h2
             className="mb-12"
             style={{
               fontFamily: "'Playfair Display', serif",
@@ -103,7 +103,7 @@ export function RetreatPage() {
         <div className="max-w-[1200px] mx-auto">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 
+              <h2
                 className="mb-6"
                 style={{
                   fontFamily: "'Playfair Display', serif",
@@ -115,7 +115,7 @@ export function RetreatPage() {
               </h2>
               <div className="space-y-6" style={{ color: '#EDE9E3' }}>
                 <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '1.05rem', lineHeight: '1.8' }}>
-                  The brief was simple: disappear into the land, open to the water. Besser block walls and a poured concrete roof part of a fire-safe design with no conventional gutters and no combustible cladding. Heat-treated double-glazed windows on the north and east faces track the light from morning to dusk. Blackwood joinery throughout. Nothing decorative. Every material chosen because it belongs here and will still be here in a hundred years.
+                  The brief was simple: disappear into the land, open to the water. Besser block walls and a poured concrete roof - part of a fire-safe design with no conventional gutters and no combustible cladding. Heat-treated double-glazed windows on the north and east faces track the light from morning to dusk. Blackwood joinery throughout. Nothing decorative. Every material chosen because it belongs here and will still be here in a hundred years.
                 </p>
                 <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '1.05rem', lineHeight: '1.8' }}>
                   The site sits under a conservation covenant protecting it from logging in perpetuity. A site management plan developed with the Private Land Conservation Program protects the flora and fauna of the 250-acre property.
@@ -136,7 +136,7 @@ export function RetreatPage() {
       {/* Off the Grid */}
       <section className="py-24 px-6" style={{ backgroundColor: '#2E3D45' }}>
         <div className="max-w-[1200px] mx-auto">
-          <h2 
+          <h2
             className="mb-12"
             style={{
               fontFamily: "'Playfair Display', serif",
@@ -149,13 +149,13 @@ export function RetreatPage() {
           </h2>
           <div className="space-y-6 max-w-[900px] mx-auto" style={{ color: '#EDE9E3' }}>
             <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '1.05rem', lineHeight: '1.8' }}>
-              Fifteen kilowatts of solar panels run through an inverter-charger and battery bank, with a backup diesel generator for extended low-light periods. Rainwater is captured directly off the concrete roof via a central downpipe into tanks beneath the house. A separate tank near the carpark stores water for bushfire use. Waste is managed on-site via septic.
+              A purpose-buit array of solar panels runs through an inverter-charger and battery bank, with a backup diesel generator for extended low-light periods. Rainwater is captured directly off the concrete roof via a central downpipe into tanks beneath the house. A separate tank near the carpark stores water for bushfire use. Waste is managed on-site via septic.
             </p>
             <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '1.05rem', lineHeight: '1.8' }}>
               There is no mains connection of any kind. Water is tank water.
             </p>
             <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '1.05rem', lineHeight: '1.8' }}>
-              In winter the solar performs differently shorter days, more generator use during extended overcast stretches. The system manages this automatically. The warmth, the hot water, and the fire are unaffected.
+              In winter the solar performs differently - shorter days, more generator use during extended overcast stretches. The system manages this automatically. The warmth, the hot water, and the fire are unaffected.
             </p>
           </div>
         </div>
@@ -169,9 +169,9 @@ export function RetreatPage() {
               const Icon = feature.icon;
               return (
                 <div key={index} className="flex flex-col items-center text-center space-y-4">
-                  <div 
+                  <div
                     className="w-16 h-16 flex items-center justify-center transition-all"
-                    style={{ 
+                    style={{
                       border: '1px solid rgba(143, 169, 179, 0.3)',
                       borderRadius: '0.5rem'
                     }}
@@ -204,7 +204,7 @@ export function RetreatPage() {
           </h2>
           <div className="space-y-6 max-w-[900px] mx-auto" style={{ color: '#EDE9E3' }}>
             <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '1.05rem', lineHeight: '1.8' }}>
-              Rocky Hills is a fully comitted sustainable property. The 250-acre property is under conservation covenant protected from development or logging in perpetuity. We are working toward carbon neutrality. These are ongoing commitments, not completed ones.
+              Rocky Hills is a fully comitted sustainable property. The 250-acre property is under conservation covenant - protected from development or logging in perpetuity. We are working toward carbon neutrality. These are ongoing commitments, not completed ones.
             </p>
             <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '1.05rem', lineHeight: '1.8' }}>
               When you stay here, you are part of a system that tries to do things properly.
@@ -235,13 +235,13 @@ export function RetreatPage() {
               The 250 acres surrounding Rocky Hills is permanently protected under a conservation covenant registered on the title in perpetuity. It cannot be cleared, logged, or developed beyond its current footprint. That protection is why the following animals are here.
             </p>
             <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '1.05rem', lineHeight: '1.8' }}>
-              On the land: Bennett's wallabies and Tasmanian pademelons graze in the late afternoon, moving out of the understorey as the light drops. Wombats come through at night patient, unhurried, entirely uninterested in your presence. Common brushtail possums, echidnas in the understorey during the day. Wedge-tailed eagles work the thermals overhead most mornings. Yellow-tailed Black Cockatoos move through in flocks, their call carrying across the bush before you see them. Two species in particular make this forest essential: the Swift Parrot, critically endangered, breeds only in Tasmania, and depends on exactly this type of dry sclerophyll eucalypt woodland. The Forty-spotted Pardalote, one of Australia's rarest birds, is found in precisely this habitat on the East Coast. Their presence here is not incidental. It is the result of land left undisturbed.
+              On the land: Bennett's wallabies and Tasmanian pademelons graze in the late afternoon, moving out of the understorey as the light drops. Wombats come through at night - patient, unhurried, entirely uninterested in your presence. Common brushtail possums, echidnas in the understorey during the day. Wedge-tailed eagles work the thermals overhead most mornings. Yellow-tailed Black Cockatoos move through in flocks, their call carrying across the bush before you see them. Two species in particular make this forest essential: the Swift Parrot, critically endangered, breeds only in Tasmania, and depends on exactly this type of dry sclerophyll eucalypt woodland. The Forty-spotted Pardalote, one of Australia's rarest birds, is found in precisely this habitat on the East Coast. Their presence here is not incidental. It is the result of land left undisturbed.
             </p>
             <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '1.05rem', lineHeight: '1.8' }}>
               From the deck: Great Oyster Bay is visible from the property, approximately two kilometres down to the shore. White-bellied sea eagles work the foreshore on calm mornings. Dolphins in the channel when the water is flat.
             </p>
             <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '1.05rem', lineHeight: '1.8' }}>
-              In winter: from May through July, humpback whales move north through Great Oyster Bay on their annual migration. Southern right whales are occasionally sighted. This is one of the genuine winter-specific things about this place the migration window aligns with the darkest months, and from the deck on a clear morning you may see a blow in the channel before you have had your coffee.
+              In winter: from May through July, humpback whales move north through Great Oyster Bay on their annual migration. Southern right whales are occasionally sighted. This is one of the genuine winter-specific things about this place - the migration window aligns with the darkest months, and from the deck on a clear morning you may see a blow in the channel before you have had your coffee.
             </p>
             <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '1.05rem', lineHeight: '1.8' }}>
               These encounters are possible because this land is quiet and undisturbed. Your quiet presence is what keeps them that way.
@@ -291,7 +291,7 @@ export function RetreatPage() {
       {/* Gallery Preview */}
       <section className="py-24 px-6" style={{ backgroundColor: '#2E3D45' }}>
         <div className="max-w-[1400px] mx-auto">
-          <h2 
+          <h2
             className="mb-12 text-center"
             style={{
               fontFamily: "'Playfair Display', serif",
