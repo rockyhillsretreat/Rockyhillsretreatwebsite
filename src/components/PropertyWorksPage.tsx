@@ -22,8 +22,7 @@ async function fetchAllRecords(): Promise<Record[]> {
     const res = await fetch(url, { headers: { Authorization: `Bearer ${PAT}` } });
     if (!res.ok) throw new Error(`Airtable error ${res.status}`);
     const data = await res.json();
-    console.log('Raw fields keys:', Object.keys(data.records?.[0]?.fields || {}));
-    console.log('Raw first record:', JSON.stringify(data.records?.[0]?.fields));
+    console.log('First record:', JSON.stringify(data.records?.[0]));
     all = all.concat(data.records || []);
     offset = data.offset || "";
   } while (offset);
