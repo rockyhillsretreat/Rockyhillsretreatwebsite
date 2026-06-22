@@ -4,10 +4,24 @@ const BASE_ID = "appO2vRe5CUCeHFYg";
 const TABLE_ID = "tblZXYKCsFt813W70";
 const PAT = import.meta.env.VITE_AIRTABLE_PAT;
 
+const F = {
+  task:      "Task",
+  category:  "Category",
+  assignee:  "Assigned To",
+  status:    "Status",
+  priority:  "Priority",
+  notes:     "Notes",
+  contact:   "Contact / Reference",
+  estimated: "Estimated Cost ($)",
+  actual:    "Actual Cost ($)",
+  invoice:   "Quote / Invoice #",
+  completed: "Date Completed",
+};
+
 type Record = { id: string; fields: { [key: string]: any } };
 
-function val(r: Record, fieldName: string): string {
-  const v = r.fields?.[fieldName];
+function val(r: Record, key: keyof typeof F): string {
+  const v = r.fields?.[F[key]];
   if (v === undefined || v === null) return "";
   if (typeof v === "object" && "name" in v) return v.name;
   return String(v);
@@ -63,25 +77,25 @@ export default function PropertyWorksPage() {
   }, []);
 
   const filtered = records.filter(r => {
-    if (filterAssignee !== "all" && val(r, "Assigned To") !== filterAssignee) return false;
-    if (filterCategory !== "all" && val(r, "Category") !== filterCategory) return false;
-    const s = val(r, "Status");
+    if (filterAssignee !== "all" && val(r, "assignee") !== filterAssignee) return false;
+    if (filterCategory !== "all" && val(r, "category") !== filterCategory) return false;
+    const s = val(r, "status");
     if (filterStatus === "active" && s === "Done") return false;
     if (filterStatus === "done" && s !== "Done") return false;
     return true;
   });
 
-  const assignees = [...new Set(records.map(r => val(r, "Assigned To")).filter(Boolean))];
-  const categories = [...new Set(records.map(r => val(r, "Category")).filter(Boolean))].sort();
+  const assignees = [...new Set(records.map(r => val(r, "assignee")).filter(Boolean))];
+  const categories = [...new Set(records.map(r => val(r, "category")).filter(Boolean))].sort();
 
   const grouped: { [k: string]: Record[] } = {};
   filtered.forEach(r => {
-    const a = val(r, "Assigned To") || "Unassigned";
+    const a = val(r, "assignee") || "Unassigned";
     if (!grouped[a]) grouped[a] = [];
     grouped[a].push(r);
   });
   Object.keys(grouped).forEach(a =>
-    grouped[a].sort((x, y) => (PRIORITY_ORDER[val(x, "Priority")]??9) - (PRIORITY_ORDER[val(y, "Priority")]??9))
+    grouped[a].sort((x, y) => (PRIORITY_ORDER[val(x,"priority")]??9) - (PRIORITY_ORDER[val(y,"priority")]??9))
   );
   const sortedGroups = Object.keys(grouped).sort((a, b) => {
     const ai = PERSON_ORDER.indexOf(a); const bi = PERSON_ORDER.indexOf(b);
@@ -91,15 +105,15 @@ export default function PropertyWorksPage() {
   function openPanel(r: Record) {
     setPanel(r);
     setForm({
-      status:    val(r, "Status") || "Not started",
-      priority:  val(r, "Priority") || "Medium",
-      assignee:  val(r, "Assigned To") || "TBC",
-      notes:     val(r, "Notes"),
-      contact:   val(r, "Contact / Reference"),
-      estimated: val(r, "Estimated Cost ($)"),
-      actual:    val(r, "Actual Cost ($)"),
-      invoice:   val(r, "Quote / Invoice #"),
-      completed: val(r, "Date Completed"),
+      status:    val(r, "status") || "Not started",
+      priority:  val(r, "priority") || "Medium",
+      assignee:  val(r, "assignee") || "TBC",
+      notes:     val(r, "notes"),
+      contact:   val(r, "contact"),
+      estimated: val(r, "estimated"),
+      actual:    val(r, "actual"),
+      invoice:   val(r, "invoice"),
+      completed: val(r, "completed"),
     });
   }
 
@@ -108,16 +122,16 @@ export default function PropertyWorksPage() {
     setSaving(true);
     try {
       const fields: { [k: string]: any } = {
-        "Status":             form.status,
-        "Priority":           form.priority,
-        "Assigned To":        form.assignee,
-        "Notes":              form.notes,
-        "Contact / Reference": form.contact,
-        "Quote / Invoice #":  form.invoice,
-        "Date Completed":     form.completed || null,
+        [F.status]:    form.status,
+        [F.priority]:  form.priority,
+        [F.assignee]:  form.assignee,
+        [F.notes]:     form.notes,
+        [F.contact]:   form.contact,
+        [F.invoice]:   form.invoice,
+        [F.completed]: form.completed || null,
       };
-      if (form.estimated !== "") fields["Estimated Cost ($)"] = Number(form.estimated);
-      if (form.actual !== "")    fields["Actual Cost ($)"]    = Number(form.actual);
+      if (form.estimated !== "") fields[F.estimated] = Number(form.estimated);
+      if (form.actual !== "")    fields[F.actual]    = Number(form.actual);
       const updated = await patchRecord(panel.id, fields);
       setRecords(rs => rs.map(r => r.id === panel.id ? updated : r));
       setPanel(null);
@@ -126,8 +140,8 @@ export default function PropertyWorksPage() {
   }
 
   async function quickDone(id: string, newStatus: string) {
-    const fields: { [k: string]: any } = { "Status": newStatus };
-    if (newStatus === "Done") fields["Date Completed"] = new Date().toISOString().split("T")[0];
+    const fields: { [k: string]: any } = { [F.status]: newStatus };
+    if (newStatus === "Done") fields[F.completed] = new Date().toISOString().split("T")[0];
     try {
       const updated = await patchRecord(id, fields);
       setRecords(rs => rs.map(r => r.id === id ? updated : r));
@@ -138,14 +152,14 @@ export default function PropertyWorksPage() {
   let totalEst = 0, totalAct = 0;
   const bycat: { [k: string]: { est: number; act: number; count: number } } = {};
   records.forEach(r => {
-    const cat = val(r, "Category") || "Uncategorised";
-    const est = Number(val(r, "Estimated Cost ($)")) || 0;
-    const act = Number(val(r, "Actual Cost ($)")) || 0;
+    const cat = val(r,"category") || "Uncategorised";
+    const est = Number(val(r,"estimated")) || 0;
+    const act = Number(val(r,"actual")) || 0;
     totalEst += est; totalAct += act;
     if (!bycat[cat]) bycat[cat] = { est:0, act:0, count:0 };
     bycat[cat].est += est; bycat[cat].act += act; bycat[cat].count++;
   });
-  const doneCount = records.filter(r => val(r, "Status") === "Done").length;
+  const doneCount = records.filter(r => val(r,"status") === "Done").length;
   const variance = totalAct - totalEst;
 
   const s: { [k: string]: any } = {
@@ -237,9 +251,9 @@ export default function PropertyWorksPage() {
                   <div style={{ flex: 1, height: 1, background: "#e5e3de" }} />
                 </div>
                 {grouped[assignee].map(r => {
-                  const isDone = val(r, "Status") === "Done";
-                  const est = val(r, "Estimated Cost ($)");
-                  const act = val(r, "Actual Cost ($)");
+                  const isDone = val(r,"status") === "Done";
+                  const est = val(r,"estimated");
+                  const act = val(r,"actual");
                   return (
                     <div key={r.id} style={{ ...s.card, opacity: isDone ? 0.55 : 1 }} onClick={() => openPanel(r)}>
                       <div
@@ -247,14 +261,14 @@ export default function PropertyWorksPage() {
                         onClick={e => { e.stopPropagation(); quickDone(r.id, isDone ? "Not started" : "Done"); }}
                       />
                       <div style={{ flex: 1, minWidth: 0 }}>
-                        <div style={s.taskName}>{val(r, "Task")}</div>
+                        <div style={s.taskName}>{val(r,"task")}</div>
                         <div style={s.meta}>
-                          {val(r, "Priority") && <span style={s.priorityBadge(val(r, "Priority"))}>{val(r, "Priority")}</span>}
-                          {val(r, "Category") && <span style={s.catBadge}>{val(r, "Category")}</span>}
-                          {val(r, "Status") && val(r, "Status") !== "Not started" && <span style={s.catBadge}>{val(r, "Status")}</span>}
+                          {val(r,"priority") && <span style={s.priorityBadge(val(r,"priority"))}>{val(r,"priority")}</span>}
+                          {val(r,"category") && <span style={s.catBadge}>{val(r,"category")}</span>}
+                          {val(r,"status") && val(r,"status") !== "Not started" && <span style={s.catBadge}>{val(r,"status")}</span>}
                         </div>
-                        {val(r, "Notes") && <div style={s.notePreview}>{val(r, "Notes")}</div>}
-                        {val(r, "Contact / Reference") && <div style={s.contactText}>{val(r, "Contact / Reference")}</div>}
+                        {val(r,"notes") && <div style={s.notePreview}>{val(r,"notes")}</div>}
+                        {val(r,"contact") && <div style={s.contactText}>{val(r,"contact")}</div>}
                       </div>
                       {(act || est) && (
                         <div style={{ fontSize: 13, fontWeight: 500, color: "#26333A", whiteSpace: "nowrap", textAlign: "right" }}>
@@ -318,7 +332,7 @@ export default function PropertyWorksPage() {
           <div style={s.overlay} onClick={() => setPanel(null)} />
           <div style={s.panelWrap}>
             <div style={s.panelHeader}>
-              <div style={s.panelTitle}>{val(panel, "Task")}</div>
+              <div style={s.panelTitle}>{val(panel,"task")}</div>
               <button style={s.panelClose} onClick={() => setPanel(null)}>✕</button>
             </div>
             <div style={s.panelBody}>
