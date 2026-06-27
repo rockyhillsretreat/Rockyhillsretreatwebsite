@@ -1,6 +1,15 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import { createClient } from '@supabase/supabase-js';
 
-const MAKE_WEBHOOK = 'https://hook.eu1.make.com/dcgwi8f68a3uah5oq9t0uolfb68drk94';
+// Courtenay's people.id — all add-on tasks are assigned to her for review
+const COURTENAY_ID = 'd095ebea-cf06-48dc-8847-1a40afe4f4de';
+
+function supabase() {
+  return createClient(
+    process.env.SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!,
+  );
+}
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -11,82 +20,82 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   try {
     const {
-      // Guest details
-      firstName,
-      lastName,
-      email,
-      phone,
-      street,
-      city,
-      state,
-      postcode,
-      country,
-      // Booking details
-      arrival,
-      departure,
-      nights,
-      quoteId,
-      // Add-on selections
-      selectedPackage,
-      selectedProvisions,
-      selectedExperiences,
-      selectedCelebrations,
-      voucher,
-      notes,
+      firstName, lastName, email, phone,
+      street, city, state, postcode, country,
+      arrival, departure, nights, quoteId,
+      selectedPackage, selectedProvisions, selectedExperiences, selectedCelebrations,
+      voucher, notes,
     } = req.body;
 
-    // Format add-ons as readable strings for Airtable
-    const addOnsSummary = [
-      selectedPackage ? `Package: ${selectedPackage}` : null,
-      selectedProvisions?.length ? `Provisions: ${selectedProvisions.join(', ')}` : null,
-      selectedExperiences?.length ? `Experiences: ${selectedExperiences.join(', ')}` : null,
-      selectedCelebrations?.length ? `Celebrations: ${selectedCelebrations.join(', ')}` : null,
-    ].filter(Boolean).join(' | ');
+    const db = supabase();
+    const fullName = `${firstName} ${lastName}`.trim();
 
-    const payload = {
-      // Source identifier for Make routing
-      source: 'rhr_booking_addons',
-      // Guest
-      guest_name: `${firstName} ${lastName}`,
-      guest_email: email,
-      guest_phone: phone || '',
-      guest_address: [street, city, state, postcode, country].filter(Boolean).join(', '),
-      // Booking
-      arrival,
-      departure,
-      nights: nights || '',
-      quote_id: quoteId || '',
-      voucher: voucher || '',
-      // Add-ons
-      package_selected: selectedPackage || '',
-      provisions: selectedProvisions?.join(', ') || '',
-      experiences: selectedExperiences?.join(', ') || '',
-      celebrations: selectedCelebrations?.join(', ') || '',
-      addons_summary: addOnsSummary || 'No add-ons selected',
-      // Notes
-      notes: notes || '',
-      // Timestamp
-      submitted_at: new Date().toISOString(),
-    };
+    // 1. Upsert guest by email — captures contact details from the booking form
+    let guestId: string | null = null;
+    if (email) {
+      const { data: guest, error: guestErr } = await db
+        .from('guests')
+        .upsert(
+          { full_name: fullName, email: email.toLowerCase(), phone: phone || null },
+          { onConflict: 'email', ignoreDuplicates: false }
+        )
+        .select('id')
+        .single();
 
-    const makeRes = await fetch(MAKE_WEBHOOK, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
-
-    if (!makeRes.ok) {
-      const errText = await makeRes.text();
-      console.error('Make webhook error:', makeRes.status, errText);
-      // Don't fail the booking flow if Airtable logging fails
-      return res.status(200).json({ success: false, warning: 'Add-ons logged but Airtable sync failed' });
+      if (guestErr) {
+        console.error('Guest upsert error:', guestErr.message);
+      } else {
+        guestId = guest.id;
+      }
     }
 
-    return res.status(200).json({ success: true });
+    // 2. Build add-ons summary for task notes
+    const addonLines = [
+      selectedPackage             ? `Package: ${selectedPackage}` : null,
+      selectedExperiences?.length ? `Experiences: ${selectedExperiences.join(', ')}` : null,
+      selectedProvisions?.length  ? `Provisions: ${selectedProvisions.join(', ')}` : null,
+      selectedCelebrations?.length? `Celebrations: ${selectedCelebrations.join(', ')}` : null,
+      voucher                     ? `Voucher: ${voucher}` : null,
+      notes                       ? `Guest notes: ${notes}` : null,
+    ].filter(Boolean);
+
+    const addonSummary = addonLines.join('\n');
+    const address = [street, city, state, postcode, country].filter(Boolean).join(', ');
+
+    // 3. Create a task assigned to Courtenay
+    const taskTitle = `Add-ons requested — ${fullName}, arriving ${arrival}`;
+    const taskNotes = [
+      `Guest: ${fullName}`,
+      email    ? `Email: ${email}` : null,
+      phone    ? `Phone: ${phone}` : null,
+      address  ? `Address: ${address}` : null,
+      `Arrival: ${arrival}`,
+      `Departure: ${departure}`,
+      nights   ? `Nights: ${nights}` : null,
+      quoteId  ? `OR Quote ID: ${quoteId}` : null,
+      '',
+      addonSummary || 'No specific add-ons selected (guest may have notes above)',
+    ].filter(s => s !== null).join('\n');
+
+    const { error: taskErr } = await db.from('tasks').insert({
+      title:       taskTitle,
+      category:    'Guest',
+      assigned_to: COURTENAY_ID,
+      status:      'To Do',
+      priority:    'High',
+      due_date:    arrival, // due by arrival date
+      notes:       taskNotes,
+    });
+
+    if (taskErr) {
+      console.error('Task creation error:', taskErr.message);
+    }
+
+    return res.status(200).json({ success: true, guest_id: guestId });
 
   } catch (err: any) {
     console.error('Add-ons handler error:', err);
-    // Don't block the booking flow
+    // Never block the booking flow
     return res.status(200).json({ success: false, warning: err.message });
   }
 }
