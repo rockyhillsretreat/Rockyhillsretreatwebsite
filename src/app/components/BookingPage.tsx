@@ -346,6 +346,7 @@ export function BookingPage() {
       if (hasAddOns) {
         fetch('/api/log-addons', {
           method:'POST', headers:{'Content-Type':'application/json'},
+          keepalive: true,
           body: JSON.stringify({
             firstName:form.firstName, lastName:form.lastName, email:form.email, phone:form.phone,
             street:form.street, city:form.city, state:form.state, postcode:form.postcode, country:form.country,
