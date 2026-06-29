@@ -114,6 +114,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const quoteResult = { ok: quoteFetch.ok, status: quoteFetch.status, data: quoteJson, raw: quoteText };
 
     if (!quoteResult.ok) {
+      console.error('Quote creation failed:', quoteResult.status, quoteResult.raw.substring(0, 500));
+      console.error('Quote body sent:', JSON.stringify(quoteBody));
       return res.status(500).json({ error: 'Failed to create quote', detail: quoteResult.raw });
     }
 
