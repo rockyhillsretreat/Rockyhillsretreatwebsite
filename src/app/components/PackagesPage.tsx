@@ -21,7 +21,7 @@ export function PackagesPage() {
       title: "In the Air, Then at Rest",
       description: "The East Coast from above. A therapist at the door. Nothing else required.",
       nights: "3 nights",
-      price: "From $5,500 per stay",
+      price: "POA",
       inclusions: [
         "Weekend accommodation",
         "Scenic helicopter flight over Great Oyster Bay, the Hazards, and Wineglass Bay",
@@ -35,7 +35,7 @@ export function PackagesPage() {
       title: "The Long Lunch",
       description: "Four East Coast cellar doors. Lunch in the vines. Pickup from the property and back before dark.",
       nights: "3 nights",
-      price: "From $3,150 per stay",
+      price: "POA",
       inclusions: [
         "Weekend accommodation",
         "Guided wine trail for two four cellar doors, lunch included, pickup and return from the property",
@@ -48,7 +48,7 @@ export function PackagesPage() {
       title: "From the Water",
       description: "Half a day on Great Oyster Bay with a local skipper. The rest of the day is for doing nothing at all.",
       nights: "3 nights",
-      price: "From $3,250 per stay",
+      price: "POA",
       inclusions: [
         "Weekend accommodation",
         "Half day fishing charter on Great Oyster Bay and Schouten Passage flathead, trumpeter, squid",
@@ -61,7 +61,7 @@ export function PackagesPage() {
       title: "Celebrate Here",
       description: "A proposal, an anniversary, a reason you made up. We'll make sure it's ready when you arrive.",
       nights: "3 nights",
-      price: "From $3,550 per stay",
+      price: "POA",
       inclusions: [
         "Weekend accommodation",
         "Private photographer for a half day on the property, on the headland, wherever the moment takes you",
@@ -113,7 +113,7 @@ export function PackagesPage() {
                     </p>
                     <div className="flex items-baseline gap-4 mb-8">
                       <p style={{ fontFamily: "'Playfair Display', serif", fontSize: '2rem', color: '#8FA9B3' }}>{pkg.price}</p>
-                      <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '1rem', color: '#B8AE9F' }}>{pkg.nights}</p>
+                      <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '0.9rem', color: '#B8AE9F', opacity: 0.7 }}>Contact us for pricing · {pkg.nights}</p>
                     </div>
                     <Link to="/booking" style={{ display: 'inline-block', backgroundColor: '#8FA9B3', color: '#26333A', padding: '0.875rem 2rem', fontFamily: "'Inter', sans-serif", fontSize: '1rem', fontWeight: 500, boxShadow: '0 4px 12px rgba(0,0,0,0.3)', transition: 'all 0.3s ease', textDecoration: 'none' }}>
                       Book This Package
