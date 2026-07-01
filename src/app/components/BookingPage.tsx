@@ -6,10 +6,10 @@ const DAYS = ['Su','Mo','Tu','We','Th','Fr','Sa'];
 const PROPERTY_ID = 485328;
 
 const packages = [
-  { id: 'in-the-air-then-at-rest', name: 'In the Air, Then at Rest', price: 'From $5,500', description: 'Scenic helicopter flight, couples massage, Huon pine bath. 3 nights.' },
-  { id: 'the-long-lunch', name: 'The Long Lunch', price: 'From $3,150', description: 'Guided wine trail, four cellar doors, lunch included, couples massage. 3 nights.' },
-  { id: 'from-the-water', name: 'From the Water', price: 'From $3,250', description: 'Half day fishing charter, catch returned to the retreat with recipe, couples massage. 3 nights.' },
-  { id: 'celebrate-here', name: 'Celebrate Here', price: 'From $3,550', description: 'Private photographer, beach picnic hamper, Huon pine bath. 3 nights.' },
+  { id: 'in-the-air-then-at-rest', name: 'In the Air, Then at Rest', price: 'POA', description: 'Scenic helicopter flight, couples massage, Huon pine bath. 3 nights.' },
+  { id: 'the-long-lunch', name: 'The Long Lunch', price: 'POA', description: 'Guided wine trail, four cellar doors, lunch included, couples massage. 3 nights.' },
+  { id: 'from-the-water', name: 'From the Water', price: 'POA', description: 'Half day fishing charter, catch returned to the retreat with recipe, couples massage. 3 nights.' },
+  { id: 'celebrate-here', name: 'Celebrate Here', price: 'POA', description: 'Private photographer, beach picnic hamper, Huon pine bath. 3 nights.' },
 ];
 
 const experiences = [
