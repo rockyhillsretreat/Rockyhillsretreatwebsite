@@ -79,9 +79,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const { error: taskErr } = await db.from('tasks').insert({
       title:       taskTitle,
-      category:    'Guest',
+      category:    'Guest add-ons',
       assigned_to: COURTENAY_ID,
-      status:      'To Do',
+      status:      'Not Started',
       priority:    'High',
       due_date:    arrival, // due by arrival date
       notes:       taskNotes,
