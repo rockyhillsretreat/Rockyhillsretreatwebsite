@@ -77,7 +77,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       addonSummary || 'No specific add-ons selected (guest may have notes above)',
     ].filter(s => s !== null).join('\n');
 
-    const { error: taskErr } = await db.from('tasks').insert({
+    const { data: newTask, error: taskErr } = await db.from('tasks').insert({
       title:       taskTitle,
       category:    'Guest add-ons',
       assigned_to: COURTENAY_ID,
@@ -85,10 +85,19 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       priority:    'High',
       due_date:    arrival, // due by arrival date
       notes:       taskNotes,
-    });
+    }).select('id').single();
 
     if (taskErr) {
       console.error('Task creation error:', taskErr.message);
+    }
+
+    // Trigger email notification via management app
+    if (newTask?.id) {
+      fetch('https://rhr-management.vercel.app/api/tasks/notify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ task_id: newTask.id }),
+      }).catch(e => console.error('Notify error:', e.message));
     }
 
     return res.status(200).json({ success: true, guest_id: guestId });
