@@ -342,11 +342,10 @@ export function BookingPage() {
   const handleSubmit = async () => {
     setSubmitting(true); setError(null);
     try {
-      const hasAddOns = !!(selectedPackage||selectedExperiences.length||selectedProvisions.length||selectedCelebrations.length);
-      if (hasAddOns) {
-        fetch('/api/log-addons', {
+      // Always log — await before redirect so the request isn't aborted by navigation
+      try {
+        await fetch('/api/log-addons', {
           method:'POST', headers:{'Content-Type':'application/json'},
-          keepalive: true,
           body: JSON.stringify({
             firstName:form.firstName, lastName:form.lastName, email:form.email, phone:form.phone,
             street:form.street, city:form.city, state:form.state, postcode:form.postcode, country:form.country,
@@ -357,8 +356,8 @@ export function BookingPage() {
             selectedCelebrations: selectedCelebrations.map(id=>celebrations.find(c=>c.id===id)?.name),
             voucher:form.voucher, notes:form.notes,
           }),
-        }).catch(e=>console.error('Add-on log failed:',e));
-      }
+        });
+      } catch(e){ /* never block the booking flow */ }
       // Save form state before leaving so back button restores it
       sessionStorage.setItem('rhr_booking', JSON.stringify({
         tcAccepted,
