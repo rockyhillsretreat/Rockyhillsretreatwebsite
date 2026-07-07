@@ -49,22 +49,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       }
     }
 
-    // 2. Build add-ons summary for task notes
-    const addonLines = [
-      selectedPackage             ? `Package: ${selectedPackage}` : null,
-      selectedExperiences?.length ? `Experiences: ${selectedExperiences.join(', ')}` : null,
-      selectedProvisions?.length  ? `Provisions: ${selectedProvisions.join(', ')}` : null,
-      selectedCelebrations?.length? `Celebrations: ${selectedCelebrations.join(', ')}` : null,
-      voucher                     ? `Voucher: ${voucher}` : null,
-      notes                       ? `Guest notes: ${notes}` : null,
-    ].filter(Boolean);
-
-    const addonSummary = addonLines.join('\n');
     const address = [street, city, state, postcode, country].filter(Boolean).join(', ');
 
-    // 3. Create a task assigned to Courtenay
-    const taskTitle = `Add-ons requested — ${fullName}, arriving ${arrival}`;
-    const taskNotes = [
+    // 2. Create parent task — booking info in notes
+    const parentNotes = [
       `Guest: ${fullName}`,
       email    ? `Email: ${email}` : null,
       phone    ? `Phone: ${phone}` : null,
@@ -73,30 +61,49 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       `Departure: ${departure}`,
       nights   ? `Nights: ${nights}` : null,
       quoteId  ? `OR Quote ID: ${quoteId}` : null,
-      '',
-      addonSummary || 'No specific add-ons selected (guest may have notes above)',
-    ].filter(s => s !== null).join('\n');
+      voucher  ? `Voucher: ${voucher}` : null,
+      notes    ? `Guest notes: ${notes}` : null,
+    ].filter(Boolean).join('\n');
 
-    const { data: newTask, error: taskErr } = await db.from('tasks').insert({
-      title:       taskTitle,
+    const { data: parentTask, error: taskErr } = await db.from('tasks').insert({
+      title:       `Booking enquiry — ${fullName}, arriving ${arrival}`,
       category:    'Guest add-ons',
       assigned_to: COURTENAY_ID,
       status:      'Not Started',
       priority:    'High',
-      due_date:    arrival, // due by arrival date
-      notes:       taskNotes,
+      due_date:    arrival,
+      notes:       parentNotes,
     }).select('id').single();
 
-    if (taskErr) {
-      console.error('Task creation error:', taskErr.message);
-    }
+    if (taskErr) console.error('Task creation error:', taskErr.message);
 
-    // Trigger email notification via management app
-    if (newTask?.id) {
+    // 3. Create subtasks — one per add-on
+    if (parentTask?.id) {
+      const addons: string[] = [
+        selectedPackage ? `Package: ${selectedPackage}` : null,
+        ...(selectedExperiences ?? []).map((e: string) => `Experience: ${e}`),
+        ...(selectedProvisions ?? []).map((p: string) => `Provision: ${p}`),
+        ...(selectedCelebrations ?? []).map((c: string) => `Celebration: ${c}`),
+      ].filter(Boolean) as string[];
+
+      for (const title of addons) {
+        const { error: subErr } = await db.from('tasks').insert({
+          title,
+          category:       'Guest add-ons',
+          assigned_to:    COURTENAY_ID,
+          status:         'Not Started',
+          priority:       'High',
+          due_date:       arrival,
+          parent_task_id: parentTask.id,
+        });
+        if (subErr) console.error('Subtask error:', subErr.message);
+      }
+
+      // Trigger email notification
       fetch('https://rhr-management.vercel.app/api/tasks/notify', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ task_id: newTask.id }),
+        body: JSON.stringify({ task_id: parentTask.id }),
       }).catch(e => console.error('Notify error:', e.message));
     }
 
