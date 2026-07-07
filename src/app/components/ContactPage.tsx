@@ -1,8 +1,40 @@
+import { useState } from "react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Mail, Phone, MapPin } from "lucide-react";
 const bgImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-exterior-entry-native-garden.jpg';
 
 export function ContactPage() {
+  const [form, setForm] = useState({
+    firstName: '', lastName: '', email: '', phone: '', inquiryType: 'General Inquiry', message: ''
+  });
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState('');
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
+    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  }
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to send');
+      setSuccess(true);
+    } catch (err: any) {
+      setError(err.message || 'Something went wrong. Please email us directly at stay@rockyhillsretreat.com.au');
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <div style={{ backgroundColor: '#26333A', minHeight: '100vh', position: 'relative' }}>
       {/* Background */}
@@ -63,7 +95,7 @@ export function ContactPage() {
               </a>
             </div>
 
-            {/* MapPin */}
+            {/* Location */}
             <div className="bg-card/40 backdrop-blur-sm border border-border p-8 space-y-4 group hover:border-muted-gold/50 transition-cinematic">
               <div className="w-12 h-12 border border-muted-gold/30 flex items-center justify-center group-hover:border-muted-gold transition-cinematic">
                 <MapPin size={24} className="text-muted-gold" />
@@ -93,72 +125,109 @@ export function ContactPage() {
               </p>
             </div>
 
-            <form className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
+            {success ? (
+              <div className="text-center py-12 space-y-4">
+                <p className="text-2xl text-bone heading-display">We'll be in touch.</p>
+                <p className="text-bone/60 text-sm italic">Your message has been sent. We reply to every enquiry.</p>
+              </div>
+            ) : (
+              <form className="space-y-6" onSubmit={handleSubmit}>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
                     <label className="text-bone/70 mb-2 block">First Name</label>
                     <input
                       type="text"
+                      name="firstName"
+                      value={form.firstName}
+                      onChange={handleChange}
                       placeholder="Your first name"
+                      required
                       className="w-full bg-input-background border border-border text-bone p-3"
                     />
-                </div>
-                <div>
+                  </div>
+                  <div>
                     <label className="text-bone/70 mb-2 block">Last Name</label>
+                    <input
+                      type="text"
+                      name="lastName"
+                      value={form.lastName}
+                      onChange={handleChange}
+                      placeholder="Your last name"
+                      className="w-full bg-input-background border border-border text-bone p-3"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="text-bone/70 mb-2 block">Email Address</label>
                   <input
-                    type="text"
-                    placeholder="Your last name"
+                    type="email"
+                    name="email"
+                    value={form.email}
+                    onChange={handleChange}
+                    placeholder="your@email.com"
+                    required
                     className="w-full bg-input-background border border-border text-bone p-3"
                   />
                 </div>
-              </div>
 
-              <div>
-                <label className="text-bone/70 mb-2 block">Email Address</label>
-                <input
-                  type="email"
-                  placeholder="your@email.com"
-                  className="w-full bg-input-background border border-border text-bone p-3"
-                />
-              </div>
+                <div>
+                  <label className="text-bone/70 mb-2 block">Phone (Optional)</label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={form.phone}
+                    onChange={handleChange}
+                    placeholder="+61"
+                    className="w-full bg-input-background border border-border text-bone p-3"
+                  />
+                </div>
 
-              <div>
-                <label className="text-bone/70 mb-2 block">Phone (Optional)</label>
-                <input
-                  type="tel"
-                  placeholder="+61"
-                  className="w-full bg-input-background border border-border text-bone p-3"
-                />
-              </div>
+                <div>
+                  <label className="text-bone/70 mb-2 block">Inquiry Type</label>
+                  <select
+                    name="inquiryType"
+                    value={form.inquiryType}
+                    onChange={handleChange}
+                    className="w-full bg-input-background border border-border text-bone p-3 focus:outline-none focus:ring-2 focus:ring-ring"
+                  >
+                    <option>General Inquiry</option>
+                    <option>Booking Question</option>
+                    <option>Experience Add-Ons</option>
+                    <option>Special Requests</option>
+                    <option>Media / Press</option>
+                    <option>Other</option>
+                  </select>
+                </div>
 
-              <div>
-                <label className="text-bone/70 mb-2 block">Inquiry Type</label>
-                <select className="w-full bg-input-background border border-border text-bone p-3 focus:outline-none focus:ring-2 focus:ring-ring">
-                  <option>General Inquiry</option>
-                  <option>Booking Question</option>
-                  <option>Experience Add-Ons</option>
-                  <option>Special Requests</option>
-                  <option>Media / Press</option>
-                  <option>Other</option>
-                </select>
-              </div>
+                <div>
+                  <label className="text-bone/70 mb-2 block">Message</label>
+                  <textarea
+                    name="message"
+                    value={form.message}
+                    onChange={handleChange}
+                    rows={6}
+                    placeholder="Tell us what you need. Or what you're hoping for. We read every word."
+                    required
+                    className="w-full bg-input-background border border-border text-bone p-4 resize-none focus:outline-none focus:ring-2 focus:ring-ring"
+                  />
+                </div>
 
-              <div>
-                <label className="text-bone/70 mb-2 block">Message</label>
-                <textarea
-                  rows={6}
-                  placeholder="Tell us what you need. Or what you're hoping for. We read every word."
-                  className="w-full bg-input-background border border-border text-bone p-4 resize-none focus:outline-none focus:ring-2 focus:ring-ring"
-                />
-              </div>
+                {error && (
+                  <p className="text-sm text-bone/70 bg-destructive/20 border border-destructive/30 p-3">
+                    {error}
+                  </p>
+                )}
 
-              <button
-                type="submit"
-                className="w-full py-4 bg-muted-gold text-primary-brand hover:bg-bone transition-cinematic tracking-widest"
-              >
-                SEND MESSAGE
-              </button>
-            </form>
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full py-4 bg-muted-gold text-primary-brand hover:bg-bone transition-cinematic tracking-widest disabled:opacity-60"
+                >
+                  {loading ? 'SENDING…' : 'SEND MESSAGE'}
+                </button>
+              </form>
+            )}
           </div>
 
           {/* Poetic Close */}
@@ -181,15 +250,14 @@ export function ContactPage() {
               <div className="pb-4 border-b border-border/30">
                 <h5 className="text-bone mb-2">What's your cancellation policy?</h5>
                 <p className="text-bone/60">
-                  Full refund if cancelled 30+ days before arrival. 50% refund for 14-29 days.
-                  No refund within 14 days (though we're understanding in emergencies).
+                  Full refund less a $150 cancellation fee if cancelled 31 or more days before arrival.
+                  No refund within 30 days of arrival. See our full terms for details.
                 </p>
               </div>
               <div className="pb-4 border-b border-border/30">
                 <h5 className="text-bone mb-2">Is the retreat suitable for children?</h5>
                 <p className="text-bone/60">
-                  Rocky Hills Retreat is designed exclusively for couples.
-                  Guests must be 18+. No exceptions.
+                  Rocky Hills is designed for adults. Children may be accommodated by prior arrangement — please contact us before booking to discuss.
                 </p>
               </div>
               <div className="pb-4 border-b border-border/30">

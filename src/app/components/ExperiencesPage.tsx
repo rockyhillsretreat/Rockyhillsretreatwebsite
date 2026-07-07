@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-const fishingImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-bath-running-golden.jpg';
+const fishingImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/bay-cove-headland-dusk.jpg';
 const kayakImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/bay-view-swansea-coast.jpg';
 const whaleImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/location-bay-sunset-wide.jpg';
 const douglasImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/land-detail-driftwood-rock.jpg';
@@ -164,7 +164,7 @@ export function ExperiencesPage() {
               lineHeight: '1.7'
             }}
           >
-            Experiences vary by season. Some are winter-specific the whale migration, the dark sky, the quiet trails. Ask us what is running during your stay.
+            Experiences vary by season. Some are winter-specific — the whale migration, the dark sky, the quiet trails. Ask us what is running during your stay.
           </p>
         </div>
       </section>

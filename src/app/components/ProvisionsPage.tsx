@@ -67,7 +67,7 @@ export function ProvisionsPage() {
             The kitchen at Rocky Hills is stocked before you arrive. What's in it was chosen because it belongs here. Producers we know, ingredients from the island, nothing generic.
           </p>
           <p className="mb-6" style={{ fontFamily: "'Inter', sans-serif", fontSize: '1.05rem', color: '#EDE9E3', lineHeight: '1.8' }}>
-            Coffee is from Villino in Moonah. Tea from Tea Equation in Launceston. Pasta and sauces from Bottega Crippa in the Huon Valley. Honeycomb and chocolate from Kenyak in West Moonah. The fridge holds Pure Tassie water, NON and Elta Ego for something more considered, and smoked mussels and pickled shellfish from Freycinet Marine Farm, ten minutes up the coast. The freezer holds Wursthaus for nights when you don't want to think about dinner.
+            Coffee is from Villino in Moonah. Tea from Tea Equation in Launceston. Pasta and sauces from Bottega Crippa in the Huon Valley. Honeycomb and chocolate from Kenyak in West Moonah. The fridge holds Pure Tassie water, NON and Elta Ego for something more considered, and smoked mussels and pickled shellfish from Freycinet Marine Farm, 45 minutes north. The freezer holds Wursthaus for nights when you don't want to think about dinner.
           </p>
           <p className="mb-6" style={{ fontFamily: "'Inter', sans-serif", fontSize: '1.05rem', color: '#EDE9E3', lineHeight: '1.8' }}>
             Some of what's here is included in your stay. The rest is available to purchase from The Store and will be added to your account at checkout. A full list is in the compendium waiting for you at the property.

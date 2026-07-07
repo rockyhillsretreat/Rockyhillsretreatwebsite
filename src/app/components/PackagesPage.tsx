@@ -38,7 +38,7 @@ export function PackagesPage() {
       price: "POA",
       inclusions: [
         "Weekend accommodation",
-        "Guided wine trail for two four cellar doors, lunch included, pickup and return from the property",
+        "Guided wine trail for two, four cellar doors, lunch included, pickup and return from the property",
         "Couples massage at the property remedial or relaxation, with native Kunzea aromatherapy available as an add-on.",
       ],
       note: "The wine trail is an off-property experience. RHR does not serve alcohol on site."

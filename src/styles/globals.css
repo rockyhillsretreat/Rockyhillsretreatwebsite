@@ -11,6 +11,12 @@
   --divider-light: rgba(143, 169, 179, 0.2);
   --divider-medium: rgba(143, 169, 179, 0.3);
   
+  /* ContactPage / LocationPage design tokens */
+  --bone: #EDE9E3;
+  --muted-gold: #B8AE9F;
+  --ink-black: #0B0F0F;
+  --primary-brand: #26333A;
+
   /* Legacy colors kept for compatibility */
   --muted-tan: #C6B8A3;
   --oyster-grey: #E7E4DF;
@@ -82,6 +88,12 @@
   --radius-lg: calc(var(--radius) + 2px);
   --radius-xl: calc(var(--radius) + 4px);
   
+  /* ContactPage / LocationPage tokens */
+  --color-bone: var(--bone);
+  --color-muted-gold: var(--muted-gold);
+  --color-ink-black: var(--ink-black);
+  --color-primary-brand: var(--primary-brand);
+
   /* Brand color utilities */
   --color-dark-background: var(--dark-background);
   --color-light-cream: var(--light-cream);
@@ -334,6 +346,10 @@ html {
 }
 
 /* Smooth transitions */
+.transition-cinematic {
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 .transition-smooth {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {
   Accordion,
   AccordionContent,
@@ -29,7 +30,7 @@ export function FAQsPage() {
         },
         {
           question: "Is the retreat suitable for children?",
-          answer: "Rocky Hills is designed for adults. We don't accommodate children."
+          answer: "Rocky Hills is designed for adults. Children may be accommodated by prior arrangement — please contact us before booking to discuss."
         },
         {
           question: "Can we bring a pet?",
@@ -221,8 +222,8 @@ export function FAQsPage() {
           >
             We reply to every enquiry. Write to us.
           </p>
-          <a
-            href="/contact"
+          <Link
+            to="/contact"
             style={{
               display: 'inline-block',
               backgroundColor: '#8FA9B3',
@@ -238,7 +239,7 @@ export function FAQsPage() {
             }}
           >
             Contact Us
-          </a>
+          </Link>
         </div>
       </section>
     </div>

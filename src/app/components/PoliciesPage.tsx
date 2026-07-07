@@ -8,7 +8,7 @@ export function PoliciesPage() {
   const sections = [
     {
       title: 'Who Can Stay',
-      body: `A maximum of 2 overnight guests are permitted. The retreat is not suitable for children (except babies under 12 months) or pets. Should you wish to invite a small number of day visitors (up to 4 additional people) please check with us first.\n\nAll guests must be 18 years of age or older unless accompanied by a parent or legal guardian.`,
+      body: `A maximum of 2 overnight guests are permitted. Children may be accommodated by prior arrangement — please contact us before booking to discuss. Pets are not permitted. Should you wish to invite a small number of day visitors (up to 4 additional people) please check with us first.\n\nAll guests must be 18 years of age or older unless accompanied by a parent or legal guardian.`,
     },
     {
       title: 'Getting Here',
@@ -124,7 +124,7 @@ Guests participate in third party experiences entirely at their own risk.`,
               Questions about these terms? Write to us at{' '}
               <a href="mailto:stay@rockyhillsretreat.com.au" style={{ color: S.accent }}>stay@rockyhillsretreat.com.au</a>
               {' '}or call{' '}
-              <a href="tel:+61485689488" style={{ color: S.accent }}>+61 485 689 488</a>.
+              <a href="tel:+61499645344" style={{ color: S.accent }}>+61 499 645 344</a>.
             </p>
           </div>
 

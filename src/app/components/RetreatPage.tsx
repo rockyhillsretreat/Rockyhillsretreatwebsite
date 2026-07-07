@@ -149,7 +149,7 @@ export function RetreatPage() {
           </h2>
           <div className="space-y-6 max-w-[900px] mx-auto" style={{ color: '#EDE9E3' }}>
             <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '1.05rem', lineHeight: '1.8' }}>
-              A purpose-buit array of solar panels runs through an inverter-charger and battery bank, with a backup diesel generator for extended low-light periods. Rainwater is captured directly off the concrete roof via a central downpipe into tanks beneath the house. A separate tank near the carpark stores water for bushfire use. Waste is managed on-site via septic.
+              A purpose-built array of solar panels runs through an inverter-charger and battery bank, with a backup diesel generator for extended low-light periods. Rainwater is captured directly off the concrete roof via a central downpipe into tanks beneath the house. A separate tank near the carpark stores water for bushfire use. Waste is managed on-site via septic.
             </p>
             <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '1.05rem', lineHeight: '1.8' }}>
               There is no mains connection of any kind. Water is tank water.
@@ -204,7 +204,7 @@ export function RetreatPage() {
           </h2>
           <div className="space-y-6 max-w-[900px] mx-auto" style={{ color: '#EDE9E3' }}>
             <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '1.05rem', lineHeight: '1.8' }}>
-              Rocky Hills is a fully comitted sustainable property. The 250-acre property is under conservation covenant - protected from development or logging in perpetuity. We are working toward carbon neutrality. These are ongoing commitments, not completed ones.
+              Rocky Hills is a fully committed sustainable property. The 250-acre property is under conservation covenant - protected from development or logging in perpetuity. We are working toward carbon neutrality. These are ongoing commitments, not completed ones.
             </p>
             <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '1.05rem', lineHeight: '1.8' }}>
               When you stay here, you are part of a system that tries to do things properly.
