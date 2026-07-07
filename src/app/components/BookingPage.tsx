@@ -463,16 +463,18 @@ export function BookingPage() {
             {/* YOUR DETAILS */}
             <h2 style={{...sectionHead}}>Your Details</h2>
 
+            <form autoComplete="on" onSubmit={e=>e.preventDefault()}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
               {[
-                {key:'firstName',label:'First Name',placeholder:'First name',type:'text'},
-                {key:'lastName',label:'Last Name',placeholder:'Last name',type:'text'},
-                {key:'email',label:'Email Address',placeholder:'your@email.com',type:'email'},
-                {key:'phone',label:'Phone (include country code)',placeholder:'+61',type:'tel'},
+                {key:'firstName',label:'First Name',placeholder:'First name',type:'text',name:'given-name',autoComplete:'given-name'},
+                {key:'lastName',label:'Last Name',placeholder:'Last name',type:'text',name:'family-name',autoComplete:'family-name'},
+                {key:'email',label:'Email Address',placeholder:'your@email.com',type:'email',name:'email',autoComplete:'email'},
+                {key:'phone',label:'Phone (include country code)',placeholder:'+61',type:'tel',name:'tel',autoComplete:'tel'},
               ].map(f=>(
                 <div key={f.key}>
                   <label style={labelStyle}>{f.label}</label>
                   <input type={f.type} placeholder={f.placeholder} value={(form as any)[f.key]}
+                    name={f.name} autoComplete={f.autoComplete}
                     onChange={e=>setForm(p=>({...p,[f.key]:e.target.value}))} style={inputStyle}/>
                 </div>
               ))}
@@ -480,18 +482,20 @@ export function BookingPage() {
 
             <div className="mb-4">
               <label style={labelStyle}>Street Address</label>
-              <input type="text" placeholder="Street address" value={form.street}
+              <input type="text" placeholder="Street address" value={form.street} name="street-address" autoComplete="street-address"
                 onChange={e=>setForm(p=>({...p,street:e.target.value}))} style={inputStyle}/>
             </div>
             <div className="grid grid-cols-3 gap-4 mb-4">
-              <div><label style={labelStyle}>City</label><input type="text" placeholder="City" value={form.city} onChange={e=>setForm(p=>({...p,city:e.target.value}))} style={inputStyle}/></div>
-              <div><label style={labelStyle}>State</label><input type="text" placeholder="State" value={form.state} onChange={e=>setForm(p=>({...p,state:e.target.value}))} style={inputStyle}/></div>
-              <div><label style={labelStyle}>Postcode</label><input type="text" placeholder="Postcode" value={form.postcode} onChange={e=>setForm(p=>({...p,postcode:e.target.value}))} style={inputStyle}/></div>
+              <div><label style={labelStyle}>City</label><input type="text" placeholder="City" value={form.city} name="address-level2" autoComplete="address-level2" onChange={e=>setForm(p=>({...p,city:e.target.value}))} style={inputStyle}/></div>
+              <div><label style={labelStyle}>State</label><input type="text" placeholder="State" value={form.state} name="address-level1" autoComplete="address-level1" onChange={e=>setForm(p=>({...p,state:e.target.value}))} style={inputStyle}/></div>
+              <div><label style={labelStyle}>Postcode</label><input type="text" placeholder="Postcode" value={form.postcode} name="postal-code" autoComplete="postal-code" onChange={e=>setForm(p=>({...p,postcode:e.target.value}))} style={inputStyle}/></div>
             </div>
             <div className="mb-4">
               <label style={labelStyle}>Country</label>
-              <input type="text" placeholder="Country" value={form.country} onChange={e=>setForm(p=>({...p,country:e.target.value}))} style={inputStyle}/>
+              <input type="text" placeholder="Country" value={form.country} name="country" autoComplete="country-name"
+                onChange={e=>setForm(p=>({...p,country:e.target.value}))} style={inputStyle}/>
             </div>
+            </form>
             <div className="mb-4">
               <label style={labelStyle}>Voucher / Promo Code</label>
               <input type="text" placeholder="e.g. GO DARK" value={form.voucher}
