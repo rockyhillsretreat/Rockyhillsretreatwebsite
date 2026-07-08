@@ -218,7 +218,7 @@ export function BookingPage() {
   const [form, setForm] = useState({
     firstName:'', lastName:'', email:'', phone:'',
     street:'', city:'', state:'', postcode:'', country:'Australia',
-    notes:''
+    notes:'', voucher:''
   });
   const [quoteData, setQuoteData] = useState<any>(null);
   const [quoteLoading, setQuoteLoading] = useState(false);
@@ -337,7 +337,7 @@ export function BookingPage() {
             selectedExperiences: selectedExperiences.map(id=>experiences.find(e=>e.id===id)?.name),
             selectedProvisions: selectedProvisions.map(id=>provisions.find(p=>p.id===id)?.name),
             selectedCelebrations: selectedCelebrations.map(id=>celebrations.find(c=>c.id===id)?.name),
-            notes:form.notes,
+            notes:form.notes, voucher:form.voucher,
           }),
         });
       } catch(e){ /* never block the booking flow */ }
@@ -461,11 +461,17 @@ export function BookingPage() {
                 onChange={e=>setForm(p=>({...p,country:e.target.value}))} style={inputStyle}/>
             </div>
             </form>
-            <div className="mb-6">
+            <div className="mb-4">
               <label style={labelStyle}>Anything else we should know?</label>
               <textarea rows={3} placeholder="Dietary requirements, special occasions, access needs..."
                 value={form.notes} onChange={e=>setForm(p=>({...p,notes:e.target.value}))}
                 style={{...inputStyle,resize:'none'}}/>
+            </div>
+            <div className="mb-6">
+              <label style={labelStyle}>Discount / Promo Code (optional)</label>
+              <input type="text" placeholder="Enter code if you have one"
+                value={form.voucher} onChange={e=>setForm(p=>({...p,voucher:e.target.value}))}
+                style={inputStyle}/>
             </div>
 
             {/* ADD-ONS */}
@@ -600,6 +606,14 @@ export function BookingPage() {
               {form.phone&&<p style={{fontFamily:S.inter,fontSize:'0.875rem',color:S.muted}}>{form.phone}</p>}
               {form.street&&<p style={{fontFamily:S.inter,fontSize:'0.875rem',color:S.muted}}>{form.street}, {form.city} {form.state} {form.postcode}</p>}
             </div>
+
+            {/* Discount code */}
+            {form.voucher&&(
+              <div style={{padding:'1.25rem',borderRadius:'0.375rem',backgroundColor:'rgba(0,0,0,0.2)',border:`1px solid ${S.border}`,marginBottom:'1rem'}}>
+                <p style={{fontFamily:S.inter,fontSize:'0.7rem',color:S.accent,fontWeight:600,letterSpacing:'0.05em',textTransform:'uppercase',marginBottom:'0.5rem'}}>Discount Code</p>
+                <p style={{fontFamily:S.inter,fontSize:'0.9rem',color:S.bone}}>{form.voucher}</p>
+              </div>
+            )}
 
             {/* Add-ons */}
             {!!(selectedPackage||selectedExperiences.length||selectedProvisions.length||selectedCelebrations.length)&&(
