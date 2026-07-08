@@ -296,21 +296,6 @@ export function BookingPage() {
   const toggle = (id:string,setFn:React.Dispatch<React.SetStateAction<string[]>>) =>
     setFn(prev=>prev.includes(id)?prev.filter(x=>x!==id):[...prev,id]);
 
-  const validateGoDark = (): string | null => {
-    if (!form.voucher || form.voucher.trim().toUpperCase() !== 'GO DARK') return null;
-    if (!checkIn || !checkOut) return 'GO DARK requires 3 nights. Please select your dates first.';
-    const arrival = new Date(checkIn);
-    const month = arrival.getMonth(); // 0-indexed, so 5=Jun, 6=Jul, 7=Aug
-    const day = arrival.getDay(); // 0=Sun, 1=Mon, 2=Tue
-    if (nights !== 3) return `GO DARK is a 3-night offer. You have selected ${nights} night${nights!==1?'s':''}.`;
-    if (month < 5 || month > 7) return 'GO DARK is only available June, July and August.';
-    if (day !== 1 && day !== 2) {
-      const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-      return `GO DARK requires a Monday or Tuesday arrival. Your selected arrival is ${dayNames[day]}.`;
-    }
-    return null;
-  };
-
   const goToReview = async () => {
     if (!tcAccepted){ setError('Please read and accept the Terms & Conditions to continue.'); return; }
     if (!checkIn||!checkOut){ setError('Please select your check-in and check-out dates.'); return; }
@@ -318,8 +303,6 @@ export function BookingPage() {
     if (!form.firstName||!form.lastName||!form.email){ setError('Please fill in your first name, last name, and email.'); return; }
     if (!/\S+@\S+\.\S+/.test(form.email)){ setError('Please enter a valid email address.'); return; }
     if (!form.phone||form.phone.replace(/[^0-9]/g,'').length<6){ setError('Please enter a valid phone number with country code (e.g. +61 400 000 000).'); return; }
-    const goDarkErr = validateGoDark();
-    if (goDarkErr) { setError(goDarkErr); return; }
     setError(null); setQuoteLoading(true); setStep(2);
     try {
       const res = await fetch('/api/create-quote', {
@@ -442,24 +425,6 @@ export function BookingPage() {
               </div>
             )}
 
-            {/* Go Dark offer -- shown when dates selected */}
-            {checkIn&&checkOut&&nights>=2&&(()=>{
-              const arrival = new Date(checkIn);
-              const month = arrival.getMonth();
-              const isWinter = month>=5&&month<=7;
-              if (!isWinter) return null;
-              return (
-                <div style={{marginTop:'0.75rem',backgroundColor:S.bgDark,borderRadius:'0.5rem',border:'1px solid rgba(143,169,179,0.3)',padding:'1.25rem'}}>
-                  <p style={{fontFamily:S.inter,fontSize:'0.7rem',color:S.accent,letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:'0.4rem',fontWeight:600}}>Winter Offer</p>
-                  <h3 style={{fontFamily:S.playfair,fontSize:'1.25rem',color:S.bone,marginBottom:'0.4rem'}}>Go Dark</h3>
-                  <p style={{fontFamily:S.inter,fontSize:'0.85rem',color:S.muted,lineHeight:'1.6',marginBottom:'0.5rem'}}>3 nights midweek. June, July, August. $1,500 flat rate. Direct booking only.</p>
-                  <p style={{fontFamily:S.inter,fontSize:'0.8rem',color:S.accent,fontStyle:'italic'}}>
-                    Enter <strong style={{color:S.bone,fontStyle:'normal'}}>GO DARK</strong> in the voucher field below to claim.
-                  </p>
-                </div>
-              );
-            })()}
-
             {/* YOUR DETAILS */}
             <h2 style={{...sectionHead}}>Your Details</h2>
 
@@ -498,24 +463,8 @@ export function BookingPage() {
             </form>
             <div className="mb-4">
               <label style={labelStyle}>Voucher / Promo Code</label>
-              <input type="text" placeholder="e.g. GO DARK" value={form.voucher}
+              <input type="text" placeholder="Enter code if you have one" value={form.voucher}
                 onChange={e=>setForm(p=>({...p,voucher:e.target.value}))} style={inputStyle}/>
-              {(()=>{
-                const goDarkError = validateGoDark();
-                return goDarkError ? (
-                  <p style={{fontFamily:S.inter,fontSize:'0.75rem',color:'#e87878',marginTop:'0.375rem'}}>
-                    {goDarkError}
-                  </p>
-                ) : form.voucher.trim().toUpperCase()==='GO DARK' && checkIn && nights===3 ? (
-                  <p style={{fontFamily:S.inter,fontSize:'0.75rem',color:S.accent,marginTop:'0.375rem'}}>
-                    GO DARK discount will be applied at checkout.
-                  </p>
-                ) : (
-                  <p style={{fontFamily:S.inter,fontSize:'0.75rem',color:S.muted,marginTop:'0.375rem',fontStyle:'italic'}}>
-                    Go Dark winter offer: enter GO DARK for $1,500 flat rate (Jun-Aug, 3 nights midweek)
-                  </p>
-                );
-              })()}
             </div>
             <div className="mb-6">
               <label style={labelStyle}>Anything else we should know?</label>
@@ -532,7 +481,7 @@ export function BookingPage() {
 
             <Concertina title="Signature Packages" subtitle="Curated multi-night experiences" selectedCount={selectedPackage?1:0}>
               {packages.map(pkg=>(
-                <CheckboxItem key={pkg.id} id={pkg.id} name={pkg.name} description={pkg.description} price={pkg.price}
+                <CheckboxItem key={pkg.id} id={pkg.id} name={pkg.name} description={pkg.description}
                   checked={selectedPackage===pkg.id} onChange={()=>setSelectedPackage(selectedPackage===pkg.id?null:pkg.id)}/>
               ))}
             </Concertina>

@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 const heroImage = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-exterior-night.jpg';
-const goDarkBg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-exterior-chimney-dusk.jpg';
 const retreatImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-exterior-entry-native-garden.jpg';
 const experiencesImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-bath-running-golden.jpg';
 const provisionsImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/bay-view-islands-cloud.jpg';
@@ -145,7 +144,7 @@ export function HomePage() {
               transition: 'opacity 0.1s ease-out',
             }}
           >
-            Go Dark. Mean It.
+            Off-grid. Uninterrupted.
           </p>
           <div
             className="flex flex-col sm:flex-row gap-4"
@@ -220,86 +219,6 @@ export function HomePage() {
     </div>
   </div>
 </section>
-
-      {/* Go Dark Winter Section - Seasonal (June-August) with Parallax Background */}
-      <section className="relative py-24 overflow-hidden" style={{ backgroundColor: '#0B0F0F', minHeight: '70vh' }}>
-        {/* Parallax Background Image */}
-        <div
-          className="absolute inset-0"
-          style={{
-            transform: `translateY(${(scrollY - 600) * 0.3}px) scale(1.1)`,
-            willChange: 'transform',
-          }}
-        >
-          <img
-            src={goDarkBg}
-            alt="Winter at Rocky Hills"
-            className="w-full h-full object-cover"
-            style={{ objectPosition: 'center' }}
-          />
-          {/* Dark overlay for readability */}
-          <div
-            className="absolute inset-0"
-            style={{
-              background: 'linear-gradient(to bottom, rgba(11, 15, 15, 0.75), rgba(11, 15, 15, 0.85))',
-            }}
-          />
-        </div>
-
-        {/* Content */}
-        <div className="max-w-[1440px] mx-auto px-6 lg:px-12 relative z-10">
-          <div
-            className="max-w-[900px] mx-auto text-center"
-            style={{
-              transform: `translateY(${Math.max(0, (800 - scrollY) * 0.05)}px)`,
-              opacity: Math.min(1, Math.max(0, (scrollY - 400) / 200)),
-              transition: 'opacity 0.3s ease-out',
-            }}
-          >
-            <h2
-              className="mb-6"
-              style={{
-                fontFamily: "'Playfair Display', serif",
-                fontSize: 'clamp(2rem, 5vw, 3rem)',
-                color: '#EDE9E3',
-                letterSpacing: '-0.01em',
-                textShadow: '0 2px 12px rgba(0, 0, 0, 0.5)',
-              }}
-            >
-              It's winter. Go Dark.
-            </h2>
-            <p
-              className="mb-8"
-              style={{
-                fontFamily: "'Inter', sans-serif",
-                fontSize: '1.05rem',
-                color: '#EDE9E3',
-                lineHeight: '1.8',
-                textShadow: '0 1px 8px rgba(0, 0, 0, 0.5)',
-              }}
-            >
-              Three nights midweek. June, July, August. $1,500 flat rate. The humpbacks are moving through the bay. The sky above 250 acres is genuinely dark. The bath is waiting.
-            </p>
-            <Link
-              to="/go-dark"
-              style={{
-                display: 'inline-block',
-                backgroundColor: '#8FA9B3',
-                color: '#0B0F0F',
-                padding: '0.75rem 1.75rem',
-                borderRadius: '0.5rem',
-                fontFamily: "'Inter', sans-serif",
-                fontSize: '0.95rem',
-                fontWeight: 500,
-                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.4)',
-                transition: 'all 0.3s ease',
-              }}
-            >
-              See the offer
-            </Link>
-          </div>
-        </div>
-      </section>
 
       {/* Eco Statement Section */}
       <section className="py-20" style={{ backgroundColor: '#2E3D45' }}>

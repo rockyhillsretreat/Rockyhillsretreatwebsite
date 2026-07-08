@@ -11,7 +11,6 @@ import { ExperiencesPage } from "./components/ExperiencesPage";
 import { LocationPage } from "./components/LocationPage";
 import { ContactPage } from "./components/ContactPage";
 import { PackagesPage } from "./components/PackagesPage";
-import { GoDarkPage } from "./components/GoDarkPage";
 import { GalleryPage } from "./components/GalleryPage";
 import { JournalPage } from "./components/JournalPage";
 import { FAQsPage } from "./components/FAQsPage";
@@ -55,7 +54,6 @@ function App() {
             <Route path="/location" element={<LocationPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/packages" element={<PackagesPage />} />
-            <Route path="/go-dark" element={<GoDarkPage />} />
             <Route path="/gallery" element={<GalleryPage />} />
             <Route path="/journal" element={<JournalPage />} />
             <Route path="/faqs" element={<FAQsPage />} />
