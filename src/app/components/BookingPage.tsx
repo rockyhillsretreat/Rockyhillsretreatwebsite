@@ -303,7 +303,7 @@ export function BookingPage() {
     if (!form.firstName||!form.lastName||!form.email){ setError('Please fill in your first name, last name, and email.'); return; }
     if (!/\S+@\S+\.\S+/.test(form.email)){ setError('Please enter a valid email address.'); return; }
     if (!form.phone||form.phone.replace(/[^0-9]/g,'').length<6){ setError('Please enter a valid phone number with country code (e.g. +61 400 000 000).'); return; }
-    setError(null); setQuoteLoading(true); setStep(2);
+    setError(null); setQuoteLoading(true); setStep(2); window.scrollTo({ top: 0, behavior: 'smooth' });
     try {
       const res = await fetch('/api/create-quote', {
         method:'POST', headers:{'Content-Type':'application/json'},
@@ -627,7 +627,7 @@ export function BookingPage() {
             )}
 
             <div className="flex gap-3">
-              <button onClick={()=>{setError(null);setSubmitting(false);setStep(1);}} style={{
+              <button onClick={()=>{setError(null);setSubmitting(false);setStep(1);window.scrollTo({top:0,behavior:'smooth'});}} style={{
                 flex:1,padding:'0.875rem',backgroundColor:'transparent',color:S.muted,
                 border:`1px solid ${S.border}`,borderRadius:'0.375rem',fontFamily:S.inter,fontSize:'0.95rem',cursor:'pointer',
               }}>Back</button>
