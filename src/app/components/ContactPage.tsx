@@ -38,7 +38,7 @@ export function ContactPage() {
   return (
     <div style={{ backgroundColor: '#26333A', minHeight: '100vh', position: 'relative' }}>
       {/* Background */}
-      <div className="fixed inset-0 opacity-10">
+      <div className="fixed inset-0 opacity-10 pointer-events-none">
         <ImageWithFallback
           src={bgImg}
           alt="Interior detail"
