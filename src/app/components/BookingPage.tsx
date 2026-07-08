@@ -312,7 +312,7 @@ export function BookingPage() {
           firstName:form.firstName, lastName:form.lastName, email:form.email,
           phone:form.phone, street:form.street, city:form.city, state:form.state,
           postcode:form.postcode, country:form.country,
-          notes:form.notes,
+          notes:form.notes, voucher:form.voucher,
         }),
       });
       const data = await res.json();
