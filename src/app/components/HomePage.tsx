@@ -220,26 +220,6 @@ export function HomePage() {
   </div>
 </section>
 
-      {/* Eco Statement Section */}
-      <section className="py-20" style={{ backgroundColor: '#2E3D45' }}>
-        <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
-          <div className="max-w-[900px] mx-auto">
-            <p
-              style={{
-                fontFamily: "'Playfair Display', serif",
-                fontSize: '1.5rem',
-                color: '#EDE9E3',
-                lineHeight: '1.8',
-                textAlign: 'center',
-                fontStyle: 'italic',
-              }}
-            >
-              Fully off-grid. Built to take less than it gives.
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* Highlights Section with Staggered Parallax */}
       <section className="py-24" style={{ backgroundColor: '#2E3D45' }}>
         <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
