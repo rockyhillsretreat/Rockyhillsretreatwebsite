@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Mail, Phone } from 'lucide-react';
+import { Mail, Phone, Instagram, Facebook } from 'lucide-react';
 
 export function Footer() {
   const quickLinks = [
@@ -147,6 +147,30 @@ export function Footer() {
                 >
                   Book Your Stay →
                 </Link>
+              </li>
+              <li className="pt-3">
+                <div className="flex items-center gap-4">
+                  <a
+                    href="https://www.instagram.com/rockyhillsretreat/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="transition-opacity hover:opacity-70"
+                    aria-label="Instagram"
+                    style={{ color: '#8FA9B3' }}
+                  >
+                    <Instagram size={18} />
+                  </a>
+                  <a
+                    href="https://www.facebook.com/rockyhillsretreat"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="transition-opacity hover:opacity-70"
+                    aria-label="Facebook"
+                    style={{ color: '#8FA9B3' }}
+                  >
+                    <Facebook size={18} />
+                  </a>
+                </div>
               </li>
             </ul>
           </div>
