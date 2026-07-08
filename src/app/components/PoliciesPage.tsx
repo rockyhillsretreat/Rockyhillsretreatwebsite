@@ -8,7 +8,7 @@ export function PoliciesPage() {
   const sections = [
     {
       title: 'Who Can Stay',
-      body: `A maximum of 2 overnight guests are permitted. Children may be accommodated by prior arrangement — please contact us before booking to discuss. Pets are not permitted. Should you wish to invite a small number of day visitors (up to 4 additional people) please check with us first.\n\nAll guests must be 18 years of age or older unless accompanied by a parent or legal guardian.`,
+      body: `A maximum of 2 overnight guests are permitted. Children may be accommodated by prior arrangement. Please contact us before booking to discuss. Pets are not permitted. Should you wish to invite a small number of day visitors (up to 4 additional people) please check with us first.\n\nAll guests must be 18 years of age or older unless accompanied by a parent or legal guardian.`,
     },
     {
       title: 'Getting Here',

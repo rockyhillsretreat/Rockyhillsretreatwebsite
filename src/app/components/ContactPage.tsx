@@ -85,7 +85,7 @@ export function ContactPage() {
               </div>
               <h3 className="text-2xl text-bone heading-display">Phone</h3>
               <p className="text-bone/50 text-sm italic">
-                For urgent matters. Available 9am–6pm AEST.
+                For urgent matters. Available 9am to 6pm AEST.
               </p>
               <a
                 href="tel:+61499645344"
@@ -257,7 +257,7 @@ export function ContactPage() {
               <div className="pb-4 border-b border-border/30">
                 <h5 className="text-bone mb-2">Is the retreat suitable for children?</h5>
                 <p className="text-bone/60">
-                  Rocky Hills is designed for adults. Children may be accommodated by prior arrangement — please contact us before booking to discuss.
+                  Rocky Hills is designed for adults. Children may be accommodated by prior arrangement. Please contact us before booking to discuss.
                 </p>
               </div>
               <div className="pb-4 border-b border-border/30">

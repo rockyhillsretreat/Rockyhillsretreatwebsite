@@ -55,7 +55,7 @@ export function GoDarkPage() {
                 lineHeight: '1.8',
               }}
             >
-              The East Coast in winter belongs to almost nobody. That is precisely the point. Go Dark is a 3-night midweek stay - Monday to Thursday - timed to the darkest months on purpose. A different kind of stillness from the one summer offers. The thermal mass of the building holds the warmth in. The fire holds the rest. Outside, wombats move through the property after dark. The Yellow-tailed Black Cockatoos come through in the morning, their call carrying across the bush before anything else is awake.
+              The East Coast in winter belongs to almost nobody. That is precisely the point. Go Dark is a 3-night stay, arriving Sunday, Monday, or Tuesday, timed to the darkest months on purpose. A different kind of stillness from the one summer offers. The thermal mass of the building holds the warmth in. The fire holds the rest. Outside, wombats move through the property after dark. The Yellow-tailed Black Cockatoos come through in the morning, their call carrying across the bush before anything else is awake.
             </p>
             <p
               style={{
@@ -117,10 +117,8 @@ export function GoDarkPage() {
             </p>
           </div>
 
-          <a
-            href="book here"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            to="/booking"
             style={{
               display: 'inline-block',
               backgroundColor: '#8FA9B3',
@@ -133,10 +131,11 @@ export function GoDarkPage() {
               boxShadow: '0 4px 12px rgba(0, 0, 0, 0.4)',
               transition: 'all 0.3s ease',
               marginBottom: '1.5rem',
+              textDecoration: 'none',
             }}
           >
             Book Direct
-          </a>
+          </Link>
 
           <p
             style={{

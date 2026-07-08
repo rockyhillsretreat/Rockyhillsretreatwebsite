@@ -349,7 +349,7 @@ export function StudioPage() {
             }}
           >
             We work with local yoga teachers and artists who understand this landscape. 
-            Private sessions can be arranged — gentle movement practices, meditation, or creative guidance. 
+            Private sessions can be arranged: gentle movement practices, meditation, or creative guidance.
             These are not scheduled experiences. They are conversations first.
           </p>
           <Link

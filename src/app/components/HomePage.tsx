@@ -52,25 +52,21 @@ export function HomePage() {
     {
       title: "In the Air, Then at Rest",
       summary: 'Three nights. The East Coast from above, a therapist at the door, and the Huon pine bath waiting on the deck.',
-      price: 'From $5,500',
       link: '/packages',
     },
     {
       title: 'The Long Lunch',
       summary: 'Three nights built around four East Coast cellar doors, lunch in the vines, and a couples massage at the property.',
-      price: 'From $3,150',
       link: '/packages',
     },
     {
       title: 'From the Water',
       summary: 'Three nights on Great Oyster Bay. Half a day with a local skipper, catch returned to the retreat, couples massage included.',
-      price: 'From $3,250',
       link: '/packages',
     },
     {
       title: 'Celebrate Here',
       summary: 'Three nights for a proposal, an anniversary, or a reason you made up. Photographer, hamper, bath on the deck.',
-      price: 'From $3,550',
       link: '/packages',
     },
   ];
@@ -423,7 +419,7 @@ export function HomePage() {
                   {pkg.title}
                 </h3>
                 <p
-                  className="mb-4"
+                  className="mb-6"
                   style={{
                     fontFamily: "'Inter', sans-serif",
                     fontSize: '0.95rem',
@@ -433,16 +429,6 @@ export function HomePage() {
                   }}
                 >
                   {pkg.summary}
-                </p>
-                <p
-                  className="mb-6"
-                  style={{
-                    fontFamily: "'Playfair Display', serif",
-                    fontSize: '1.5rem',
-                    color: '#8FA9B3',
-                  }}
-                >
-                  {pkg.price}
                 </p>
                 <Link
                   to={pkg.link}

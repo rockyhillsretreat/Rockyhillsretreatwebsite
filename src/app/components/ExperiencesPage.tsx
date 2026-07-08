@@ -32,7 +32,7 @@ export function ExperiencesPage() {
         image: kayakImg
       },
       {
-        title: "Whale Watching (Seasonal, May–November)",
+        title: "Whale Watching (Seasonal, May to November)",
         description: "Humpbacks and southern rights migrate through Great Oyster Bay from May through November. The property's elevation makes it a natural vantage point. Your skipper can take you out during peak season.",
         cta: "Ask us to arrange.",
         image: whaleImg
@@ -164,7 +164,7 @@ export function ExperiencesPage() {
               lineHeight: '1.7'
             }}
           >
-            Experiences vary by season. Some are winter-specific — the whale migration, the dark sky, the quiet trails. Ask us what is running during your stay.
+            Experiences vary by season. Some are winter-specific: the whale migration, the dark sky, the quiet trails. Ask us what is running during your stay.
           </p>
         </div>
       </section>
@@ -334,7 +334,7 @@ export function ExperiencesPage() {
                   flexShrink: 0
                 }}
               >
-                From $120
+                From $145
               </p>
             </div>
 

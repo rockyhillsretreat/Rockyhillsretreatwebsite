@@ -6,10 +6,10 @@ const DAYS = ['Su','Mo','Tu','We','Th','Fr','Sa'];
 const PROPERTY_ID = 485328;
 
 const packages = [
-  { id: 'in-the-air-then-at-rest', name: 'In the Air, Then at Rest', price: 'POA', description: 'Scenic helicopter flight, couples massage, Huon pine bath. 3 nights.' },
-  { id: 'the-long-lunch', name: 'The Long Lunch', price: 'POA', description: 'Guided wine trail, four cellar doors, lunch included, couples massage. 3 nights.' },
-  { id: 'from-the-water', name: 'From the Water', price: 'POA', description: 'Half day fishing charter, catch returned to the retreat with recipe, couples massage. 3 nights.' },
-  { id: 'celebrate-here', name: 'Celebrate Here', price: 'POA', description: 'Private photographer, beach picnic hamper, Huon pine bath. 3 nights.' },
+  { id: 'in-the-air-then-at-rest', name: 'In the Air, Then at Rest', description: 'Scenic helicopter flight, couples massage, Huon pine bath. 3 nights.' },
+  { id: 'the-long-lunch', name: 'The Long Lunch', description: 'Guided wine trail, four cellar doors, lunch included, couples massage. 3 nights.' },
+  { id: 'from-the-water', name: 'From the Water', description: 'Half day fishing charter, catch returned to the retreat with recipe, couples massage. 3 nights.' },
+  { id: 'celebrate-here', name: 'Celebrate Here', description: 'Private photographer, beach picnic hamper, Huon pine bath. 3 nights.' },
 ];
 
 const experiences = [
@@ -31,7 +31,7 @@ const provisions = [
 
 const celebrations = [
   { id: 'photographer', name: 'Private Photographer', price: 'POA', description: 'A half day session on the property and surrounding headland.' },
-  { id: 'beach-picnic', name: 'Beach Picnic Setup', price: '$120', description: 'Hamper assembled from local producers, set up on the beach before you arrive.' },
+  { id: 'beach-picnic', name: 'Beach Picnic Setup', price: '$145', description: 'Hamper assembled from local producers, set up on the beach before you arrive.' },
 ];
 
 const S = {

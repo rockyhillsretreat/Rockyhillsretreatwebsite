@@ -301,7 +301,7 @@ export function LocationPage() {
             <div className="space-y-4">
               <div className="flex items-center gap-3">
                 <Clock size={20} className="text-muted-gold" />
-                <h5 className="text-bone tracking-widest">WINTER (JUN–AUG)</h5>
+                <h5 className="text-bone tracking-widest">WINTER (JUN TO AUG)</h5>
               </div>
               <p className="text-bone/60 text-sm leading-relaxed">
                 Peak season. Cold nights, roaring fires, steaming baths.
@@ -312,7 +312,7 @@ export function LocationPage() {
             <div className="space-y-4">
               <div className="flex items-center gap-3">
                 <Clock size={20} className="text-muted-gold" />
-                <h5 className="text-bone tracking-widest">SPRING (SEP–NOV)</h5>
+                <h5 className="text-bone tracking-widest">SPRING (SEP TO NOV)</h5>
               </div>
               <p className="text-bone/60 text-sm leading-relaxed">
                 Wildflowers emerge. Longer days. Still cool enough for fires.
@@ -323,7 +323,7 @@ export function LocationPage() {
             <div className="space-y-4">
               <div className="flex items-center gap-3">
                 <Clock size={20} className="text-muted-gold" />
-                <h5 className="text-bone tracking-widest">SUMMER (DEC–FEB)</h5>
+                <h5 className="text-bone tracking-widest">SUMMER (DEC TO FEB)</h5>
               </div>
               <p className="text-bone/60 text-sm leading-relaxed">
                 Warmest months but still mild. Outdoor bath under stars.
@@ -334,7 +334,7 @@ export function LocationPage() {
             <div className="space-y-4">
               <div className="flex items-center gap-3">
                 <Clock size={20} className="text-muted-gold" />
-                <h5 className="text-bone tracking-widest">AUTUMN (MAR–MAY)</h5>
+                <h5 className="text-bone tracking-widest">AUTUMN (MAR TO MAY)</h5>
               </div>
               <p className="text-bone/60 text-sm leading-relaxed">
                 Golden light. Crisp mornings. Forest changing color.

@@ -26,11 +26,11 @@ export function FAQsPage() {
         },
         {
           question: "What time is check-in and check-out?",
-          answer: "Check-in from 2pm. Check-out by 10am. Early check-in or late check-out may be possible ask us."
+          answer: "Check-in from 2pm. Check-out by 10am. Early check-in or late check-out may be possible. Ask us."
         },
         {
           question: "Is the retreat suitable for children?",
-          answer: "Rocky Hills is designed for adults. Children may be accommodated by prior arrangement — please contact us before booking to discuss."
+          answer: "Rocky Hills is designed for adults. Children may be accommodated by prior arrangement. Please contact us before booking to discuss."
         },
         {
           question: "Can we bring a pet?",
