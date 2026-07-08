@@ -218,7 +218,7 @@ export function BookingPage() {
   const [form, setForm] = useState({
     firstName:'', lastName:'', email:'', phone:'',
     street:'', city:'', state:'', postcode:'', country:'Australia',
-    notes:'', voucher:''
+    notes:''
   });
   const [quoteData, setQuoteData] = useState<any>(null);
   const [quoteLoading, setQuoteLoading] = useState(false);
@@ -312,7 +312,7 @@ export function BookingPage() {
           firstName:form.firstName, lastName:form.lastName, email:form.email,
           phone:form.phone, street:form.street, city:form.city, state:form.state,
           postcode:form.postcode, country:form.country,
-          notes:form.notes, voucher:form.voucher,
+          notes:form.notes,
         }),
       });
       const data = await res.json();
@@ -337,7 +337,7 @@ export function BookingPage() {
             selectedExperiences: selectedExperiences.map(id=>experiences.find(e=>e.id===id)?.name),
             selectedProvisions: selectedProvisions.map(id=>provisions.find(p=>p.id===id)?.name),
             selectedCelebrations: selectedCelebrations.map(id=>celebrations.find(c=>c.id===id)?.name),
-            voucher:form.voucher, notes:form.notes,
+            notes:form.notes,
           }),
         });
       } catch(e){ /* never block the booking flow */ }
@@ -461,11 +461,6 @@ export function BookingPage() {
                 onChange={e=>setForm(p=>({...p,country:e.target.value}))} style={inputStyle}/>
             </div>
             </form>
-            <div className="mb-4">
-              <label style={labelStyle}>Voucher / Promo Code</label>
-              <input type="text" placeholder="Enter code if you have one" value={form.voucher}
-                onChange={e=>setForm(p=>({...p,voucher:e.target.value}))} style={inputStyle}/>
-            </div>
             <div className="mb-6">
               <label style={labelStyle}>Anything else we should know?</label>
               <textarea rows={3} placeholder="Dietary requirements, special occasions, access needs..."
@@ -587,12 +582,6 @@ export function BookingPage() {
                       </div>
                     );
                   })}
-                  {form.voucher&&(
-                    <div className="flex justify-between mb-2">
-                      <span style={{fontFamily:S.inter,fontSize:'0.875rem',color:S.accent}}>Discount: {form.voucher}</span>
-                      <span style={{fontFamily:S.inter,fontSize:'0.875rem',color:S.accent}}>Applied</span>
-                    </div>
-                  )}
                   <div className="flex justify-between mt-3 pt-3" style={{borderTop:`1px solid ${S.border}`}}>
                     <span style={{fontFamily:S.inter,fontSize:'1rem',color:S.bone,fontWeight:600}}>Total</span>
                     <span style={{fontFamily:S.playfair,fontSize:'1.25rem',color:S.accent}}>${Number(quoteData.total).toFixed(2)} AUD</span>
