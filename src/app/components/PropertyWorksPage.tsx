@@ -62,7 +62,9 @@ export default function PropertyWorksPage() {
   const [tab, setTab] = useState<"tasks"|"budget">("tasks");
   const [filterAssignee, setFilterAssignee] = useState("all");
   const [filterCategory, setFilterCategory] = useState("all");
-  const [filterStatus, setFilterStatus] = useState("active");
+  const ALL_STATUSES = ["Not started","In progress","Waiting on response","Done"];
+  const OPEN_STATUSES = ["Not started","In progress","Waiting on response"];
+  const [filterStatuses, setFilterStatuses] = useState<string[]>(OPEN_STATUSES);
   const [panel, setPanel] = useState<Record | null>(null);
   const [saving, setSaving] = useState(false);
   const [form, setForm] = useState<{ [k: string]: string }>({});
@@ -77,14 +79,18 @@ export default function PropertyWorksPage() {
   const filtered = records.filter(r => {
     if (filterAssignee !== "all" && val(r, "assignee") !== filterAssignee) return false;
     if (filterCategory !== "all" && val(r, "category") !== filterCategory) return false;
-    const s = val(r, "status");
-    if (filterStatus === "active" && s === "Done") return false;
-    if (filterStatus === "done" && s !== "Done") return false;
+    if (filterStatuses.length > 0 && !filterStatuses.includes(val(r, "status"))) return false;
     return true;
   });
 
   const assignees = [...new Set(records.map(r => val(r, "assignee")).filter(Boolean))];
   const categories = [...new Set(records.map(r => val(r, "category")).filter(Boolean))].sort();
+  const statusCounts: { [k: string]: number } = {};
+  records.forEach(r => { const s = val(r,"status") || "Not started"; statusCounts[s] = (statusCounts[s]||0)+1; });
+  const allSelected = ALL_STATUSES.every(s => filterStatuses.includes(s));
+  function toggleStatus(s: string) {
+    setFilterStatuses(prev => prev.includes(s) ? prev.filter(x => x !== s) : [...prev, s]);
+  }
 
   const grouped: { [k: string]: Record[] } = {};
   filtered.forEach(r => {
@@ -234,11 +240,27 @@ export default function PropertyWorksPage() {
                 <option value="all">All categories</option>
                 {categories.map(c => <option key={c} value={c}>{c}</option>)}
               </select>
-              <select style={s.select} value={filterStatus} onChange={e => setFilterStatus(e.target.value)}>
-                <option value="active">Active tasks</option>
-                <option value="all">All tasks</option>
-                <option value="done">Done only</option>
-              </select>
+              <div style={{ display:"flex", gap:6, flexWrap:"wrap" as const, alignItems:"center" }}>
+                {/* All chip */}
+                <button
+                  onClick={() => setFilterStatuses(allSelected ? OPEN_STATUSES : [...ALL_STATUSES])}
+                  style={{ fontSize:12, fontWeight:500, padding:"5px 10px", borderRadius:20, border:"1px solid #ddd", cursor:"pointer", background: allSelected ? "#26333A" : "#fff", color: allSelected ? "#EDE9E3" : "#555" }}
+                >
+                  All ({records.length})
+                </button>
+                {ALL_STATUSES.map(st => {
+                  const active = filterStatuses.includes(st);
+                  const chipColor = st==="Done" ? (active?"#3B6D11":"#e5e3de") : st==="Waiting on response" ? (active?"#854F0B":"#e5e3de") : st==="In progress" ? (active?"#1a5276":"#e5e3de") : (active?"#26333A":"#e5e3de");
+                  const textColor = active ? "#fff" : "#555";
+                  const label = st==="Waiting on response" ? "Waiting" : st;
+                  return (
+                    <button key={st} onClick={() => toggleStatus(st)}
+                      style={{ fontSize:12, fontWeight:500, padding:"5px 10px", borderRadius:20, border:`1px solid ${active ? chipColor : "#ddd"}`, cursor:"pointer", background: active ? chipColor : "#fff", color: textColor }}>
+                      {label} ({statusCounts[st]||0})
+                    </button>
+                  );
+                })}
+              </div>
               <span style={{ marginLeft: "auto", fontSize: 12, color: "#888" }}>{filtered.length} tasks</span>
             </div>
 
