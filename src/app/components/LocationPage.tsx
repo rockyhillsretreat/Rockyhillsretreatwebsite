@@ -15,16 +15,18 @@ export function LocationPage() {
             alt="Tasmania's east coast"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary-brand/20 to-primary-brand" />
+          <div
+            className="absolute inset-0"
+            style={{ background: 'linear-gradient(to bottom, rgba(38, 51, 58, 0) 40%, rgba(38, 51, 58, 0.7) 100%)' }}
+          />
         </div>
-        <div className="relative h-full flex items-center justify-center px-6 text-center">
-          <div className="max-w-4xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-1000">
-            <h1 className="text-5xl md:text-7xl lg:text-8xl text-bone heading-display">
+        <div className="relative h-full flex items-end justify-center px-6 pb-16">
+          <div className="max-w-4xl text-center">
+            <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(2.5rem, 6vw, 4rem)', color: '#EDE9E3', letterSpacing: '-0.01em', lineHeight: '1.1' }}>
               Location
             </h1>
-            <p className="text-xl md:text-2xl lg:text-3xl text-bone/90 italic max-w-3xl mx-auto leading-relaxed">
-              A coastline that holds its breath.<br />
-              Where the wild meets the carefully hidden.
+            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '1.125rem', color: '#EDE9E3', lineHeight: '1.7', maxWidth: '700px', margin: '1.5rem auto 0' }}>
+              On Tasmania's east coast, between Swansea and the sea.
             </p>
           </div>
         </div>
