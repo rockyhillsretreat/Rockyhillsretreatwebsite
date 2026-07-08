@@ -16,7 +16,6 @@ export function Footer() {
   const policyLinks = [
     { to: '/faqs', label: 'FAQs' },
     { to: '/policies', label: 'Terms & Policies' },
-    { to: '/gift-vouchers', label: 'Gift Vouchers' },
   ];
 
   return (
