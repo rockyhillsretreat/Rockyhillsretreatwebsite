@@ -1,7 +1,13 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Check } from 'lucide-react';
 
 export function ConfirmationPage() {
+  useEffect(() => {
+    (window as any).dataLayer = (window as any).dataLayer || [];
+    (window as any).dataLayer.push({ event: 'booking_complete' });
+  }, []);
+
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#26333A' }}>
       <div className="max-w-[700px] mx-auto px-6 pt-40 pb-24 text-center">
