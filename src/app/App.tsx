@@ -17,6 +17,7 @@ import { FAQsPage } from "./components/FAQsPage";
 import { PoliciesPage } from "./components/PoliciesPage";
 import PropertyWorksPage from "./components/PropertyWorksPage";
 import { ExtrasPage } from "./components/ExtrasPage";
+import { StorePage } from "./components/StorePage";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -61,6 +62,7 @@ function App() {
             <Route path="/policies" element={<PoliciesPage />} />
             <Route path="/property-works" element={<PropertyWorksPage />} />
             <Route path="/extras" element={<ExtrasPage />} />
+            <Route path="/the-store" element={<StorePage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
