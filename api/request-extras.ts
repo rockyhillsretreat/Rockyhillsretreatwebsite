@@ -205,7 +205,7 @@ async function sendGuestConfirmation({
   });
 
   await transporter.sendMail({
-    from: '"Rocky Hills Retreat" <stay@rockyhillsretreat.com.au>',
+    from: `"Rocky Hills Retreat" <${process.env.SMTP_USER}>`,
     replyTo: 'stay@rockyhillsretreat.com.au',
     to: guestEmail,
     subject: `Your requests for Rocky Hills Retreat`,
