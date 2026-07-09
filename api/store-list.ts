@@ -38,7 +38,7 @@ function parseNotes(notes: string | null): { description: string; price: string;
   let description = notes
     .split('.')
     .map(s => s.trim())
-    .filter(s => s && !/^Sell \$/.test(s) && s !== 'Complimentary' && s !== 'Also complimentary')
+    .filter(s => s && !/^Sell \$/.test(s) && s !== 'Complimentary' && s !== 'Also complimentary' && !/^\d+$/.test(s))
     .join(', ');
 
   // Also strip any weight/volume patterns that crept into the description
