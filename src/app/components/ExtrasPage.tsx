@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Check } from 'lucide-react';
+
 interface ExtraOption {
   id: string;
   type: string;
@@ -8,6 +9,7 @@ interface ExtraOption {
   description: string;
   price?: string;
 }
+
 const OPTIONS: ExtraOption[] = [
   {
     id: 'pkg-air-rest',
@@ -43,13 +45,6 @@ const OPTIONS: ExtraOption[] = [
     price: '$45',
   },
   {
-    id: 'prov-charcuterie',
-    type: 'Provision',
-    name: 'Charcuterie Box',
-    description: 'Tasmanian cheeses, local charcuterie, sourdough, olives, honey and crackers, laid out and ready to graze.',
-    price: '$185',
-  },
-  {
     id: 'cel-picnic',
     type: 'Celebration',
     name: 'Beach Picnic Setup',
@@ -62,15 +57,18 @@ const OPTIONS: ExtraOption[] = [
     description: 'A half day session on the property and surrounding headland.',
   },
 ];
+
 export function ExtrasPage() {
   const [searchParams] = useSearchParams();
   const bookingId = searchParams.get('booking_id') || '';
   const guest = searchParams.get('guest') || '';
   const arrival = searchParams.get('arrival') || '';
+
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
+
   const toggle = (id: string) => {
     setSelected(prev => {
       const next = new Set(prev);
@@ -78,6 +76,7 @@ export function ExtrasPage() {
       return next;
     });
   };
+
   const handleSubmit = async () => {
     if (selected.size === 0) return;
     setSubmitting(true);
@@ -99,6 +98,7 @@ export function ExtrasPage() {
       setSubmitting(false);
     }
   };
+
   if (submitted) {
     return (
       <div className="min-h-screen" style={{ backgroundColor: '#26333A' }}>
@@ -140,6 +140,7 @@ export function ExtrasPage() {
       </div>
     );
   }
+
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#26333A' }}>
       <div className="max-w-[700px] mx-auto px-6 pt-32 pb-24">
@@ -178,7 +179,7 @@ export function ExtrasPage() {
             textAlign: 'center',
           }}
         >
-          Select anything you would like added to your stay. No payment is taken now, we will be in touch to confirm.
+          Select anything you would like added to your stay. All items are subject to availability — please allow at least 5 days before arrival. No payment is taken now, we will be in touch to confirm.
         </p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
           {OPTIONS.map(option => {

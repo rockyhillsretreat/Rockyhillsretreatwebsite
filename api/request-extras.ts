@@ -1,5 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { createClient } from '@supabase/supabase-js';
+import nodemailer from 'nodemailer';
 
 // Courtenay's people.id, all add-on tasks are assigned to her for review
 const COURTENAY_ID = 'd095ebea-cf06-48dc-8847-1a40afe4f4de';
@@ -71,6 +72,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ task_id: parentTask.id }),
       }).catch(e => console.error('Notify error:', e.message));
+
+      // Send alert email to RHR Gmail
+      sendAlertEmail({ guest, arrival, bookingId, selections }).catch(e =>
+        console.error('Alert email error:', e.message)
+      );
     }
 
     return res.status(200).json({ success: true });
@@ -78,4 +84,62 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     console.error('request-extras handler error:', err);
     return res.status(500).json({ success: false, error: err.message });
   }
+}
+
+async function sendAlertEmail({
+  guest, arrival, bookingId, selections,
+}: {
+  guest?: string; arrival?: string; bookingId?: string;
+  selections?: { type: string; name: string }[];
+}) {
+  if (!process.env.SMTP_USER || !process.env.SMTP_PASS) return;
+
+  // Flag imminent arrivals (within 5 days)
+  let daysUntilArrival: number | null = null;
+  if (arrival) {
+    const arrivalDate = new Date(arrival);
+    if (!isNaN(arrivalDate.getTime())) {
+      daysUntilArrival = Math.ceil((arrivalDate.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+    }
+  }
+  const isImminent = daysUntilArrival !== null && daysUntilArrival <= 5;
+
+  const itemList = (selections ?? [])
+    .map(s => `<li style="margin-bottom:4px;">${s.type}: <strong>${s.name}</strong></li>`)
+    .join('');
+
+  const urgencyBanner = isImminent ? `
+    <div style="background:#7A2A2A;color:#fff;padding:12px 20px;border-radius:6px;margin-bottom:20px;">
+      ⚠️ <strong>Imminent arrival${daysUntilArrival === 0 ? ' — today' : ` in ${daysUntilArrival} day${daysUntilArrival === 1 ? '' : 's'}`}.</strong> Action required urgently.
+    </div>` : '';
+
+  const html = `
+    <div style="font-family:sans-serif;max-width:560px;color:#333;">
+      ${urgencyBanner}
+      <h2 style="margin-bottom:4px;">Add-on request received</h2>
+      <p style="color:#666;margin-top:0;">
+        ${guest ? `<strong>${guest}</strong>` : 'A guest'} has selected extras via the pre-arrival page.
+        ${arrival ? `Arrival: <strong>${arrival}</strong>.` : ''}
+        ${bookingId ? `Booking: ${bookingId}.` : ''}
+      </p>
+      <ul style="padding-left:20px;line-height:1.8;">${itemList}</ul>
+      <p style="color:#555;margin-top:16px;">Please review and confirm with the guest. All items are subject to availability — allow at least 5 days to arrange.</p>
+      <a href="https://rhr-management.vercel.app/tasks" style="display:inline-block;background:#8FA9B3;color:#fff;padding:10px 20px;border-radius:6px;text-decoration:none;font-weight:500;margin-top:8px;">View in Management App</a>
+    </div>`;
+
+  const transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false,
+    auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
+  });
+
+  await transporter.sendMail({
+    from: `"Rocky Hills Retreat" <${process.env.SMTP_USER}>`,
+    to: 'rockyhillsretreat@gmail.com',
+    subject: isImminent
+      ? `⚠️ URGENT add-on request — ${guest ?? 'Guest'} arriving ${arrival ?? 'soon'}`
+      : `Add-on request — ${guest ?? 'Guest'}${arrival ? `, arriving ${arrival}` : ''}`,
+    html,
+  });
 }
