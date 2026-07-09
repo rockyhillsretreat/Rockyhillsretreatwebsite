@@ -25,13 +25,19 @@ function parseNotes(notes: string | null): { description: string; price: string 
   if (!notes) return { description: '', price: '' };
 
   const priceMatch = notes.match(/Sell \$([0-9.]+)/);
-  const price = priceMatch ? `$${priceMatch[1]}` : (notes.includes('Complimentary') ? 'Complimentary' : '');
+  const isComplimentary = notes.includes('Complimentary') || notes.includes('Also complimentary');
+  const price = priceMatch ? `$${priceMatch[1]}` : (isComplimentary ? 'Complimentary' : '');
 
-  const description = notes
+  let description = notes
     .split('.')
     .map(s => s.trim())
     .filter(s => s && !/^Sell \$/.test(s) && s !== 'Complimentary' && s !== 'Also complimentary')
     .join(', ');
+
+  // Remove weight/volume measurements from complimentary items (e.g. "200g", "500ml", "1L")
+  if (isComplimentary) {
+    description = description.replace(/\b\d+(\.\d+)?\s*(g|kg|ml|L|oz|lb)\b/gi, '').replace(/,\s*,/g, ',').replace(/^,\s*|,\s*$/g, '').trim();
+  }
 
   return { description, price };
 }
