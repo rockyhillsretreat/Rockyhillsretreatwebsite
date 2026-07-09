@@ -45,6 +45,13 @@ const OPTIONS: ExtraOption[] = [
     price: '$45',
   },
   {
+    id: 'prov-charcuterie',
+    type: 'Provision',
+    name: 'Charcuterie Box',
+    description: 'Tasmanian cheeses, local charcuterie, sourdough, olives, honey and crackers, laid out and ready to graze.',
+    price: '$185',
+  },
+  {
     id: 'cel-picnic',
     type: 'Celebration',
     name: 'Beach Picnic Setup',
