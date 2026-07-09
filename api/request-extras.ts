@@ -73,10 +73,26 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         body: JSON.stringify({ task_id: parentTask.id }),
       }).catch(e => console.error('Notify error:', e.message));
 
-      // Send alert email to RHR Gmail
+      // Look up guest email from Supabase, then send both emails
+      let guestEmail: string | null = null;
+      if (bookingId) {
+        const { data: booking } = await db
+          .from('bookings')
+          .select('guest:guest_id(email)')
+          .eq('ownerrez_id', bookingId)
+          .single();
+        guestEmail = (booking?.guest as { email?: string } | null)?.email ?? null;
+      }
+
       sendAlertEmail({ guest, arrival, bookingId, selections }).catch(e =>
         console.error('Alert email error:', e.message)
       );
+
+      if (guestEmail) {
+        sendGuestConfirmation({ guestEmail, guest, arrival, selections }).catch(e =>
+          console.error('Guest confirmation email error:', e.message)
+        );
+      }
     }
 
     return res.status(200).json({ success: true });
@@ -140,6 +156,47 @@ async function sendAlertEmail({
     subject: isImminent
       ? `⚠️ URGENT add-on request — ${guest ?? 'Guest'} arriving ${arrival ?? 'soon'}`
       : `Add-on request — ${guest ?? 'Guest'}${arrival ? `, arriving ${arrival}` : ''}`,
+    html,
+  });
+}
+
+async function sendGuestConfirmation({
+  guestEmail, guest, arrival, selections,
+}: {
+  guestEmail: string; guest?: string; arrival?: string;
+  selections?: { type: string; name: string }[];
+}) {
+  if (!process.env.SMTP_USER || !process.env.SMTP_PASS) return;
+
+  const firstName = guest ?? 'there';
+  const itemList = (selections ?? [])
+    .map(s => `<li style="margin-bottom:6px;">${s.name}</li>`)
+    .join('');
+
+  const html = `
+    <div style="font-family:Georgia,serif;max-width:560px;color:#3A3830;background:#FAF8F4;padding:40px;">
+      <p style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#8FA9B3;margin:0 0 24px;">Rocky Hills Retreat</p>
+      <h2 style="font-size:24px;font-weight:normal;margin:0 0 20px;color:#1A1A18;">Thank you, ${firstName}.</h2>
+      <p style="line-height:1.8;margin:0 0 16px;">We've received your requests and will be in touch as soon as we can to confirm everything.</p>
+      <p style="line-height:1.8;margin:0 0 24px;">Here's what you selected:</p>
+      <ul style="padding-left:20px;line-height:2;color:#3A3830;margin:0 0 24px;">${itemList}</ul>
+      <p style="line-height:1.8;margin:0 0 16px;">All items are subject to availability. If anything isn't possible, we'll let you know and suggest alternatives where we can.</p>
+      <p style="line-height:1.8;margin:0;">We look forward to welcoming you${arrival ? ` on ${arrival}` : ''}.</p>
+      <p style="margin:32px 0 0;color:#8FA9B3;font-size:14px;">Courtenay<br>Rocky Hills Retreat</p>
+    </div>`;
+
+  const transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false,
+    auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
+  });
+
+  await transporter.sendMail({
+    from: '"Rocky Hills Retreat" <stay@rockyhillsretreat.com.au>',
+    replyTo: 'stay@rockyhillsretreat.com.au',
+    to: guestEmail,
+    subject: `Your requests for Rocky Hills Retreat`,
     html,
   });
 }
