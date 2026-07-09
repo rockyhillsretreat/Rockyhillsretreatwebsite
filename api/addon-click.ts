@@ -14,7 +14,7 @@ function supabase() {
 // GET-based handler , designed to be hit directly from a link/button in an
 // OwnerRez email template, since email HTML can only fire GET requests.
 // Example link built into a template:
-//   https://rockyhillsretreat.com.au/api/addon-click?package=Beach+Picnic+Setup&type=Celebration&booking_id={BID}&guest={GFNAME}&arrival={GCHECKIN}
+//   https://rockyhillsretreat.com.au/api/addon-click?package=Beach+Picnic+Setup&type=Celebration&booking_id={BID}&guest={CFIRST}&arrival={BCHECKIN}
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
     const {

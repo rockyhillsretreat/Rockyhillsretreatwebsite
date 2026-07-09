@@ -21,8 +21,15 @@ const SECTION_ORDER = [
   'Bathroom Cabinet & Extras',
 ];
 
-function parseNotes(notes: string | null): { description: string; price: string } {
-  if (!notes) return { description: '', price: '' };
+// Strip weight/volume/count suffixes from item names for complimentary items
+// e.g. "Bedtime Balm Tea 200g" → "Bedtime Balm Tea", "Coffee Pods 60pk" → "Coffee Pods"
+function cleanItemName(name: string, isComplimentary: boolean): string {
+  if (!isComplimentary) return name;
+  return name.replace(/\s+\d+(\.\d+)?\s*(g|kg|ml|L|oz|lb|pk)\s*$/i, '').trim();
+}
+
+function parseNotes(notes: string | null): { description: string; price: string; isComplimentary: boolean } {
+  if (!notes) return { description: '', price: '', isComplimentary: false };
 
   const priceMatch = notes.match(/Sell \$([0-9.]+)/);
   const isComplimentary = notes.includes('Complimentary') || notes.includes('Also complimentary');
@@ -34,12 +41,12 @@ function parseNotes(notes: string | null): { description: string; price: string 
     .filter(s => s && !/^Sell \$/.test(s) && s !== 'Complimentary' && s !== 'Also complimentary')
     .join(', ');
 
-  // Remove weight/volume measurements from complimentary items (e.g. "200g", "500ml", "1L")
+  // Also strip any weight/volume patterns that crept into the description
   if (isComplimentary) {
-    description = description.replace(/\b\d+(\.\d+)?\s*(g|kg|ml|L|oz|lb)\b/gi, '').replace(/,\s*,/g, ',').replace(/^,\s*|,\s*$/g, '').trim();
+    description = description.replace(/\b\d+(\.\d+)?\s*(g|kg|ml|L|oz|lb|pk)\b/gi, '').replace(/,\s*,/g, ',').replace(/^,\s*|,\s*$/g, '').trim();
   }
 
-  return { description, price };
+  return { description, price, isComplimentary };
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -72,11 +79,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     for (const row of rows) {
       const section = row.store_section || 'Other';
       const supplier = row.suppliers?.supplier_name || 'Rocky Hills Retreat';
-      const { description, price } = parseNotes(row.notes);
+      const { description, price, isComplimentary } = parseNotes(row.notes);
+      const name = cleanItemName(row.item_name, isComplimentary);
 
       grouped[section] = grouped[section] || {};
       grouped[section][supplier] = grouped[section][supplier] || [];
-      grouped[section][supplier].push({ name: row.item_name, description, price });
+      grouped[section][supplier].push({ name, description, price });
     }
 
     // Use defined order, then any remaining sections alphabetically
