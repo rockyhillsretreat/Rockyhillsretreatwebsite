@@ -32,10 +32,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   try {
-    const { bookingId, guest, arrival, selections } = req.body as {
+    const { bookingId, guest, arrival, guestEmail: guestEmailParam, selections } = req.body as {
       bookingId?: string;
       guest?: string;
       arrival?: string;
+      guestEmail?: string;
       selections?: { type: string; name: string }[];
     };
 
@@ -85,25 +86,17 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         body: JSON.stringify({ task_id: parentTask.id }),
       }).catch(e => console.error('Notify error:', e.message));
 
-      // Look up guest email from Supabase, then send both emails
-      let guestEmail: string | null = null;
-      if (bookingId) {
-        const { data: booking } = await db
-          .from('bookings')
-          .select('guest:guest_id(email)')
-          .eq('ownerrez_id', bookingId)
-          .single();
-        guestEmail = (booking?.guest as { email?: string } | null)?.email ?? null;
-      }
-
       sendAlertEmail({ guest, arrival, bookingId, selections }).catch(e =>
         console.error('Alert email error:', e.message)
       );
 
+      const guestEmail = guestEmailParam || null;
       if (guestEmail) {
         sendGuestConfirmation({ guestEmail, guest, arrival, selections }).catch(e =>
           console.error('Guest confirmation email error:', e.message)
         );
+      } else {
+        console.log('No guest email provided — skipping guest confirmation');
       }
     }
 

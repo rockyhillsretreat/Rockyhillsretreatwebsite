@@ -70,6 +70,7 @@ export function ExtrasPage() {
   const bookingId = searchParams.get('booking_id') || '';
   const guest = searchParams.get('guest') || '';
   const arrival = searchParams.get('arrival') || '';
+  const guestEmail = searchParams.get('email') || '';
 
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [submitting, setSubmitting] = useState(false);
@@ -95,7 +96,7 @@ export function ExtrasPage() {
       const res = await fetch('/api/request-extras', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ bookingId, guest, arrival, selections }),
+        body: JSON.stringify({ bookingId, guest, arrival, guestEmail, selections }),
       });
       if (!res.ok) throw new Error('Request failed');
       setSubmitted(true);
