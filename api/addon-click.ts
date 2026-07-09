@@ -11,6 +11,15 @@ function supabase() {
   );
 }
 
+function parseArrivalDate(arrival?: string): string | null {
+  if (!arrival) return null;
+  const isoMatch = arrival.match(/(\d{4}-\d{2}-\d{2})/);
+  if (isoMatch) return isoMatch[1];
+  const d = new Date(arrival);
+  if (!isNaN(d.getTime())) return d.toISOString().split('T')[0];
+  return null;
+}
+
 // GET-based handler , designed to be hit directly from a link/button in an
 // OwnerRez email template, since email HTML can only fire GET requests.
 // Example link built into a template:
@@ -44,7 +53,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       assigned_to: COURTENAY_ID,
       status:      'Not Started',
       priority:    'High',
-      due_date:    arrival || null,
+      due_date:    parseArrivalDate(arrival),
       notes,
     }).select('id').single();
 

@@ -12,6 +12,18 @@ function supabase() {
   );
 }
 
+// Try to extract a YYYY-MM-DD date from whatever OwnerRez sends (e.g. "Check-in is 2 - 8 PM", "2025-11-15", etc.)
+function parseArrivalDate(arrival?: string): string | null {
+  if (!arrival) return null;
+  // Direct ISO date
+  const isoMatch = arrival.match(/(\d{4}-\d{2}-\d{2})/);
+  if (isoMatch) return isoMatch[1];
+  // Try parsing as a date (handles "November 15, 2025" etc.)
+  const d = new Date(arrival);
+  if (!isNaN(d.getTime())) return d.toISOString().split('T')[0];
+  return null;
+}
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -44,7 +56,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       assigned_to: COURTENAY_ID,
       status:      'Not Started',
       priority:    'High',
-      due_date:    arrival || null,
+      due_date:    parseArrivalDate(arrival),
       notes:       parentNotes,
     }).select('id').single();
 
@@ -61,7 +73,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           assigned_to:    COURTENAY_ID,
           status:         'Not Started',
           priority:       'High',
-          due_date:       arrival || null,
+          due_date:       parseArrivalDate(arrival),
           parent_task_id: parentTask.id,
         });
         if (subErr) console.error('Subtask error:', subErr.message);
