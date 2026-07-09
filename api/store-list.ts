@@ -8,14 +8,18 @@ function supabase() {
   );
 }
 
-const CATEGORY_LABELS: Record<string, string> = {
-  Food: 'Food',
-  Beverage: 'Drinks',
-  Amenity: 'Bathroom Cabinet & Extras',
-  Other: 'Keepsakes',
-};
-
-const CATEGORY_ORDER = ['Food', 'Beverage', 'Amenity', 'Other'];
+const SECTION_ORDER = [
+  'Complimentary In Your Suite',
+  'Pantry Staples & Breakfast',
+  'Pantry & Fresh',
+  'Freezer & Ready Meals',
+  'Seafood',
+  'Sweet',
+  'Cheese & Honey',
+  'Drinks',
+  'Keepsakes',
+  'Bathroom Cabinet & Extras',
+];
 
 function parseNotes(notes: string | null): { description: string; price: string } {
   if (!notes) return { description: '', price: '' };
@@ -34,45 +38,53 @@ function parseNotes(notes: string | null): { description: string; price: string 
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  // Cache for 5 minutes at the edge, refresh quietly after that, so the page stays fast
-  // but never drifts far from what's actually in the app.
+  // Cache for 5 minutes at the edge, refresh quietly after that
   res.setHeader('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=600');
 
   try {
     const db = supabase();
     const { data, error } = await db
       .from('stock_items')
-      .select('item_name, category, notes, suppliers(supplier_name)')
+      .select('item_name, store_section, notes, suppliers(supplier_name)')
       .eq('active', true)
-      .order('category')
+      .order('store_section')
       .order('item_name');
 
     if (error) throw error;
 
-    type Row = { item_name: string; category: string; notes: string | null; suppliers: { supplier_name: string } | null };
+    type Row = {
+      item_name: string;
+      store_section: string | null;
+      notes: string | null;
+      suppliers: { supplier_name: string } | null;
+    };
     const rows = (data || []) as unknown as Row[];
 
-    // Group: category -> supplier -> items
+    // Group: store_section -> supplier -> items
     const grouped: Record<string, Record<string, { name: string; description: string; price: string }[]>> = {};
 
     for (const row of rows) {
-      const cat = row.category || 'Other';
+      const section = row.store_section || 'Other';
       const supplier = row.suppliers?.supplier_name || 'Rocky Hills Retreat';
       const { description, price } = parseNotes(row.notes);
 
-      grouped[cat] = grouped[cat] || {};
-      grouped[cat][supplier] = grouped[cat][supplier] || [];
-      grouped[cat][supplier].push({ name: row.item_name, description, price });
+      grouped[section] = grouped[section] || {};
+      grouped[section][supplier] = grouped[section][supplier] || [];
+      grouped[section][supplier].push({ name: row.item_name, description, price });
     }
 
-    const sections = CATEGORY_ORDER
-      .filter(cat => grouped[cat])
-      .map(cat => ({
-        category: CATEGORY_LABELS[cat] || cat,
-        suppliers: Object.entries(grouped[cat])
-          .sort(([a], [b]) => (a === 'Rocky Hills Retreat' ? 1 : b === 'Rocky Hills Retreat' ? -1 : a.localeCompare(b)))
-          .map(([supplier, items]) => ({ supplier, items })),
-      }));
+    // Use defined order, then any remaining sections alphabetically
+    const orderedSections = [
+      ...SECTION_ORDER.filter(s => grouped[s]),
+      ...Object.keys(grouped).filter(s => !SECTION_ORDER.includes(s)).sort(),
+    ];
+
+    const sections = orderedSections.map(section => ({
+      category: section,
+      suppliers: Object.entries(grouped[section])
+        .sort(([a], [b]) => (a === 'Rocky Hills Retreat' ? 1 : b === 'Rocky Hills Retreat' ? -1 : a.localeCompare(b)))
+        .map(([supplier, items]) => ({ supplier, items })),
+    }));
 
     return res.status(200).json({ sections });
 
