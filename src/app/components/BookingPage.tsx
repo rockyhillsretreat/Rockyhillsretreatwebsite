@@ -227,6 +227,11 @@ export function BookingPage() {
   const [tcAccepted, setTcAccepted] = useState(false);
 
   useEffect(() => {
+    (window as any).dataLayer = (window as any).dataLayer || [];
+    (window as any).dataLayer.push({ event: 'booking_started' });
+  }, []);
+
+  useEffect(() => {
     // Restore state if returning from payment page
     const saved = sessionStorage.getItem('rhr_booking');
     if (saved) {
