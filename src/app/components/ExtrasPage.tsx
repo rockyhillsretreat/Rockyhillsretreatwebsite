@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Check } from 'lucide-react';
 
@@ -70,20 +70,15 @@ export function ExtrasPage() {
   const bookingId = searchParams.get('booking_id') || '';
   const guest = searchParams.get('guest') || '';
   const arrival = searchParams.get('arrival') || '';
-  const emailFromUrl = searchParams.get('email') || '';
+  const guestEmail = searchParams.get('email') || '';
 
   const [selected, setSelected] = useState<Set<string>>(new Set());
-  const [emailInput, setEmailInput] = useState(emailFromUrl);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
-  const topRef = useRef<HTMLDivElement>(null);
 
-  // Scroll to top when confirmation is shown
   useEffect(() => {
-    if (submitted) {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    if (submitted) window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [submitted]);
 
   const toggle = (id: string) => {
@@ -105,7 +100,7 @@ export function ExtrasPage() {
       const res = await fetch('/api/request-extras', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ bookingId, guest, arrival, guestEmail: emailInput.trim(), selections }),
+        body: JSON.stringify({ bookingId, guest, arrival, guestEmail, selections }),
       });
       if (!res.ok) throw new Error('Request failed');
       setSubmitted(true);
@@ -159,7 +154,7 @@ export function ExtrasPage() {
   }
 
   return (
-    <div ref={topRef} className="min-h-screen" style={{ backgroundColor: '#26333A' }}>
+    <div className="min-h-screen" style={{ backgroundColor: '#26333A' }}>
       <div className="max-w-[700px] mx-auto px-6 pt-32 pb-24">
         <p
           style={{
@@ -243,46 +238,12 @@ export function ExtrasPage() {
             );
           })}
         </div>
-
-        {/* Email field — pre-filled from URL if available */}
-        <div style={{ marginTop: '2rem' }}>
-          <label style={{
-            display: 'block',
-            fontFamily: "'Inter', sans-serif",
-            fontSize: '0.7rem',
-            letterSpacing: '0.15em',
-            textTransform: 'uppercase',
-            color: '#8FA9B3',
-            marginBottom: '0.5rem',
-          }}>
-            Your email — so we can confirm with you
-          </label>
-          <input
-            type="email"
-            value={emailInput}
-            onChange={e => setEmailInput(e.target.value)}
-            placeholder="your@email.com"
-            style={{
-              width: '100%',
-              padding: '0.75rem 1rem',
-              fontFamily: "'Inter', sans-serif",
-              fontSize: '0.95rem',
-              color: '#EDE9E3',
-              backgroundColor: 'rgba(255,255,255,0.05)',
-              border: '1px solid rgba(237,233,227,0.2)',
-              borderRadius: '4px',
-              outline: 'none',
-              boxSizing: 'border-box',
-            }}
-          />
-        </div>
-
         {error && (
           <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '0.9rem', color: '#D9A9A9', marginTop: '1.5rem', textAlign: 'center' }}>
             {error}
           </p>
         )}
-        <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+        <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
           <button
             onClick={handleSubmit}
             disabled={selected.size === 0 || submitting}

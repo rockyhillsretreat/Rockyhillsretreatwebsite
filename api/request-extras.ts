@@ -90,13 +90,24 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         console.error('Alert email error:', e.message)
       );
 
-      const guestEmail = guestEmailParam || null;
+      // Use email from URL param, fall back to Supabase lookup via booking ID
+      let guestEmail: string | null = guestEmailParam || null;
+      if (!guestEmail && bookingId) {
+        const { data: booking } = await db
+          .from('bookings')
+          .select('guest:guest_id(email)')
+          .eq('ownerrez_id', bookingId)
+          .single();
+        guestEmail = (booking?.guest as { email?: string } | null)?.email ?? null;
+        if (guestEmail) console.log('Guest email resolved from Supabase');
+      }
+
       if (guestEmail) {
         sendGuestConfirmation({ guestEmail, guest, arrival, selections }).catch(e =>
           console.error('Guest confirmation email error:', e.message)
         );
       } else {
-        console.log('No guest email provided — skipping guest confirmation');
+        console.log('No guest email found — skipping guest confirmation');
       }
     }
 
