@@ -68,7 +68,7 @@ export function StorePage() {
             textAlign: 'center',
           }}
         >
-          Everything below is available in the fridge, freezer and pantry. No pre-ordering required. Items are settled at check-out. If it's not listed here, it's complimentary.
+          Everything below is available in the fridge, freezer and pantry. No pre-ordering required. Items are settled at check-out.
         </p>
 
         {error && (

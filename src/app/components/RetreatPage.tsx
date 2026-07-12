@@ -1,4 +1,4 @@
-import { Bed, Bath, Flame, Utensils, Wind, Mountain, Sun, Droplets } from "lucide-react";
+import { Bed, Bath, Flame, Utensils, Mountain, Sun, Droplets, Sparkles } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Link } from "react-router-dom";
 const heroImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/v1778553751/retreat-exterior-golden-hour.jpg';
@@ -13,7 +13,7 @@ export function RetreatPage() {
     { icon: Bath, label: "Huon pine soaking tub" },
     { icon: Flame, label: "Wood fireplace" },
     { icon: Utensils, label: "Fully equipped kitchen" },
-    { icon: Wind, label: "Outdoor fire pit and deck" },
+    { icon: Sparkles, label: "Outdoor fire pit and deck" },
     { icon: Mountain, label: "Views across Great Oyster Bay" },
     { icon: Sun, label: "Solar powered, rainwater supplied" },
     { icon: Droplets, label: "250 acres, conservation covenant" }

@@ -20,7 +20,7 @@ const experiences = [
   { id: 'hire-car', name: 'Hire Car Delivery', description: 'A hire car arranged and delivered to the property for your stay.' },
   { id: 'wine-trail', name: 'The Wine Trail, Guided', description: 'Four East Coast cellar doors, lunch included, pickup and return from the property.', note: 'Off-property. RHR does not serve alcohol on site.' },
   { id: 'couples-massage', name: 'Couples Massage', description: 'A therapist comes to you. Native Kunzea aromatherapy, face ritual, and foot treatment available as add-ons.' },
-  { id: 'foraging', name: 'Guided Foraging Session', description: 'The property and surrounding headland, read with a local guide.' },
+  { id: 'foraging', name: 'Guided Foraging Session', description: 'The property and surrounding headland, walked with a local guide.' },
 ];
 
 const provisions = [

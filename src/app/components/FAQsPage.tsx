@@ -38,7 +38,7 @@ export function FAQsPage() {
         },
         {
           question: "Is the retreat good in winter?",
-          answer: "Winter is when Rocky Hills is most itself. The building was designed around thermal mass the concrete and besser block hold the day's warmth well into the night. The wood fire, the gas heater, the Huon pine bath on the deck under a genuinely dark sky. The humpbacks move through Great Oyster Bay from May through July. The East Coast trails are empty. If you want stillness, winter delivers it more completely than summer."
+          answer: "Winter is when Rocky Hills is most itself. The building was designed around thermal mass — the concrete and besser block hold the day's warmth well into the night. The wood fire, the gas heater, the Huon pine bath on the deck under a genuinely dark sky. The humpbacks move through Great Oyster Bay from May through July. The East Coast trails are empty. If you want stillness, winter delivers it more completely than summer."
         }
       ]
     },
@@ -47,7 +47,7 @@ export function FAQsPage() {
       questions: [
         {
           question: "Do you provide meals?",
-          answer: "All provisions and food packages are delivered to the retreat with full recipes and preparation notes. We like to leave you in peace. Order ahead we'll have everything ready on arrival."
+          answer: "All provisions and food packages are delivered to the retreat with full recipes and preparation notes. We like to leave you in peace. Order ahead, we'll have everything ready on arrival."
         },
         {
           question: "Can we add provisions after booking?",

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 const heroImage = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-exterior-night.jpg';
 const retreatImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-exterior-entry-native-garden.jpg';
@@ -10,7 +10,6 @@ const tasmaniaImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/bay-view-
 
 export function HomePage() {
   const [scrollY, setScrollY] = useState(0);
-  const heroRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -487,7 +486,7 @@ export function HomePage() {
             Two-night minimum.
           </p>
           <Link
-            to="/contact"
+            to="/booking"
             style={{
               display: 'inline-block',
               backgroundColor: '#8FA9B3',

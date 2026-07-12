@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 
@@ -23,7 +22,7 @@ export function PackagesPage() {
       inclusions: [
         "Weekend accommodation",
         "Scenic helicopter flight over Great Oyster Bay, the Hazards, and Wineglass Bay",
-        "Couples massage at the property remedial or relaxation, with native Kunzea aromatherapy available as an add-on.",
+        "Couples massage at the property, remedial or relaxation, with native Kunzea aromatherapy available as an add-on.",
         "Huon pine bath prepared on the deck",
       ],
       note: "Want to arrive by air? A helicopter transfer from Hobart to the property is available on request, with a hire car delivered to the property if you need one. Ask us when you book."
@@ -36,7 +35,7 @@ export function PackagesPage() {
       inclusions: [
         "Weekend accommodation",
         "Guided wine trail for two, four cellar doors, lunch included, pickup and return from the property",
-        "Couples massage at the property remedial or relaxation, with native Kunzea aromatherapy available as an add-on.",
+        "Couples massage at the property, remedial or relaxation, with native Kunzea aromatherapy available as an add-on.",
       ],
       note: "The wine trail is an off-property experience. RHR does not serve alcohol on site."
     },
@@ -47,9 +46,9 @@ export function PackagesPage() {
       nights: "3 nights",
       inclusions: [
         "Weekend accommodation",
-        "Half day fishing charter on Great Oyster Bay and Schouten Passage flathead, trumpeter, squid",
+        "Half day fishing charter on Great Oyster Bay and Schouten Passage — flathead, trumpeter, squid",
         "Catch prepared and returned to the retreat with a recipe written for the kitchen at Rocky Hills",
-        "Couples massage at the property remedial or relaxation, with native Kunzea aromatherapy available as an add-on.",
+        "Couples massage at the property, remedial or relaxation, with native Kunzea aromatherapy available as an add-on.",
       ]
     },
     {
@@ -109,7 +108,7 @@ export function PackagesPage() {
                     <div className="flex items-baseline gap-4 mb-8">
                       <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '0.9rem', color: '#B8AE9F', opacity: 0.7 }}>{pkg.nights} · Enquire for pricing</p>
                     </div>
-                    <Link to="/booking" style={{ display: 'inline-block', backgroundColor: '#8FA9B3', color: '#26333A', padding: '0.875rem 2rem', fontFamily: "'Inter', sans-serif", fontSize: '1rem', fontWeight: 500, boxShadow: '0 4px 12px rgba(0,0,0,0.3)', transition: 'all 0.3s ease', textDecoration: 'none' }}>
+                    <Link to="/booking" style={{ display: 'inline-block', backgroundColor: '#8FA9B3', color: '#26333A', padding: '0.875rem 2rem', borderRadius: '0.5rem', fontFamily: "'Inter', sans-serif", fontSize: '1rem', fontWeight: 500, boxShadow: '0 4px 12px rgba(0,0,0,0.3)', transition: 'all 0.3s ease', textDecoration: 'none' }}>
                       Book This Package
                     </Link>
                   </div>

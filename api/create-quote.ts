@@ -1,31 +1,12 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
-const OR_BASE = 'https://app.ownerrez.com/api';
 const OR_V2_BASE = 'https://api.ownerrez.com/v2';
 const PROPERTY_ID = 485328;
-const REDIRECT_URL = 'https://rockyhillsretreatwebsite.vercel.app/confirmation';
 
 function getAuthHeader() {
   const username = process.env.OWNERREZ_USERNAME || '';
   const token = process.env.OWNERREZ_API_KEY || '';
   return 'Basic ' + Buffer.from(`${username}:${token}`).toString('base64');
-}
-
-async function orPost(path: string, body: any) {
-  const res = await fetch(`${OR_BASE}${path}`, {
-    method: 'POST',
-    headers: {
-      'Authorization': getAuthHeader(),
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'User-Agent': 'RockyHillsRetreat/1.0',
-    },
-    body: JSON.stringify(body),
-  });
-  const text = await res.text();
-  let json: any = {};
-  try { json = JSON.parse(text); } catch {}
-  return { ok: res.ok, status: res.status, data: json, raw: text };
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -95,7 +76,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       pets: 0,
     };
     if (voucher) quoteBody.discount_code = voucher;
-    if (notes) quoteBody.Notes = notes;
+    if (notes) quoteBody.notes = notes;
 
     // Use v2 quotes endpoint which supports discount_code
     const quoteFetch = await fetch(`${OR_V2_BASE}/quotes`, {

@@ -80,7 +80,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 function confirmPage(item?: string) {
   return `<!DOCTYPE html>
 <html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Request received , Rocky Hills Retreat</title></head>
+<title>Request received — Rocky Hills Retreat</title></head>
 <body style="margin:0; padding:0; background:#F5F2ED; font-family:Georgia,serif;">
   <table width="100%" cellpadding="0" cellspacing="0"><tr><td align="center" style="padding:60px 20px;">
     <table width="480" cellpadding="0" cellspacing="0" style="background:#FAF8F4; border-radius:4px; overflow:hidden;">

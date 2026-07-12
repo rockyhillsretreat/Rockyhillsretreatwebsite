@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 const fishingImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/bay-cove-headland-dusk.jpg';
 const kayakImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/bay-view-swansea-coast.jpg';
@@ -6,7 +5,7 @@ const whaleImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/location-bay
 const douglasImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/land-detail-driftwood-rock.jpg';
 const foragingImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/bay-view-islands-cloud.jpg';
 const stargazingImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-bath-night.jpg';
-const oystersImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/bay-cove-headland-dusk.jpg';
+const oystersImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/bay-view-freycinet-framed.jpg';
 const wineImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/bay-view-freycinet-framed.jpg';
 const picnicImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/location-swansea-beach-dunes-wide.jpg';
 const helicopterImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/bay-view-sunset-dramatic.jpg';
@@ -15,9 +14,7 @@ const tourImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/interior-livi
 const heroImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-exterior-entry-native-garden.jpg';
 
 export function ExperiencesPage() {
-  const [activeCategory, setActiveCategory] = useState<string | null>(null);
-
-  const experiences = {
+  const experiences: Record<string, { title: string; description: string; cta: string; image: string }[]> = {
     water: [
       {
         title: "Fishing on Great Oyster Bay",
@@ -47,7 +44,7 @@ export function ExperiencesPage() {
       },
       {
         title: "Foraging with a Local Guide",
-        description: "The property and surrounding headland, read with a local guide. What's edible, what's in season, where to look. Back with a basket and a different understanding of this place.",
+        description: "The property and surrounding headland, walked with a local guide. What's edible, what's in season, where to look. Back with a basket and a different understanding of this place.",
         cta: "Ask us to arrange. From $280 per session.",
         image: foragingImg
       },
@@ -81,7 +78,7 @@ export function ExperiencesPage() {
     curated: [
       {
         title: "Arrive by Air",
-        description: "Skip the drive. A helicopter transfer from Hobart lands you at the property direct the East Coast coastline unfolding beneath you before you've even unpacked. A hire car can be arranged and delivered to the property for the duration of your stay.",
+        description: "Skip the drive. A helicopter transfer from Hobart lands you at the property direct — the East Coast coastline unfolding beneath you before you've even unpacked. A hire car can be arranged and delivered to the property for the duration of your stay.",
         cta: "Ask us to arrange.",
         image: helicopterImg
       },
@@ -172,7 +169,7 @@ export function ExperiencesPage() {
       {/* Experience Sections */}
       {Object.keys(experiences).map((category, index) => (
         <section
-          key={index}
+          key={category}
           className="py-24 px-6"
           style={{
             backgroundColor: index % 2 === 0 ? '#26333A' : '#2E3D45'
@@ -210,9 +207,9 @@ export function ExperiencesPage() {
 
             {/* Experience Tiles */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {experiences[category].map((tile, tileIndex) => (
+              {experiences[category].map((tile) => (
                 <div
-                  key={tileIndex}
+                  key={tile.title}
                   className="group overflow-hidden"
                   style={{
                     borderRadius: '0.5rem',

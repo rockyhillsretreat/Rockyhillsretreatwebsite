@@ -5,7 +5,7 @@ const bgImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-exterio
 
 export function ContactPage() {
   const [form, setForm] = useState({
-    firstName: '', lastName: '', email: '', phone: '', inquiryType: 'General Inquiry', message: ''
+    firstName: '', lastName: '', email: '', phone: '', inquiryType: 'General Enquiry', message: ''
   });
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -68,7 +68,7 @@ export function ContactPage() {
               </div>
               <h3 className="text-2xl text-bone heading-display">Email</h3>
               <p className="text-bone/50 text-sm italic">
-                For reservations, inquiries, or poetic correspondence.
+                For reservations, enquiries, or poetic correspondence.
               </p>
               <a
                 href="mailto:stay@rockyhillsretreat.com.au"
@@ -184,14 +184,14 @@ export function ContactPage() {
                 </div>
 
                 <div>
-                  <label className="text-bone/70 mb-2 block">Inquiry Type</label>
+                  <label className="text-bone/70 mb-2 block">Enquiry Type</label>
                   <select
                     name="inquiryType"
                     value={form.inquiryType}
                     onChange={handleChange}
                     className="w-full bg-input-background border border-border text-bone p-3 focus:outline-none focus:ring-2 focus:ring-ring"
                   >
-                    <option>General Inquiry</option>
+                    <option>General Enquiry</option>
                     <option>Booking Question</option>
                     <option>Experience Add-Ons</option>
                     <option>Special Requests</option>

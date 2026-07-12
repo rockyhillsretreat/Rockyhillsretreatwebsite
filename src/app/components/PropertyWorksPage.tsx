@@ -18,17 +18,17 @@ const F = {
   completed: "fldghVWn1U2R8PocW",
 };
 
-type Record = { id: string; fields: { [key: string]: any } };
+type AirtableRecord = { id: string; fields: { [key: string]: any } };
 
-function val(r: Record, key: keyof typeof F): string {
+function val(r: AirtableRecord, key: keyof typeof F): string {
   const v = r.fields?.[F[key]];
   if (v === undefined || v === null) return "";
   if (typeof v === "object" && "name" in v) return v.name;
   return String(v);
 }
 
-async function fetchAllRecords(): Promise<Record[]> {
-  let all: Record[] = [];
+async function fetchAllRecords(): Promise<AirtableRecord[]> {
+  let all: AirtableAirtableRecord[] = [];
   let offset = "";
   do {
     const url = `https://api.airtable.com/v0/${BASE_ID}/${TABLE_ID}?pageSize=100${offset ? `&offset=${offset}` : ""}`;
@@ -56,7 +56,7 @@ const PERSON_ORDER = ["Curtis","Jeremy","Todd (electrician)","Water Tank Cleanin
 const ASSIGNEES = ["Curtis","Jeremy","Todd (electrician)","Water Tank Cleaning Tas","Mode Energy","Courtenay","TBC"];
 
 export default function PropertyWorksPage() {
-  const [records, setRecords] = useState<Record[]>([]);
+  const [records, setRecords] = useState<AirtableRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [tab, setTab] = useState<"tasks"|"budget">("tasks");
@@ -92,7 +92,7 @@ export default function PropertyWorksPage() {
     setFilterStatuses(prev => prev.includes(s) ? prev.filter(x => x !== s) : [...prev, s]);
   }
 
-  const grouped: { [k: string]: Record[] } = {};
+  const grouped: { [k: string]: AirtableAirtableRecord[] } = {};
   filtered.forEach(r => {
     const a = val(r, "assignee") || "Unassigned";
     if (!grouped[a]) grouped[a] = [];
@@ -106,7 +106,7 @@ export default function PropertyWorksPage() {
     return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
   });
 
-  function openPanel(r: Record) {
+  function openPanel(r: AirtableRecord) {
     setPanel(r);
     setForm({
       status:    val(r, "status") || "Not started",
@@ -173,7 +173,7 @@ export default function PropertyWorksPage() {
     sub: { color: "#8FA9B3", fontSize: 12, marginTop: 2 },
     badge: { fontSize: 11, background: "rgba(143,169,179,0.15)", color: "#8FA9B3", border: "1px solid rgba(143,169,179,0.3)", borderRadius: 4, padding: "3px 8px" },
     nav: { background: "#fff", borderBottom: "1px solid #e5e3de", display: "flex", padding: "0 1.5rem" },
-    navTab: (active: boolean) => ({ padding: "0.85rem 1.25rem", fontSize: 13, fontWeight: 500, color: active ? "#26333A" : "#888", cursor: "pointer", borderBottom: active ? "2px solid #8FA9B3" : "2px solid transparent", background: "none", border: "none", borderBottomStyle: "solid" as const, borderBottomWidth: active ? 2 : 2, borderBottomColor: active ? "#8FA9B3" : "transparent" }),
+    navTab: (active: boolean) => ({ padding: "0.85rem 1.25rem", fontSize: 13, fontWeight: 500, color: active ? "#26333A" : "#888", cursor: "pointer", borderBottom: active ? "2px solid #8FA9B3" : "2px solid transparent", background: "none", border: "none", borderBottomStyle: "solid" as const, borderBottomWidth: 2, borderBottomColor: active ? "#8FA9B3" : "transparent" }),
     main: { padding: "1.5rem", maxWidth: 1100, margin: "0 auto" },
     filterBar: { display: "flex", gap: 8, flexWrap: "wrap" as const, marginBottom: "1.25rem", alignItems: "center" },
     select: { fontSize: 13, padding: "6px 10px", border: "1px solid #ddd", borderRadius: 6, background: "#fff", color: "#1a1a1a", outline: "none" },
