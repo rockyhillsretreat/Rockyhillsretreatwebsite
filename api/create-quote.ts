@@ -116,7 +116,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (!quoteResult.ok) {
       console.error('Quote creation failed:', quoteResult.status, quoteResult.raw.substring(0, 500));
       console.error('Quote body sent:', JSON.stringify(quoteBody));
-      return res.status(500).json({ error: 'Failed to create quote', detail: quoteResult.raw });
+      // Give a user-friendly message for date conflict errors
+      const isConflict = quoteResult.raw.toLowerCase().includes('conflict') || quoteResult.raw.toLowerCase().includes('existing booking');
+      const userMessage = isConflict
+        ? 'These dates are no longer available. Please go back and select different dates.'
+        : 'Failed to create quote';
+      return res.status(500).json({ error: userMessage, detail: quoteResult.raw });
     }
 
     const quote = quoteResult.data;

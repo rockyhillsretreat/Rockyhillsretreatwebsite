@@ -284,16 +284,20 @@ export function BookingPage() {
     return total;
   };
 
+  const clearDates = () => {
+    setCheckIn(null); setCheckOut(null); setSelectingCheckout(false); setError(null);
+  };
+
   const handleDateSelect = (date: string) => {
-    if (!checkIn||(checkIn&&checkOut)){
+    if (!checkIn || (checkIn && checkOut)) {
       setCheckIn(date); setCheckOut(null); setSelectingCheckout(true); setError(null);
-    } else if (selectingCheckout){
-      if (date<=checkIn){ setCheckIn(date); setCheckOut(null); }
-      else {
-        const blocked = Array.from(unavailableDates).some(d=>d>checkIn&&d<date);
-        if (blocked){ setError('Your selected range includes unavailable dates.'); return; }
-        setCheckOut(date); setSelectingCheckout(false); setError(null);
-      }
+    } else if (selectingCheckout) {
+      // Clicking the already-selected check-in date cancels selection
+      if (date === checkIn) { clearDates(); return; }
+      if (date < checkIn) { setCheckIn(date); setCheckOut(null); return; }
+      const blocked = Array.from(unavailableDates).some(d => d > checkIn && d < date);
+      if (blocked) { setError('Your selected range includes unavailable dates.'); return; }
+      setCheckOut(date); setSelectingCheckout(false); setError(null);
     }
   };
 
@@ -387,9 +391,16 @@ export function BookingPage() {
 
             {/* DATES */}
             <h2 style={{fontFamily:S.playfair,fontSize:'1.5rem',color:S.bone,marginBottom:'0.5rem'}}>Choose Your Dates</h2>
-            <p style={{fontFamily:S.inter,fontSize:'0.875rem',color:S.muted,fontStyle:'italic',marginBottom:'1.5rem'}}>
-              {selectingCheckout?'Now select your check-out date.':checkIn?'Dates selected.':'Select your check-in date.'}
-            </p>
+            <div className="flex items-center justify-between" style={{marginBottom:'1.5rem'}}>
+              <p style={{fontFamily:S.inter,fontSize:'0.875rem',color:S.muted,fontStyle:'italic'}}>
+                {selectingCheckout?'Now select your check-out date — or click the check-in date again to cancel.':checkIn?'Dates selected.':'Select your check-in date.'}
+              </p>
+              {checkIn && (
+                <button onClick={clearDates} style={{fontFamily:S.inter,fontSize:'0.75rem',color:S.muted,background:'none',border:'none',cursor:'pointer',padding:'0.25rem 0.5rem',textDecoration:'underline'}}>
+                  Clear
+                </button>
+              )}
+            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
               {[{label:'Check-in',val:checkIn},{label:'Check-out',val:checkOut}].map(({label,val})=>(

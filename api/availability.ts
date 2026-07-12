@@ -43,9 +43,21 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const days: { date: string; available: boolean }[] = [];
 
     items.forEach((booking: any) => {
-      const arrivalStr = (booking.arrival || '').split('T')[0];
-      const departureStr = (booking.departure || '').split('T')[0];
-      if (!arrivalStr || !departureStr) return;
+      // Holds/blocks may use different field names than guest bookings
+      const arrivalStr = (
+        booking.arrival || booking.from_date || booking.start_date ||
+        booking.check_in || booking.checkin || booking.from || ''
+      ).split('T')[0];
+      const departureStr = (
+        booking.departure || booking.to_date || booking.end_date ||
+        booking.check_out || booking.checkout || booking.to || ''
+      ).split('T')[0];
+      // Log every item so we can diagnose which are holds/blocks and what fields they have
+      console.log(`OR item id=${booking.id} type=${booking.type} is_block=${booking.is_block} status=${booking.status} arrival=${arrivalStr} departure=${departureStr}`);
+      if (!arrivalStr || !departureStr) {
+        console.warn(`Skipping item ${booking.id} — no parseable dates. Keys: ${Object.keys(booking).join(',')}`);
+        return;
+      }
 
       const arrival = new Date(arrivalStr);
       const departure = new Date(departureStr);
