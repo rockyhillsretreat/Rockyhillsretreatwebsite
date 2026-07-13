@@ -28,7 +28,7 @@ function val(r: AirtableRecord, key: keyof typeof F): string {
 }
 
 async function fetchAllRecords(): Promise<AirtableRecord[]> {
-  let all: AirtableAirtableRecord[] = [];
+  let all: AirtableRecord[] = [];
   let offset = "";
   do {
     const url = `https://api.airtable.com/v0/${BASE_ID}/${TABLE_ID}?pageSize=100${offset ? `&offset=${offset}` : ""}`;
@@ -92,7 +92,7 @@ export default function PropertyWorksPage() {
     setFilterStatuses(prev => prev.includes(s) ? prev.filter(x => x !== s) : [...prev, s]);
   }
 
-  const grouped: { [k: string]: AirtableAirtableRecord[] } = {};
+  const grouped: { [k: string]: AirtableRecord[] } = {};
   filtered.forEach(r => {
     const a = val(r, "assignee") || "Unassigned";
     if (!grouped[a]) grouped[a] = [];
