@@ -432,7 +432,7 @@ export function BookingPage() {
                     {nights<2&&<span style={{color:'#e87878',marginLeft:'0.5rem'}}>(minimum 2 nights)</span>}
                   </p>
                   {nights>=2&&estimateTotal()&&(
-                    <p style={{fontFamily:S.playfair,fontSize:'1rem',color:S.bone}}>
+                                        <p id="rate-estimate" style={{fontFamily:S.playfair,fontSize:'1rem',color:S.bone}}>
                       Est. ${estimateTotal()?.toLocaleString()} AUD
                       <span style={{fontFamily:S.inter,fontSize:'0.7rem',color:S.muted,marginLeft:'0.25rem'}}>inc GST</span>
                     </p>
