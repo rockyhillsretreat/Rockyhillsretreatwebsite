@@ -86,7 +86,7 @@ export function HomePage() {
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#26333A' }}>
       {/* Hero Section with Parallax */}
-      <section ref={heroRef} className="relative h-screen overflow-hidden">
+      <section className="relative h-screen overflow-hidden">
         {/* Parallax Background Image */}
         <div
           className="absolute inset-0 w-full h-[120vh]"
