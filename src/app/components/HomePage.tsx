@@ -153,7 +153,7 @@ export function HomePage() {
             }}
           >
             <Link
-              to="/packages"
+              to="/booking"
               style={{
                 backgroundColor: '#8FA9B3',
                 color: '#26333A',
@@ -166,7 +166,7 @@ export function HomePage() {
                 transition: 'all 0.3s ease',
               }}
             >
-              The Offerings
+              Book Now
             </Link>
             <Link
               to="/retreat"
