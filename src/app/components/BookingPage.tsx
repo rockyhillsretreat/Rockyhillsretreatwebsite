@@ -224,7 +224,7 @@ export function BookingPage() {
   const [quoteLoading, setQuoteLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [tcAccepted, setTcAccepted] = useState(false);
+  const [tcAccepted, setTcAccepted] = useState(false); const [lastCapturedEmail, setLastCapturedEmail] = useState<string | null>(null);
 
   useEffect(() => {
     (window as any).dataLayer = (window as any).dataLayer || [];
@@ -305,7 +305,7 @@ export function BookingPage() {
   const toggle = (id:string,setFn:React.Dispatch<React.SetStateAction<string[]>>) =>
     setFn(prev=>prev.includes(id)?prev.filter(x=>x!==id):[...prev,id]);
 
-  const goToReview = async () => {
+  const handleEmailBlur = () => { const email = form.email.trim(); if (!email || !/\S+@\S+\.\S+/.test(email) || email === lastCapturedEmail) return; setLastCapturedEmail(email); try { (window as any).klaviyo?.identify({ email, first_name: form.firstName || undefined, last_name: form.lastName || undefined, phone_number: form.phone || undefined }); } catch (e) {} fetch('/api/capture-lead', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ firstName: form.firstName, lastName: form.lastName, email, phone: form.phone, checkIn, checkOut, nights, guests }) }).catch(()=>{}); }; const goToReview = async () => {
     if (!tcAccepted){ setError('Please read and accept the Terms & Conditions to continue.'); return; }
     if (!checkIn||!checkOut){ setError('Please select your check-in and check-out dates.'); return; }
     if (nights<2){ setError('Minimum stay is 2 nights.'); return; }
@@ -458,7 +458,7 @@ export function BookingPage() {
                   <label style={labelStyle}>{f.label}</label>
                   <input type={f.type} placeholder={f.placeholder} value={(form as any)[f.key]}
                     name={f.name} autoComplete={f.autoComplete}
-                    onChange={e=>setForm(p=>({...p,[f.key]:e.target.value}))} style={inputStyle}/>
+                    onChange={e=>setForm(p=>({...p,[f.key]:e.target.value}))} onBlur={f.key==='email'?handleEmailBlur:undefined} style={inputStyle}/>
                 </div>
               ))}
             </div>
