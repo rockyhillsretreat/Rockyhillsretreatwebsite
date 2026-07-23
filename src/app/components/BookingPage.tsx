@@ -358,8 +358,10 @@ export function BookingPage() {
         quoteData, step: 2,
       }));
 
-      if (quoteData?.paymentUrl) {
-        window.location.href = quoteData.paymentUrl;
+(window as any).dataLayer = (window as any).dataLayer || [];
+            (window as any).dataLayer.push({ event: 'checkout_initiated', value: quoteData?.total || 0, currency: 'AUD' });
+      
+            if (quoteData?.paymentUrl) {window.location.href = quoteData.paymentUrl;
       } else {
         window.location.href = `https://app.ownerrez.com/booking/${PROPERTY_ID}`;
       }
