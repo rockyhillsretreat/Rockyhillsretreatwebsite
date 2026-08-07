@@ -271,7 +271,7 @@ export function Footer() {
               lineHeight: '1.6'
             }}
           >
-            Rocky Hills acknowledges the Mumirimina people of the Oyster Bay Nation (Paredarerme) and the Big River Nation (Lairmairrener) as the traditional custodians of this country. This land was never ceded.
+            Rocky Hills acknowledges the Mumirimina people of the Oyster Bay Nation (Paredarerme) as the traditional custodians of this country. This land was never ceded.
           </p>
         </div>
       </div>
