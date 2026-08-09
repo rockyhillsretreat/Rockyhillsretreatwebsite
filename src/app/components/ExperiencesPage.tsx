@@ -13,6 +13,13 @@ const massageImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/interior-l
 const tourImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/interior-living-sunlight.jpg';
 const heroImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-exterior-entry-native-garden.jpg';
 
+// Rewrites Cloudinary delivery URLs to request an auto format (WebP/AVIF),
+// auto quality, and a specific display width instead of the untouched
+// original. See CLAUDE.md.
+function optimizeCloudinaryUrl(url: string, width: number): string {
+    return url.replace('/upload/', `/upload/f_auto,q_auto,w_${width}/`);
+}
+
 export function ExperiencesPage() {
   const experiences: Record<string, { title: string; description: string; cta: string; image: string }[]> = {
     water: [
@@ -109,7 +116,7 @@ export function ExperiencesPage() {
       <section className="relative h-[70vh] w-full overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src={heroImg}
+            src={optimizeCloudinaryUrl(heroImg, 1600)}
             alt="Experiences at Rocky Hills"
             className="w-full h-full object-cover"
           />
@@ -226,7 +233,7 @@ export function ExperiencesPage() {
                     style={{ height: index % 2 === 0 ? '320px' : '280px' }}
                   >
                     <img
-                      src={tile.image}
+                      src={optimizeCloudinaryUrl(tile.image, 800)}
                       alt={tile.title}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
