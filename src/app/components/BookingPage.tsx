@@ -313,6 +313,25 @@ export function BookingPage() {
     if (!/\S+@\S+\.\S+/.test(form.email)){ setError('Please enter a valid email address.'); return; }
     if (!form.phone||form.phone.replace(/[^0-9]/g,'').length<6){ setError('Please enter a valid phone number with country code (e.g. +61 400 000 000).'); return; }
     setError(null); setQuoteLoading(true); setStep(2); window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Klaviyo: identify the guest and fire Checkout Started
+    try {
+      const kl: any[] = (window as any)._learnq || [];
+      kl.push(['identify', {
+        '$email': form.email,
+        '$first_name': form.firstName,
+        '$last_name': form.lastName,
+        '$phone_number': form.phone,
+      }]);
+      kl.push(['track', 'Checkout Started', {
+        check_in: checkIn,
+        check_out: checkOut,
+        nights,
+        guests,
+      }]);
+      (window as any)._learnq = kl;
+    } catch(e) { /* never block the flow */ }
+
     try {
       const res = await fetch('/api/create-quote', {
         method:'POST', headers:{'Content-Type':'application/json'},
