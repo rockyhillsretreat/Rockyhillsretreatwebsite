@@ -20,6 +20,15 @@ const img16 = 'https://res.cloudinary.com/dfvjhslxp/image/upload/land-dry-sclero
 const img17 = 'https://res.cloudinary.com/dfvjhslxp/image/upload/location-swansea-beach-dunes-wide.jpg';
 const img18 = 'https://res.cloudinary.com/dfvjhslxp/image/upload/bay-view-freycinet-framed.jpg';
 
+// Rewrites Cloudinary delivery URLs to request an auto format (WebP/AVIF),
+// auto quality, and a specific display width instead of the untouched
+// original. These images were being delivered at full original resolution
+// (often 2400px) even when displayed as small thumbnails - this cuts
+// delivered bytes dramatically. See CLAUDE.md.
+function optimizeCloudinaryUrl(url: string, width: number): string {
+    return url.replace('/upload/', `/upload/f_auto,q_auto,w_${width}/`);
+}
+
 export function GalleryPage() {
   const allImages = [
     { src: img1, caption: 'The Retreat' },
@@ -110,7 +119,7 @@ export function GalleryPage() {
       >
         <div style={{ position: 'relative', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <img
-            src={allImages[currentIndex].src}
+            src={optimizeCloudinaryUrl(allImages[currentIndex].src, 1600)}
             alt={allImages[currentIndex].caption}
             style={{ 
               maxWidth: '100%',
@@ -264,7 +273,7 @@ export function GalleryPage() {
             aria-label={`Go to image ${index + 1}`}
           >
             <img
-              src={image.src}
+              src={optimizeCloudinaryUrl(image.src, 100)}
               alt={`Thumbnail ${index + 1}`}
               style={{
                 width: '100%',
