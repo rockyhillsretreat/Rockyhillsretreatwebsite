@@ -6,6 +6,13 @@ export function ConfirmationPage() {
   useEffect(() => {
     (window as any).dataLayer = (window as any).dataLayer || [];
     (window as any).dataLayer.push({ event: 'booking_complete' });
+
+    // Klaviyo: suppress from abandoned checkout flow
+    try {
+      const kl: any[] = (window as any)._learnq || [];
+      kl.push(['track', 'Booking Completed', {}]);
+      (window as any)._learnq = kl;
+    } catch(e) { /* never block */ }
   }, []);
 
   return (
