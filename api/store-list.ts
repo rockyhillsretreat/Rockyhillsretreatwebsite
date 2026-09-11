@@ -58,7 +58,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const db = supabase();
     const { data, error } = await db
       .from('stock_items')
-      .select('item_name, store_section, notes, suppliers(supplier_name)')
+      .select('item_name, store_section, notes, sell_price, suppliers(supplier_name)')
       .eq('active', true)
       .order('store_section')
       .order('item_name');
@@ -69,6 +69,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       item_name: string;
       store_section: string | null;
       notes: string | null;
+      sell_price: number | null;
       suppliers: { supplier_name: string } | null;
     };
     const rows = (data || []) as unknown as Row[];
@@ -79,7 +80,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     for (const row of rows) {
       const section = row.store_section || 'Other';
       const supplier = row.suppliers?.supplier_name || 'Rocky Hills Retreat';
-      const { description, price, isComplimentary } = parseNotes(row.notes);
+      const { description, isComplimentary } = parseNotes(row.notes);
+      // Use sell_price column if set; fall back to notes parsing for complimentary flag
+      const price = row.sell_price != null
+        ? `$${Number(row.sell_price).toFixed(2).replace(/\.00$/, '')}`
+        : (isComplimentary ? 'Complimentary' : '');
       const name = cleanItemName(row.item_name, isComplimentary);
 
       grouped[section] = grouped[section] || {};
