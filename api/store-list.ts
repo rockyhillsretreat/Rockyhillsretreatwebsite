@@ -60,6 +60,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       .from('stock_items')
       .select('item_name, store_section, notes, sell_price, suppliers(supplier_name)')
       .eq('active', true)
+      .not('store_section', 'is', null)
       .order('store_section')
       .order('item_name');
 
