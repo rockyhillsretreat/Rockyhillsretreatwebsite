@@ -250,8 +250,8 @@ export function ContactPage() {
               <div className="pb-4 border-b border-border/30">
                 <h5 className="text-bone mb-2">What's your cancellation policy?</h5>
                 <p className="text-bone/60">
-                  Full refund less a $150 cancellation fee if cancelled 31 or more days before arrival.
-                  No refund within 30 days of arrival. See our full terms for details.
+                  Full refund less a $150 cancellation fee if cancelled more than 60 days before arrival. 50% refund less $150 if cancelled more than 31 days before arrival.
+                  No refund within 31 days of arrival. See our full terms for details.
                 </p>
               </div>
               <div className="pb-4 border-b border-border/30">

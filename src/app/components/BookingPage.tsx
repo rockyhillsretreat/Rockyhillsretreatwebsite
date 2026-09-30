@@ -482,21 +482,9 @@ export function BookingPage() {
               ))}
             </div>
 
-            <div className="mb-4">
-              <label style={labelStyle}>Street Address</label>
-              <input type="text" placeholder="Street address" value={form.street} name="street-address" autoComplete="street-address"
-                onChange={e=>setForm(p=>({...p,street:e.target.value}))} style={inputStyle}/>
-            </div>
-            <div className="grid grid-cols-3 gap-4 mb-4">
-              <div><label style={labelStyle}>City</label><input type="text" placeholder="City" value={form.city} name="address-level2" autoComplete="address-level2" onChange={e=>setForm(p=>({...p,city:e.target.value}))} style={inputStyle}/></div>
-              <div><label style={labelStyle}>State</label><input type="text" placeholder="State" value={form.state} name="address-level1" autoComplete="address-level1" onChange={e=>setForm(p=>({...p,state:e.target.value}))} style={inputStyle}/></div>
-              <div><label style={labelStyle}>Postcode</label><input type="text" placeholder="Postcode" value={form.postcode} name="postal-code" autoComplete="postal-code" onChange={e=>setForm(p=>({...p,postcode:e.target.value}))} style={inputStyle}/></div>
-            </div>
-            <div className="mb-4">
-              <label style={labelStyle}>Country</label>
-              <input type="text" placeholder="Country" value={form.country} name="country" autoComplete="country-name"
-                onChange={e=>setForm(p=>({...p,country:e.target.value}))} style={inputStyle}/>
-            </div>
+            <p style={{fontFamily:S.inter,fontSize:'0.8rem',color:S.muted,fontStyle:'italic',marginBottom:'1rem'}}>
+              Billing address is collected on the secure payment page.
+            </p>
             </form>
             <div className="mb-4">
               <label style={labelStyle}>Anything else we should know?</label>
@@ -612,7 +600,7 @@ export function BookingPage() {
                       return `${d} ${months[parseInt(m)-1]}`;
                     });
                     // Remove "during Standard" and rate info, keep night count
-                    desc = desc.replace(/\s*during\s+\S+(\s+at\s+\$[\d.]+\s+per\s+\S+\s+night)?/i, '');
+                    desc = desc.replace(/\s*during\s+\S+(\s+at\s+\$[\d.,]+\s+per(\s+\S+)?\s+night)?/i, '');
                     // Add "ex GST" note to rent lines
                     if (!c.isTax && desc.includes('night')) {
                       const rate = (c.amount / (quoteData.nights||nights)).toFixed(2);

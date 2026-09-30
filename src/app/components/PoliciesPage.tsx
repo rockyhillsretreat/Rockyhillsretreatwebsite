@@ -24,7 +24,7 @@ export function PoliciesPage() {
     },
     {
       title: 'Cancellation',
-      body: `Cancellations 31 or more days before arrival: full refund less a $150 cancellation fee.\n\nCancellations within 30 days of arrival, non-arrivals and postponements made within 30 days: no refund.\n\nCancellations must be submitted in writing to stay@rockyhillsretreat.com.au. The cancellation date is the date the written request is received.\n\nWe strongly recommend comprehensive travel insurance that covers accommodation cancellation.`,
+      body: `Cancellations made more than 60 days before arrival: 100% of the total booking charges refunded, less a $150 cancellation fee.\n\nCancellations made more than 31 days before arrival: 50% of the total booking charges refunded, less a $150 cancellation fee.\n\nCancellations made within 31 days of arrival, non-arrivals and postponements made within 31 days: no refund.\n\nCancellations must be submitted in writing to stay@rockyhillsretreat.com.au. The cancellation date is the date the written request is received.\n\nWe strongly recommend comprehensive travel insurance that covers accommodation cancellation.`,
     },
     {
       title: 'Property Hazards and Assumption of Risk',
