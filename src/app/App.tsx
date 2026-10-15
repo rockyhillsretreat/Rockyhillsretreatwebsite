@@ -15,6 +15,7 @@ import { GalleryPage } from "./components/GalleryPage";
 import { JournalPage } from "./components/JournalPage";
 import { FAQsPage } from "./components/FAQsPage";
 import { PoliciesPage } from "./components/PoliciesPage";
+import { PrivacyPage } from "./components/PrivacyPage";
 import PropertyWorksPage from "./components/PropertyWorksPage";
 import { ExtrasPage } from "./components/ExtrasPage";
 import { StorePage } from "./components/StorePage";
@@ -60,6 +61,7 @@ function App() {
             <Route path="/journal" element={<JournalPage />} />
             <Route path="/faqs" element={<FAQsPage />} />
             <Route path="/policies" element={<PoliciesPage />} />
+            <Route path="/privacy" element={<PrivacyPage />} />
             <Route path="/property-works" element={<PropertyWorksPage />} />
             <Route path="/extras" element={<ExtrasPage />} />
             <Route path="/the-store" element={<StorePage />} />

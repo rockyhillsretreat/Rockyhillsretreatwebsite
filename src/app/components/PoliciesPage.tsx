@@ -74,7 +74,7 @@ Guests participate in third party experiences entirely at their own risk.`,
     },
     {
       title: 'Privacy',
-      body: `Guest information collected during the booking process is used solely for the purposes of managing your reservation and communicating with you about your stay. We handle personal information in accordance with the Australian Privacy Act 1988. We do not sell or share guest data with third parties except where required for the operation of your booking (such as payment processing).`,
+      body: `Guest information collected during the booking process is used solely for the purposes of managing your reservation and communicating with you about your stay. We handle personal information in accordance with the Australian Privacy Act 1988. We do not sell or share guest data with third parties except where required for the operation of your booking (such as payment processing). Our full Privacy Policy is at rockyhillsretreat.com.au/privacy.`,
     },
   ];
 
