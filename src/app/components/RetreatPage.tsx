@@ -1,17 +1,23 @@
 import { Bed, Bath, Flame, Utensils, Mountain, Sun, Droplets, Sparkles } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Link } from "react-router-dom";
-const heroImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/v1778553751/retreat-exterior-golden-hour.jpg';
-const interiorImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/v1778553757/retreat-exterior-roofline-trees.jpg';
-const bedroomImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/interior-bedroom-full-width.jpg';
-const bathImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-bath-running-golden.jpg';
-const livingImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/interior-leather-chair-sunlight.jpg';
+import { img, P } from '../media';
+const heroImg = img(P.exteriorGums, 2400);
+const interiorImg = img(P.facade, 1200);
+const bedroomImg = img(P.bedToBath, 900);
+const bathImg = img(P.bathOnDeck, 900);
+const livingImg = img(P.rainbowLiving, 900);
+const extraGallery = [
+  { src: img(P.diningView, 900), alt: 'Dining table facing the bay' },
+  { src: img(P.deckReading, 900), alt: 'Reading on the deck' },
+  { src: img(P.schoutenWindow, 900), alt: 'Schouten Island through the window' },
+];
 
 export function RetreatPage() {
   const features = [
     { icon: Bed, label: "King bed with Tasmanian wool bedding" },
     { icon: Bath, label: "Huon pine soaking tub" },
-    { icon: Flame, label: "Wood fireplace" },
+    { icon: Flame, label: "Wood fireplace for cool evenings" },
     { icon: Utensils, label: "Fully equipped kitchen" },
     { icon: Sparkles, label: "Outdoor fire pit and deck" },
     { icon: Mountain, label: "Views across Great Oyster Bay" },
@@ -92,7 +98,7 @@ export function RetreatPage() {
               The retreat sleeps two. It is not designed for more.
             </p>
             <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '1.05rem', lineHeight: '1.8' }}>
-              In winter, the thermal mass of the besser block and concrete roof holds the warmth from the day well into the evening. The wood fire takes care of the rest. The Huon pine bath on the deck faces west. On a clear July night, the sky above the property is extraordinary.
+              In summer the glass slides back and the deck becomes the main room. The bath faces west, so it fills with the last of the light at the end of a beach day. The concrete keeps the inside cool through the warm afternoons, and the evenings are still cool enough for the fire.
             </p>
           </div>
         </div>
@@ -155,7 +161,7 @@ export function RetreatPage() {
               There is no mains connection of any kind. Water is tank water.
             </p>
             <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '1.05rem', lineHeight: '1.8' }}>
-              In winter the solar performs differently - shorter days, more generator use during extended overcast stretches. The system manages this automatically. The warmth, the hot water, and the fire are unaffected.
+              Summer is when the system is at its best. Long days keep the batteries full, the tanks are topped up from spring rain, and the generator rarely has a reason to start. Treat the water like it matters, because here it does.
             </p>
           </div>
         </div>
@@ -241,7 +247,7 @@ export function RetreatPage() {
               From the deck: Great Oyster Bay is visible from the property, approximately two kilometres down to the shore. White-bellied sea eagles work the foreshore on calm mornings. Dolphins in the channel when the water is flat.
             </p>
             <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '1.05rem', lineHeight: '1.8' }}>
-              In winter: from May through July, humpback whales move north through Great Oyster Bay on their annual migration. Southern right whales are occasionally sighted. This is one of the genuine winter-specific things about this place - the migration window aligns with the darkest months, and from the deck on a clear morning you may see a blow in the channel before you have had your coffee.
+              In summer: the wallabies come out earlier as the evenings stretch, and the echidnas are busy in the warm weather. Long twilight on the deck is the best time to sit still and watch. The whales pass through on their way back south in spring, so an early summer stay can still catch the tail of it.
             </p>
             <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '1.05rem', lineHeight: '1.8' }}>
               These encounters are possible because this land is quiet and undisturbed. Your quiet presence is what keeps them that way.
@@ -257,7 +263,7 @@ export function RetreatPage() {
               }}
             >
               <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '0.95rem', lineHeight: '1.7', color: '#B8AE9F' }}>
-                Winter guests: the whale migration runs May through July northward, September through November on the return. The Swift Parrot and Forty-spotted Pardalote are present year-round. Wombats are most active on cold, still nights.
+                Summer guests: bring a torch for the walk back from the car after dark, and keep to the paths. Quolls and possums are out at night. The Swift Parrot and Forty-spotted Pardalote are present year-round.
               </p>
             </div>
           </div>
@@ -305,7 +311,7 @@ export function RetreatPage() {
             <div className="overflow-hidden" style={{ borderRadius: '0.5rem' }}>
               <ImageWithFallback
                 src={bedroomImg}
-                alt="Bedroom"
+                alt="From the bed to the bath on the deck"
                 className="w-full h-[400px] object-cover hover:scale-105 transition-transform duration-500"
               />
             </div>
@@ -319,10 +325,17 @@ export function RetreatPage() {
             <div className="overflow-hidden" style={{ borderRadius: '0.5rem' }}>
               <ImageWithFallback
                 src={livingImg}
-                alt="Living space"
+                alt="Living room, rainbow over the bay"
                 className="w-full h-[400px] object-cover hover:scale-105 transition-transform duration-500"
               />
             </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+            {extraGallery.map((g) => (
+              <div key={g.alt} className="overflow-hidden" style={{ borderRadius: '0.5rem' }}>
+                <img src={g.src} alt={g.alt} loading="lazy" className="w-full h-[400px] object-cover hover:scale-105 transition-transform duration-500" />
+              </div>
+            ))}
           </div>
           <div className="text-center mt-12">
             <Link

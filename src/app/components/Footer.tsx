@@ -5,7 +5,6 @@ export function Footer() {
   const quickLinks = [
     { to: '/', label: 'Home' },
     { to: '/retreat', label: 'The Retreat' },
-    { to: '/packages', label: 'Packages' },
     { to: '/experiences', label: 'Experiences' },
     { to: '/provisions', label: 'Food & Providores' },
     { to: '/location', label: 'Location' },

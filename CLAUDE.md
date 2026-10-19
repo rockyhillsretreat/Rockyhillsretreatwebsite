@@ -62,10 +62,10 @@ Lock files can't be deleted from bash. Ignore the local tracking ref error on pu
 
 | Route | Component | Notes |
 |---|---|---|
-| `/` | `HomePage.tsx` | Hero, packages overview, experiences teaser |
+| `/` | `HomePage.tsx` | Hero, Explore strip, Signature Experiences, summer video band |
 | `/retreat` | `RetreatPage.tsx` | Property detail |
-| `/packages` | `PackagesPage.tsx` | 4 packages, no prices shown |
-| `/experiences` | `ExperiencesPage.tsx` | Add-on experiences |
+| `/packages` | redirect | Redirects to `/experiences#signature` (packages became Signature Experiences, Oct 2026) |
+| `/experiences` | `ExperiencesPage.tsx` | Signature Experiences (add-ons, POA) + summer days out + bookable add-ons |
 | `/provisions` | `ProvisionsPage.tsx` | Food & produce |
 | `/location` | `LocationPage.tsx` | Getting there, seasons |
 | `/gallery` | `GalleryPage.tsx` | Photo gallery |
@@ -113,7 +113,7 @@ Lock files can't be deleted from bash. Ignore the local tracking ref error on pu
 | **OwnerRez** | Property Management System. Source of booking truth. Handles payments, guest management, OTA channels |
 | **Gmail SMTP** | Contact form sends to `stay@rockyhillsretreat.com.au` via `rockyhillsretreat@gmail.com` |
 | **Supabase** | Stores guests + tasks created from booking add-on selections |
-| **Cloudinary** | All images hosted at `res.cloudinary.com/dfvjhslxp/image/upload/[filename]` |
+| **Cloudinary** | All images and videos. New pages use `src/app/media.ts` (`img()`, `vid()`, and the `P`/`C`/`V` libraries); swap photos there. Folders: `rhr/photography/raw-captis-2026-07`, `rhr/photography/property`, `rhr/stock/east-coast`, `rhr/video` |
 
 **No Make, no Airtable, no Stripe on this site.** All booking payments go through OwnerRez.
 
@@ -187,6 +187,7 @@ Fonts: **Playfair Display** (headings), **Inter** (body). Loaded via Google Font
 - Never commit with `courtenay.rickey@gmail.com` as the git author
 - Never use `VITE_` prefix for secret keys
 - Don't show package prices (POA policy)
+- Preview builds only: `VITE_HASH_ROUTER=1 VITE_LOCAL_MEDIA=1 npx vite build --base=./` makes a static mock-up with local images. Never set these in Vercel.
 - Don't add Go Dark content back without Courtenay asking — it was removed for the season
 - Don't add gift voucher pages — removed intentionally
 - Don't use standard git commands — see git workflow above

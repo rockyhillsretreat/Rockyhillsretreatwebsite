@@ -1,5 +1,8 @@
 import React, { useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, Link, useLocation } from "react-router-dom";
+import { BrowserRouter, HashRouter, Routes, Route, Link, Navigate, useLocation } from "react-router-dom";
+
+// Preview builds (VITE_HASH_ROUTER=1) use hash routing so the site works as a static mock.
+const Router = import.meta.env.VITE_HASH_ROUTER ? HashRouter : BrowserRouter;
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { HomePage } from "./components/HomePage";
@@ -10,7 +13,6 @@ import { ProvisionsPage } from "./components/ProvisionsPage";
 import { ExperiencesPage } from "./components/ExperiencesPage";
 import { LocationPage } from "./components/LocationPage";
 import { ContactPage } from "./components/ContactPage";
-import { PackagesPage } from "./components/PackagesPage";
 import { GalleryPage } from "./components/GalleryPage";
 import { JournalPage } from "./components/JournalPage";
 import { FAQsPage } from "./components/FAQsPage";
@@ -23,9 +25,14 @@ import { StorePage } from "./components/StorePage";
 function ScrollToTop() {
   const { pathname } = useLocation();
 
+  const { hash } = useLocation();
   useEffect(() => {
+    if (hash) {
+      const el = document.getElementById(hash.slice(1));
+      if (el) { el.scrollIntoView({ behavior: "smooth" }); return; }
+    }
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [pathname]);
+  }, [pathname, hash]);
 
   return null;
 }
@@ -56,7 +63,7 @@ function App() {
             <Route path="/experiences" element={<ExperiencesPage />} />
             <Route path="/location" element={<LocationPage />} />
             <Route path="/contact" element={<ContactPage />} />
-            <Route path="/packages" element={<PackagesPage />} />
+            <Route path="/packages" element={<Navigate to="/experiences#signature" replace />} />
             <Route path="/gallery" element={<GalleryPage />} />
             <Route path="/journal" element={<JournalPage />} />
             <Route path="/faqs" element={<FAQsPage />} />

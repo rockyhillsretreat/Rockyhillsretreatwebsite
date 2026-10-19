@@ -9,7 +9,6 @@ export function Header() {
   const navLinks = [
     { to: '/', label: 'Home' },
     { to: '/retreat', label: 'The Retreat' },
-    { to: '/packages', label: 'Packages' },
     { to: '/provisions', label: 'Providores' },
     { to: '/experiences', label: 'Experiences' },
     { to: '/location', label: 'Location' },

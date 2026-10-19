@@ -1,315 +1,193 @@
-import { useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useCallback, useEffect, useState } from 'react';
+import { ChevronLeft, ChevronRight, X } from 'lucide-react';
+import { img, P, C, LOCAL_MEDIA } from '../media';
 
-const img1 = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-exterior-entry-native-garden.jpg';
-const img2 = 'https://res.cloudinary.com/dfvjhslxp/image/upload/bay-view-sunset-dramatic.jpg';
-const img3 = 'https://res.cloudinary.com/dfvjhslxp/image/upload/interior-living-sunlight.jpg';
-const img4 = 'https://res.cloudinary.com/dfvjhslxp/image/upload/interior-leather-chair-sunlight.jpg';
-const img5 = 'https://res.cloudinary.com/dfvjhslxp/image/upload/interior-bedroom-full-width.jpg';
-const img6 = 'https://res.cloudinary.com/dfvjhslxp/image/upload/interior-dining-symmetrical.jpg';
-const img7 = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-bath-running-golden.jpg';
-const img8 = 'https://res.cloudinary.com/dfvjhslxp/image/upload/location-bay-sunset-wide.jpg';
-const img9 = 'https://res.cloudinary.com/dfvjhslxp/image/upload/bay-view-islands-cloud.jpg';
-const img10 = 'https://res.cloudinary.com/dfvjhslxp/image/upload/land-detail-driftwood-rock.jpg';
-const img11 = 'https://res.cloudinary.com/dfvjhslxp/image/upload/bay-view-swansea-coast.jpg';
-const img12 = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-exterior-night.jpg';
-const img13 = 'https://res.cloudinary.com/dfvjhslxp/image/upload/interior-living-view.jpg';
-const img14 = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-detail-roofline-sky.jpg';
-const img15 = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-exterior-golden-hour.jpg';
-const img16 = 'https://res.cloudinary.com/dfvjhslxp/image/upload/land-dry-sclerophyll-forest.jpg';
-const img17 = 'https://res.cloudinary.com/dfvjhslxp/image/upload/location-swansea-beach-dunes-wide.jpg';
-const img18 = 'https://res.cloudinary.com/dfvjhslxp/image/upload/bay-view-freycinet-framed.jpg';
+const serif = "'Playfair Display', serif";
+const sans = "'Inter', sans-serif";
+const legacy = (file: string) => `https://res.cloudinary.com/dfvjhslxp/image/upload/f_auto,q_auto,w_{w}/${file}`;
 
-// Rewrites Cloudinary delivery URLs to request an auto format (WebP/AVIF),
-// auto quality, and a specific display width instead of the untouched
-// original. These images were being delivered at full original resolution
-// (often 2400px) even when displayed as small thumbnails - this cuts
-// delivered bytes dramatically. See CLAUDE.md.
-function optimizeCloudinaryUrl(url: string, width: number): string {
-    return url.replace('/upload/', `/upload/f_auto,q_auto,w_${width}/`);
-}
+type Photo = { id: string; caption: string; credit?: string; legacy?: boolean };
+
+// Each section is one row of the filter. Order matters: the best image leads.
+const sections: { name: string; photos: Photo[] }[] = [
+  {
+    name: 'The Retreat',
+    photos: [
+      { id: P.exteriorGums, caption: 'In the gums' },
+      { id: P.rainbowLiving, caption: 'Rain clearing over the bay' },
+      { id: P.livingPanorama, caption: 'Living and dining' },
+      { id: P.facade, caption: 'North face' },
+      { id: P.diningView, caption: 'The table' },
+      { id: P.robeWindow, caption: 'Morning' },
+      { id: P.books, caption: 'The shelf' },
+      { id: P.kettle, caption: 'First coffee' },
+      { id: P.bedToBath, caption: 'From the bed to the bath' },
+      { id: P.bedroomNight, caption: 'Bedroom, evening' },
+      { id: P.dinnerNight, caption: 'Dinner' },
+      { id: 'interior-living-view.jpg', caption: 'Living space', legacy: true },
+      { id: 'interior-dining-symmetrical.jpg', caption: 'Kitchen', legacy: true },
+      { id: 'retreat-detail-roofline-sky.jpg', caption: 'Roofline', legacy: true },
+    ],
+  },
+  {
+    name: 'Deck & Bath',
+    photos: [
+      { id: P.bathOnDeck, caption: 'The bath on the deck' },
+      { id: P.deckReading, caption: 'Afternoon on the deck' },
+      { id: P.bathExterior, caption: 'Bath and bay' },
+      { id: P.bathPortrait, caption: 'The bath' },
+      { id: P.deckChairPortrait, caption: 'The deck chair' },
+      { id: P.yogaDeck, caption: 'Morning stretch' },
+      { id: P.binoculars, caption: 'Binoculars by the window' },
+      { id: 'retreat-bath-running-golden.jpg', caption: 'Running the bath', legacy: true },
+    ],
+  },
+  {
+    name: 'The Land',
+    photos: [
+      { id: P.bayDusk, caption: 'Great Oyster Bay at dusk' },
+      { id: P.schoutenWindow, caption: 'Schouten Island' },
+      { id: P.houseGumsPortrait, caption: 'Dry sclerophyll forest' },
+      { id: P.firstLightPortrait, caption: 'First light' },
+      { id: P.sunsetGums, caption: 'Sunset through the gums' },
+      { id: P.duskRoofline, caption: 'Dusk' },
+      { id: P.duskTree, caption: 'Last light' },
+      { id: P.starsPortrait, caption: 'Night sky' },
+      { id: 'land-dry-sclerophyll-forest.jpg', caption: 'The bush', legacy: true },
+      { id: 'land-detail-driftwood-rock.jpg', caption: 'Driftwood', legacy: true },
+    ],
+  },
+  {
+    name: 'The Coast',
+    photos: [
+      { id: C.whiteSandBay, caption: 'White sand, East Coast', credit: 'Adobe Stock' },
+      { id: C.wineglassLookout, caption: 'Wineglass Bay', credit: 'Josh Fotheringham, Unsplash' },
+      { id: C.hazardsAcrossBay, caption: 'The Hazards across the bay', credit: 'Nadia Levenets, Unsplash' },
+      { id: C.paintedCliffs, caption: 'Painted Cliffs, Maria Island', credit: 'Adobe Stock' },
+      { id: C.beachWaves, caption: 'Shoreline', credit: 'Adobe Stock' },
+      { id: C.bayOfFiresBoat, caption: 'Bay of Fires', credit: 'Laya Clode, Unsplash' },
+      { id: C.offshoreIslands, caption: 'Off the coast', credit: 'Adobe Stock' },
+      { id: C.wineglassBeach, caption: 'Wineglass Bay beach', credit: 'Tim Lippis, Unsplash' },
+      { id: C.mariaWombats, caption: 'Wombats, Maria Island', credit: 'Dalal, Unsplash' },
+      { id: C.wallabiesGold, caption: 'Wallabies at golden hour', credit: 'Adobe Stock' },
+      { id: 'bay-view-swansea-coast.jpg', caption: 'Swansea coast', legacy: true },
+      { id: 'location-swansea-beach-dunes-wide.jpg', caption: 'Dunes', legacy: true },
+    ],
+  },
+];
+
+const url = (p: Photo, w: number) => (p.legacy ? legacy(p.id).replace('{w}', String(w)) : img(p.id, w));
 
 export function GalleryPage() {
-  const allImages = [
-    { src: img1, caption: 'The Retreat' },
-    { src: img2, caption: 'Great Oyster Bay' },
-    { src: img3, caption: 'Interior View' },
-    { src: img4, caption: 'The Deck' },
-    { src: img5, caption: 'Bedroom' },
-    { src: img6, caption: 'Kitchen' },
-    { src: img7, caption: 'The Bath' },
-    { src: img8, caption: 'Sunset View' },
-    { src: img9, caption: 'The Land' },
-    { src: img10, caption: 'Night Sky' },
-    { src: img11, caption: 'Coastal Views' },
-    { src: img12, caption: 'Architecture' },
-    { src: img13, caption: 'Living Space' },
-    { src: img14, caption: 'Details' },
-    { src: img15, caption: 'Interior' },
-    { src: img16, caption: 'Landscape' },
-    { src: img17, caption: 'Natural Light' },
-    { src: img18, caption: 'The Experience' },
-  ];
+  const [filter, setFilter] = useState('All');
+  const [open, setOpen] = useState<number | null>(null);
 
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const photos = sections.filter((s) => filter === 'All' || s.name === filter).flatMap((s) => s.photos)
+    .filter((p) => !(LOCAL_MEDIA && p.legacy));
 
-  const goToNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % allImages.length);
-  };
+  const close = useCallback(() => setOpen(null), []);
+  const step = useCallback((d: number) => setOpen((i) => (i === null ? i : (i + d + photos.length) % photos.length)), [photos.length]);
 
-  const goToPrevious = () => {
-    setCurrentIndex((prev) => (prev - 1 + allImages.length) % allImages.length);
-  };
+  useEffect(() => {
+    if (open === null) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') close();
+      if (e.key === 'ArrowRight') step(1);
+      if (e.key === 'ArrowLeft') step(-1);
+    };
+    window.addEventListener('keydown', onKey);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      document.body.style.overflow = '';
+    };
+  }, [open, close, step]);
 
-  const goToImage = (index: number) => {
-    setCurrentIndex(index);
+  const btn: React.CSSProperties = {
+    position: 'absolute', top: '50%', transform: 'translateY(-50%)', width: '3.25rem', height: '3.25rem', borderRadius: '50%',
+    backgroundColor: 'rgba(46,61,69,0.85)', border: '1px solid rgba(143,169,179,0.5)', color: '#EDE9E3',
+    display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
   };
 
   return (
-    <div 
-      style={{ backgroundColor: '#26333A', minHeight: '100vh', position: 'relative' }}
-    >
-      {/* Header */}
-      <div 
-        style={{ 
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: 10,
-          padding: '2rem',
-          background: 'linear-gradient(to bottom, rgba(38, 51, 58, 0.8), transparent)',
-          pointerEvents: 'none'
-        }}
-      >
+    <div style={{ backgroundColor: '#26333A', minHeight: '100vh' }}>
+      <section className="pt-20 pb-10 px-6">
         <div className="max-w-[1440px] mx-auto">
-          <h1
-            style={{
-              fontFamily: "'Playfair Display', serif",
-              fontSize: 'clamp(2rem, 4vw, 3rem)',
-              color: '#EDE9E3',
-              letterSpacing: '-0.01em',
-              marginBottom: '0.5rem',
-            }}
-          >
-            Gallery
-          </h1>
-          <p
-            style={{
-              fontFamily: "'Inter', sans-serif",
-              fontSize: '0.95rem',
-              color: '#B8AE9F',
-            }}
-          >
-            {currentIndex + 1} of {allImages.length}
+          <h1 style={{ fontFamily: serif, fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', color: '#EDE9E3' }}>Gallery</h1>
+          <p className="mt-3" style={{ fontFamily: sans, fontSize: '1.05rem', color: '#B8AE9F' }}>
+            The retreat, the deck, the land around it and the coast below.
           </p>
-        </div>
-      </div>
-
-      {/* Main Carousel */}
-      <div 
-        style={{ 
-          position: 'relative',
-          width: '100%',
-          height: '100vh',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <div style={{ position: 'relative', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <img
-            src={optimizeCloudinaryUrl(allImages[currentIndex].src, 1600)}
-            alt={allImages[currentIndex].caption}
-            style={{ 
-              maxWidth: '100%',
-              maxHeight: '100%',
-              width: 'auto',
-              height: 'auto',
-              objectFit: 'contain',
-            }}
-          />
-          
-          <div 
-            style={{
-              position: 'absolute',
-              bottom: '2rem',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              textAlign: 'center',
-              backgroundColor: 'rgba(46, 61, 69, 0.9)',
-              padding: '1rem 2rem',
-              borderRadius: '0.5rem',
-              border: '1px solid rgba(143, 169, 179, 0.3)',
-              whiteSpace: 'nowrap'
-            }}
-          >
-            <p
-              style={{
-                fontFamily: "'Inter', sans-serif",
-                fontSize: '0.95rem',
-                color: '#EDE9E3',
-                margin: 0,
-              }}
-            >
-              {allImages[currentIndex].caption}
-            </p>
+          <div className="flex flex-wrap gap-3 mt-8">
+            {['All', ...sections.map((s) => s.name)].map((name) => (
+              <button
+                key={name}
+                type="button"
+                onClick={() => setFilter(name)}
+                style={{
+                  fontFamily: sans, fontSize: '0.9rem', padding: '0.5rem 1.1rem', borderRadius: '999px', cursor: 'pointer',
+                  backgroundColor: filter === name ? '#8FA9B3' : 'transparent',
+                  color: filter === name ? '#26333A' : '#EDE9E3',
+                  border: '1px solid rgba(143,169,179,0.5)',
+                }}
+              >
+                {name}
+              </button>
+            ))}
           </div>
         </div>
+      </section>
 
-        {/* Previous Button */}
-        <button
-          onClick={goToPrevious}
-          style={{
-            position: 'absolute',
-            left: '2rem',
-            top: '50%',
-            transform: 'translateY(-50%)',
-            backgroundColor: 'rgba(46, 61, 69, 0.9)',
-            border: '1px solid rgba(143, 169, 179, 0.5)',
-            borderRadius: '50%',
-            width: '3.5rem',
-            height: '3.5rem',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-            transition: 'all 0.3s ease',
-            color: '#8FA9B3',
-            zIndex: 20,
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = 'rgba(143, 169, 179, 0.3)';
-            e.currentTarget.style.borderColor = '#8FA9B3';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = 'rgba(46, 61, 69, 0.9)';
-            e.currentTarget.style.borderColor = 'rgba(143, 169, 179, 0.5)';
-          }}
-          aria-label="Previous image"
+      <section className="px-6 pb-24">
+        <div className="max-w-[1440px] mx-auto" style={{ columnGap: '1rem' }}>
+          <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4" style={{ columnGap: '1rem' }}>
+            {photos.map((p, i) => (
+              <button
+                key={p.id}
+                type="button"
+                onClick={() => setOpen(i)}
+                className="group block w-full mb-4 overflow-hidden text-left"
+                style={{ breakInside: 'avoid', borderRadius: '0.5rem', border: 0, padding: 0, background: 'none', cursor: 'zoom-in', position: 'relative' }}
+                aria-label={`Open ${p.caption}`}
+              >
+                <img src={url(p, 700)} alt={p.caption} loading="lazy" className="w-full h-auto block transition-transform duration-700 group-hover:scale-105" />
+                <span
+                  className="absolute left-0 right-0 bottom-0 px-4 py-3 opacity-0 group-hover:opacity-100 transition-opacity"
+                  style={{ background: 'linear-gradient(to top, rgba(11,15,15,0.7), transparent)', color: '#EDE9E3', fontFamily: sans, fontSize: '0.85rem' }}
+                >
+                  {p.caption}
+                </span>
+              </button>
+            ))}
+          </div>
+          <p className="mt-10 text-center" style={{ fontFamily: sans, fontSize: '0.8rem', color: '#8FA9B3' }}>
+            Retreat photography by Raw Captis Photography and Melanie Kate Photography. Coast images credited in each caption.
+          </p>
+        </div>
+      </section>
+
+      {open !== null && photos[open] && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          onClick={close}
+          style={{ position: 'fixed', inset: 0, zIndex: 100, backgroundColor: 'rgba(11,15,15,0.95)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
         >
-          <ChevronLeft size={28} />
-        </button>
-
-        {/* Next Button */}
-        <button
-          onClick={goToNext}
-          style={{
-            position: 'absolute',
-            right: '2rem',
-            top: '50%',
-            transform: 'translateY(-50%)',
-            backgroundColor: 'rgba(46, 61, 69, 0.9)',
-            border: '1px solid rgba(143, 169, 179, 0.5)',
-            borderRadius: '50%',
-            width: '3.5rem',
-            height: '3.5rem',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-            transition: 'all 0.3s ease',
-            color: '#8FA9B3',
-            zIndex: 20,
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = 'rgba(143, 169, 179, 0.3)';
-            e.currentTarget.style.borderColor = '#8FA9B3';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = 'rgba(46, 61, 69, 0.9)';
-            e.currentTarget.style.borderColor = 'rgba(143, 169, 179, 0.5)';
-          }}
-          aria-label="Next image"
-        >
-          <ChevronRight size={28} />
-        </button>
-      </div>
-
-      {/* Thumbnail Navigation */}
-      <div 
-        style={{
-          position: 'absolute',
-          bottom: '6rem',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          display: 'flex',
-          gap: '0.5rem',
-          padding: '1rem',
-          backgroundColor: 'rgba(46, 61, 69, 0.9)',
-          borderRadius: '0.5rem',
-          border: '1px solid rgba(143, 169, 179, 0.3)',
-          maxWidth: '90vw',
-          overflowX: 'auto',
-          overflowY: 'hidden',
-          zIndex: 20,
-        }}
-      >
-        {allImages.map((image, index) => (
-          <button
-            key={index}
-            onClick={() => goToImage(index)}
-            style={{
-              width: '3rem',
-              height: '3rem',
-              border: currentIndex === index ? '2px solid #8FA9B3' : '2px solid transparent',
-              borderRadius: '0.25rem',
-              overflow: 'hidden',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease',
-              opacity: currentIndex === index ? 1 : 0.5,
-              flexShrink: 0,
-              padding: 0,
-              backgroundColor: '#2E3D45',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.opacity = '1';
-            }}
-            onMouseLeave={(e) => {
-              if (currentIndex !== index) {
-                e.currentTarget.style.opacity = '0.5';
-              }
-            }}
-            aria-label={`Go to image ${index + 1}`}
-          >
-            <img
-              src={optimizeCloudinaryUrl(image.src, 100)}
-              alt={`Thumbnail ${index + 1}`}
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-              }}
-            />
-          </button>
-        ))}
-      </div>
-
-      {/* Photography Credit Footer */}
-      <div 
-        style={{
-          position: 'absolute',
-          bottom: 0,
-          left: 0,
-          right: 0,
-          padding: '1.5rem',
-          textAlign: 'center',
-          backgroundColor: 'rgba(38, 51, 58, 0.95)',
-          borderTop: '1px solid rgba(143, 169, 179, 0.2)',
-          zIndex: 20,
-        }}
-      >
-        <p
-          style={{
-            fontFamily: "'Inter', sans-serif",
-            fontSize: '0.875rem',
-            color: '#8FA9B3',
-            margin: 0,
-          }}
-        >
-          Photography by Melanie Kate Photography
-        </p>
-      </div>
+          <img
+            src={url(photos[open], 2000)}
+            alt={photos[open].caption}
+            onClick={(e) => e.stopPropagation()}
+            style={{ maxWidth: '92vw', maxHeight: '82vh', objectFit: 'contain', borderRadius: '0.25rem' }}
+          />
+          <div style={{ position: 'absolute', bottom: '1.5rem', left: 0, right: 0, textAlign: 'center', fontFamily: sans, color: '#EDE9E3', fontSize: '0.95rem' }}>
+            {photos[open].caption}
+            {photos[open].credit && <span style={{ color: '#B8AE9F', fontSize: '0.8rem' }}> · {photos[open].credit}</span>}
+            <span style={{ color: '#8FA9B3', fontSize: '0.8rem', marginLeft: '0.75rem' }}>{open + 1} / {photos.length}</span>
+          </div>
+          <button type="button" aria-label="Close" onClick={close} style={{ ...btn, top: '2rem', right: '2rem', transform: 'none' }}><X size={22} /></button>
+          <button type="button" aria-label="Previous" onClick={(e) => { e.stopPropagation(); step(-1); }} style={{ ...btn, left: '1.5rem' }}><ChevronLeft size={26} /></button>
+          <button type="button" aria-label="Next" onClick={(e) => { e.stopPropagation(); step(1); }} style={{ ...btn, right: '1.5rem' }}><ChevronRight size={26} /></button>
+        </div>
+      )}
     </div>
   );
 }

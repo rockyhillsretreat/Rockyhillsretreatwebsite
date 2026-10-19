@@ -1,12 +1,14 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
-const heroImage = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-exterior-night.jpg';
-const retreatImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-exterior-entry-native-garden.jpg';
-const experiencesImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-bath-running-golden.jpg';
-const provisionsImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/bay-view-islands-cloud.jpg';
-const locationImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/location-bay-sunset-wide.jpg';
-const tasmaniaImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/bay-view-swansea-coast.jpg';
+import { img, P, C, V } from '../media';
+import { VideoLoop } from './VideoLoop';
+const heroImage = img(P.deckReading, 2400);
+const retreatImg = img(P.exteriorGums, 900);
+const experiencesImg = img(C.whiteSandBay, 900);
+const provisionsImg = img(P.fishersFreycinet, 900);
+const locationImg = img(P.bayDusk, 900);
+const tasmaniaImg = img(P.schoutenWindow, 1400);
 
 export function HomePage() {
   const [scrollY, setScrollY] = useState(0);
@@ -22,13 +24,13 @@ export function HomePage() {
   const highlights = [
     {
       title: 'The Retreat',
-      description: 'Concrete, blackwood, fire, bath, bay',
+      description: 'Concrete, blackwood, the bath, the bay',
       image: retreatImg,
       link: '/retreat',
     },
     {
       title: 'Experiences',
-      description: 'Foraging, fishing, hiking, the coast',
+      description: 'Beaches, picnics, the water, the bush',
       image: experiencesImg,
       link: '/experiences',
     },
@@ -46,26 +48,30 @@ export function HomePage() {
     },
   ];
 
-  const packages = [
+  const signatureExperiences = [
     {
-      title: "In the Air, Then at Rest",
-      summary: 'Three nights. The East Coast from above, a therapist at the door, and the Huon pine bath waiting on the deck.',
-      link: '/packages',
-    },
-    {
-      title: 'The Long Lunch',
-      summary: 'Three nights built around four East Coast cellar doors, lunch in the vines, and a couples massage at the property.',
-      link: '/packages',
+      title: 'The Beach Picnic',
+      summary: 'A hamper packed with Tasmanian produce, a rug, and a cove we will point you to. Back for the bath at sunset.',
+      image: img(C.whiteSandBay, 900),
+      link: '/experiences#beach-picnic',
     },
     {
       title: 'From the Water',
-      summary: 'Three nights on Great Oyster Bay. Half a day with a local skipper, catch returned to the retreat, couples massage included.',
-      link: '/packages',
+      summary: 'Half a day on Great Oyster Bay with a local skipper. Flathead and squid, cooked back at the retreat.',
+      image: img(C.offshoreIslands, 900),
+      link: '/experiences#from-the-water',
+    },
+    {
+      title: 'In the Air, Then at Rest',
+      summary: 'Wineglass Bay and the Hazards from a helicopter, then a massage on the deck when you land.',
+      image: img(C.wineglassAerial, 900),
+      link: '/experiences#in-the-air',
     },
     {
       title: 'Celebrate Here',
-      summary: 'Three nights for a proposal, an anniversary, or a reason you made up. Photographer, hamper, bath on the deck.',
-      link: '/packages',
+      summary: 'A proposal, an anniversary, a reason you made up. Photographer, hamper, and the bath ready on the deck.',
+      image: img(P.bathOnDeck, 900),
+      link: '/experiences#celebrate-here',
     },
   ];
 
@@ -99,7 +105,7 @@ export function HomePage() {
             src={heroImage}
             alt="Rocky Hills Retreat Hero View"
             className="w-full h-full object-cover"
-            style={{ objectPosition: 'center 70%' }}
+            style={{ objectPosition: 'center 55%' }}
           />
           <div
             className="absolute inset-0"
@@ -280,70 +286,69 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* Packages Teaser */}
+      {/* Signature Experiences */}
       <section className="py-24" style={{ backgroundColor: '#26333A' }}>
         <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
           <h2
-            className="text-center mb-16"
+            className="text-center mb-4"
             style={{
               fontFamily: "'Playfair Display', serif",
               fontSize: 'clamp(2rem, 4vw, 2.5rem)',
               color: '#EDE9E3',
             }}
           >
-            Signature Packages
+            Signature Experiences
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-[1000px] mx-auto">
-            {packages.map((pkg, index) => (
-              <div
-                key={index}
-                className="p-8 transition-all hover:shadow-soft-lg"
-                style={{
-                  backgroundColor: '#2E3D45',
-                  borderRadius: '0.5rem',
-                  border: '1px solid rgba(198, 184, 163, 0.15)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                }}
-              >
-                <h3
-                  className="mb-3"
-                  style={{
-                    fontFamily: "'Playfair Display', serif",
-                    fontSize: '1.75rem',
-                    color: '#EDE9E3',
-                  }}
-                >
-                  {pkg.title}
+          <p
+            className="text-center mb-16 mx-auto"
+            style={{ fontFamily: "'Inter', sans-serif", fontSize: '1.05rem', color: '#B8AE9F', maxWidth: '640px', lineHeight: '1.7' }}
+          >
+            Add one to any stay. We arrange everything before you arrive.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {signatureExperiences.map((exp) => (
+              <Link key={exp.title} to={exp.link} className="group" style={{ display: 'flex', flexDirection: 'column', textDecoration: 'none' }}>
+                <div className="overflow-hidden mb-5" style={{ borderRadius: '0.5rem' }}>
+                  <img
+                    src={exp.image}
+                    alt={exp.title}
+                    loading="lazy"
+                    className="w-full h-[320px] object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                </div>
+                <h3 className="mb-2" style={{ fontFamily: "'Playfair Display', serif", fontSize: '1.5rem', color: '#EDE9E3' }}>
+                  {exp.title}
                 </h3>
-                <p
-                  className="mb-6"
-                  style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: '0.95rem',
-                    color: '#B8AE9F',
-                    lineHeight: '1.6',
-                    flexGrow: 1,
-                  }}
-                >
-                  {pkg.summary}
+                <p className="mb-4" style={{ fontFamily: "'Inter', sans-serif", fontSize: '0.95rem', color: '#B8AE9F', lineHeight: '1.6', flexGrow: 1 }}>
+                  {exp.summary}
                 </p>
-                <Link
-                  to={pkg.link}
-                  style={{
-                    display: 'inline-block',
-                    color: '#8FA9B3',
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: '0.875rem',
-                    fontWeight: 500,
-                    textDecoration: 'underline',
-                    transition: 'all 0.3s ease',
-                  }}
-                >
-                  View Package
-                </Link>
-              </div>
+                <span style={{ color: '#8FA9B3', fontFamily: "'Inter', sans-serif", fontSize: '0.875rem', fontWeight: 500, textDecoration: 'underline' }}>
+                  See the experience
+                </span>
+              </Link>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Summer on the coast: video band */}
+      <section className="relative overflow-hidden" style={{ height: '70vh', minHeight: '420px' }}>
+        <VideoLoop videoId={V.whiteSandBay} fallbackImage={img(C.whiteSandBay, 1920)} className="absolute inset-0 w-full h-full" />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(38,51,58,0.75) 0%, rgba(38,51,58,0.1) 55%)' }} />
+        <div className="relative h-full max-w-[1440px] mx-auto px-6 lg:px-12 flex flex-col justify-end pb-16">
+          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(2rem, 5vw, 3.25rem)', color: '#F4EFE8', lineHeight: '1.1', maxWidth: '760px' }}>
+            Long days. Cold water. Nobody else on the sand.
+          </h2>
+          <p className="mt-4" style={{ fontFamily: "'Inter', sans-serif", fontSize: '1.1rem', color: '#EDE9E3', maxWidth: '600px', lineHeight: '1.7' }}>
+            Summer on the East Coast means swims before breakfast and light on the bay until nearly nine.
+          </p>
+          <div className="mt-8">
+            <Link
+              to="/experiences"
+              style={{ display: 'inline-block', backgroundColor: '#8FA9B3', color: '#26333A', padding: '0.875rem 2rem', borderRadius: '0.5rem', fontFamily: "'Inter', sans-serif", fontSize: '1rem', fontWeight: 500 }}
+            >
+              Summer Experiences
+            </Link>
           </div>
         </div>
       </section>

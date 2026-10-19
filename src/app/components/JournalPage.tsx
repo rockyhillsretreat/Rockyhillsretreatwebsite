@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import { img, P, C } from '../media';
 
-const heroImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/land-detail-driftwood-rock.jpg';
+const heroImg = img(P.bayDusk, 2400);
 const winterBayImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/bay-view-sunset-dramatic.jpg';
 const bathNightImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-bath-night.jpg';
 const interiorImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/interior-living-sunlight.jpg';
@@ -11,6 +12,60 @@ const wildlifeImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/wildlife-
 const categories = ['All', 'Sustainability', 'Place', 'Wildlife', 'Provenance'];
 
 const entries = [
+
+  {
+    id: 9,
+    category: 'Place',
+    date: 'October 2026',
+    title: 'Summer at Rocky Hills',
+    excerpt: 'The deck becomes the main room. What changes here between December and February.',
+    image: img(P.deckReading, 1600),
+    imageAlt: 'Reading on the deck in summer, Great Oyster Bay beyond',
+    featured: true,
+    content: [
+      'In summer the glass doors stay open and the deck becomes the main room. Breakfast is outside. So is most of the afternoon.',
+      'The bath faces west. After a day at the beach, it fills with the last of the light, and on a long January evening that light goes on for a while. The sun sets well after eight.',
+      'The wallabies come out of the bush earlier as the evenings stretch. Echidnas are busy in the warm weather and turn up near the house without much warning. After dark it is quolls and possums.',
+      'Summer is also the dry season. Every drop of water here comes off the concrete roof and into the tanks beneath the house. Guests tend to notice that, and tend to take shorter showers once they do.',
+      'The beaches are close and mostly empty on a weekday. The water is clear and cold. Go in anyway.',
+    ],
+    pullQuote: 'In summer the glass doors stay open and the deck becomes the main room.',
+  },
+  {
+    id: 8,
+    category: 'Place',
+    date: 'October 2026',
+    title: 'A Day on Maria Island',
+    excerpt: 'A ferry, no cars, and wombats that do not care that you are there.',
+    image: img(C.paintedCliffs, 1600),
+    imageAlt: 'The Painted Cliffs on Maria Island',
+    featured: false,
+    content: [
+      'The ferry leaves from Triabunna, south of the retreat. Half an hour across the water and you are on an island with no cars and no shops.',
+      'The wombats are the first thing most people notice. They graze on the open grass around Darlington, the old convict settlement near the jetty, and they are entirely unbothered by visitors.',
+      'The Painted Cliffs are an easy walk from the jetty. Go at low tide, when you can walk along the base of the sandstone and see the patterns up close.',
+      'Tasmanian devils live on the island too, though you are more likely to see their tracks than the animals themselves.',
+      'Take water, lunch and a layer. There is nothing to buy once you are there. Be back on the last ferry, then drive home for the bath.',
+    ],
+    pullQuote: 'An island with no cars and no shops.',
+  },
+  {
+    id: 7,
+    category: 'Provenance',
+    date: 'October 2026',
+    title: 'What Summer Tastes Like',
+    excerpt: 'Berries from Swansea, oysters from the bay, and a picnic hamper that goes to the beach.',
+    image: img(P.fishersFreycinet, 1600),
+    imageAlt: 'Fishers of Freycinet smoked mussels from the retreat pantry',
+    featured: false,
+    content: [
+      'The provisions change with the season. In summer that means Tasmanian cherries, stone fruit and berries in the fruit box, and corn, tomatoes and basil in the vegetable box.',
+      'Kate\'s Berry Farm is just outside Swansea and is at its best in summer. Freycinet Marine Farm sells oysters and mussels by the water, 45 minutes north.',
+      'The picnic hamper is built for the beach. Cheese, smoked fish, bread, fruit and something sweet, packed and ready in the fridge the morning you want it.',
+      'We do not stock alcohol at the retreat. The cellar doors along the coast road are close, and you are welcome to bring your own.',
+    ],
+    pullQuote: 'Packed and ready in the fridge the morning you want it.',
+  },
 
   {
     id: 1,
@@ -105,7 +160,7 @@ const entries = [
     excerpt: 'We are working toward Sustainable Tourism Certification through Ecotourism Australia. This is where we are starting from.',
     image: winterBayImg,
     imageAlt: 'Great Oyster Bay in winter, seen from Rocky Hills',
-    featured: true,
+    featured: false,
     content: [
       'We are working toward Sustainable Tourism Certification through Ecotourism Australia. This is where we are starting from.',
       'Rocky Hills was built off-grid in 2009. Solar power, 100% rainwater, septic waste management, no mains connection of any kind. The conservation covenant protecting the 250 acres was put in place at the same time. Craig Rosevear designed the building with passive solar orientation from the start. None of this was retrofitted. That gives us a strong foundation for the environmental criteria, most of which the property already meets operationally.',
