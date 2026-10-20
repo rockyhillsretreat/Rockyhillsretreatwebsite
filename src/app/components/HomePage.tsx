@@ -75,14 +75,19 @@ export function HomePage() {
     },
   ];
 
+  // Genuine Google reviews, quoted word for word (excerpts). Reviewer names are not shown.
   const testimonials = [
     {
-      quote: "The most peaceful place we've ever stayed. Time seemed to slow down.",
-      author: 'Sarah & Tom',
+      quote: "My wife and I booked Rocky Hills Retreat to celebrate our 20th wedding anniversary and we couldn\u2019t have been more thankful. The property feels like it\u2019s in the wilderness, nestled high amongst the tree tops with 270 degree views of the bushland and the water.",
+      author: 'Google review',
     },
     {
-      quote: "Every detail was considered. The view, the quiet, the quality. Exceptional.",
-      author: 'Emma',
+      quote: "The best decision we made! A beautiful, secluded, ambient and peaceful retreat! With all of the trimmings to make us feel at home in luxury. Truly immersed in nature. We only had one regret, not booking another night!",
+      author: 'Google review',
+    },
+    {
+      quote: "A special place of laidback luxury and combines curiosity and creativity. Stunning surroundings. Great attention to detail.",
+      author: 'Google review',
     },
   ];
 
@@ -443,7 +448,18 @@ export function HomePage() {
           >
             Guest Reflections
           </h2>
-          <div className="grid md:grid-cols-2 gap-12">
+          <p className="text-center -mt-10 mb-12" style={{ fontFamily: "'Inter', sans-serif", fontSize: '0.95rem', color: '#B8AE9F' }}>
+            Rated 4.5 on Google.{' '}
+            <a
+              href="https://www.google.com/maps/place/?q=place_id:ChIJVz4rYdKFcaoROWLPt2g6PWw"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: '#8FA9B3', textDecoration: 'underline' }}
+            >
+              Read all reviews
+            </a>
+          </p>
+          <div className="grid md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
               <div
                 key={index}
