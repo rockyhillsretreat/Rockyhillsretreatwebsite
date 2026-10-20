@@ -13,7 +13,7 @@ const signature = [
     id: "beach-picnic",
     title: "The Beach Picnic",
     kicker: "Add to any stay · Enquire for pricing",
-    image: img(C.freycinetAerialBeach, 1400),
+    image: img(C.beachPicnic, 1400),
     description:
       "We pack a hamper from the producers we buy from all year, add a rug and a map with a cove marked on it, and leave it in the kitchen for the morning you want it. Swim, eat, fall asleep in the sun, drive back for the bath.",
     inclusions: [

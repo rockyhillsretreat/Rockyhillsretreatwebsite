@@ -52,7 +52,7 @@ export function HomePage() {
     {
       title: 'The Beach Picnic',
       summary: 'A hamper packed with Tasmanian produce, a rug, and a cove we will point you to. Back for the bath at sunset.',
-      image: img(C.bayOfFiresAerial, 900),
+      image: img(C.freycinetAerialBeach, 900),
       link: '/experiences#beach-picnic',
     },
     {

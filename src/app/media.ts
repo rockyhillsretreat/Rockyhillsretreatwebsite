@@ -108,6 +108,7 @@ export const C = {
   wombatDrinking: `${EC}/maria-island-wombat-drinking__unsplash-dalal`,
   devils: `${EC}/tasmanian-devils__unsplash-david-clode`,
   auroraWineglass: `${EC}/aurora-wineglass-bay-adobe-1997741351`,
+  beachPicnic: `${EC}/beach-picnic-basket-shore__pexels-leeloo-the-first`,
   auroraBeach: `${EC}/aurora-beach-town-adobe-819024732`,
 };
 

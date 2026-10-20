@@ -68,6 +68,7 @@ const sections: { name: string; photos: Photo[] }[] = [
       { id: C.offshoreIslands, caption: 'Off the coast', credit: 'Adobe Stock' },
       { id: C.wineglassFromAmos, caption: 'Wineglass Bay from above', credit: 'Tim Hart, Unsplash' },
       { id: C.auroraBeach, caption: 'Aurora australis, Tasmania', credit: 'Adobe Stock' },
+      { id: C.beachPicnic, caption: 'Picnic at the water', credit: 'Leeloo The First, Pexels' },
       { id: 'bay-view-swansea-coast.jpg', caption: 'Swansea coast', legacy: true },
       { id: 'location-swansea-beach-dunes-wide.jpg', caption: 'Dunes', legacy: true },
     ],
