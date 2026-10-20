@@ -107,6 +107,8 @@ export const C = {
   pademelonGrass: `${EC}/tasmania-pademelon__unsplash-re-walsh`,
   wombatDrinking: `${EC}/maria-island-wombat-drinking__unsplash-dalal`,
   devils: `${EC}/tasmanian-devils__unsplash-david-clode`,
+  auroraWineglass: `${EC}/aurora-wineglass-bay-adobe-1997741351`,
+  auroraBeach: `${EC}/aurora-beach-town-adobe-819024732`,
 };
 
 // Web video loops (muted, no audio track)
@@ -116,4 +118,6 @@ export const V = {
   paintedCliffs: `${VD}/maria-island-painted-cliffs-adobe-2109248592`,
   offshoreIslands: `${VD}/offshore-islands-boat-adobe-2037685467`,
   wallabiesGold: `${VD}/wallabies-golden-hour-adobe-1958746864`,
+  auroraWineglass: `${VD}/aurora-wineglass-bay-adobe-1997741351`,
+  auroraBeach: `${VD}/aurora-beach-town-adobe-819024732`,
 };
