@@ -481,6 +481,23 @@ export function HomePage() {
         </div>
       </section>
 
+      {/* Aurora: video band */}
+      <section className="relative overflow-hidden" style={{ height: '75vh', minHeight: '440px' }}>
+        <VideoLoop videoId={V.auroraWineglass} fallbackImage={img(C.auroraWineglass, 1920)} className="absolute inset-0 w-full h-full" />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(11,15,15,0.75) 0%, rgba(11,15,15,0) 55%)' }} />
+        <div className="relative h-full max-w-[1440px] mx-auto px-6 lg:px-12 flex flex-col justify-end pb-16">
+          <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '0.8rem', color: '#EDE9E3', letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+            Aurora australis over Wineglass Bay
+          </p>
+          <h2 className="mt-3" style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(2rem, 5vw, 3.25rem)', color: '#F4EFE8', lineHeight: '1.1', maxWidth: '760px' }}>
+            On the right night, the sky does this.
+          </h2>
+          <p className="mt-4" style={{ fontFamily: "'Inter', sans-serif", fontSize: '1.1rem', color: '#EDE9E3', maxWidth: '620px', lineHeight: '1.7' }}>
+            No light pollution for kilometres. The Milky Way most clear nights, and every so often, the southern lights.
+          </p>
+        </div>
+      </section>
+
       {/* Book Now Section */}
       <section className="py-24" style={{ backgroundColor: '#2E3D45' }}>
         <div className="max-w-[1200px] mx-auto px-6 lg:px-12 text-center">
