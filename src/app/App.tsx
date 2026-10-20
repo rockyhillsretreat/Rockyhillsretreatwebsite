@@ -21,6 +21,7 @@ import { PrivacyPage } from "./components/PrivacyPage";
 import PropertyWorksPage from "./components/PropertyWorksPage";
 import { ExtrasPage } from "./components/ExtrasPage";
 import { StorePage } from "./components/StorePage";
+import { FromAucklandPage } from "./components/FromAucklandPage";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -62,6 +63,7 @@ function App() {
             <Route path="/provisions" element={<ProvisionsPage />} />
             <Route path="/experiences" element={<ExperiencesPage />} />
             <Route path="/location" element={<LocationPage />} />
+            <Route path="/from-auckland" element={<FromAucklandPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/packages" element={<Navigate to="/experiences#signature" replace />} />
             <Route path="/gallery" element={<GalleryPage />} />
