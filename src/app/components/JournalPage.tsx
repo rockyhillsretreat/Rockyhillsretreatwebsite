@@ -2,11 +2,12 @@ import { useState } from 'react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { img, P, C } from '../media';
 
-const heroImg = img(P.bayDusk, 2400);
+const heroImg = img(C.wineglassLookout, 2400);
 const winterBayImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/bay-view-sunset-dramatic.jpg';
 const bathNightImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-bath-night.jpg';
 const interiorImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/interior-living-sunlight.jpg';
 const exteriorDuskImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-exterior-dusk-silhouette.jpg'; 
+const rooflineImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/retreat-detail-roofline-sky.jpg';
 const wildlifeImg = 'https://res.cloudinary.com/dfvjhslxp/image/upload/wildlife-wallaby-understorey.jpg';
 
 const categories = ['All', 'Sustainability', 'Place', 'Wildlife', 'Provenance'];
@@ -19,8 +20,8 @@ const entries = [
     date: 'October 2026',
     title: 'Summer at Rocky Hills',
     excerpt: 'The deck becomes the main room. What changes here between December and February.',
-    image: img(P.deckReading, 1600),
-    imageAlt: 'Reading on the deck in summer, Great Oyster Bay beyond',
+    image: img(P.houseGumsPortrait, 1600),
+    imageAlt: 'The retreat among the gums in summer',
     featured: true,
     content: [
       'In summer the glass doors stay open and the deck becomes the main room. Breakfast is outside. So is most of the afternoon.',
@@ -37,8 +38,8 @@ const entries = [
     date: 'October 2026',
     title: 'A Day on Maria Island',
     excerpt: 'A ferry, no cars, and wombats that do not care that you are there.',
-    image: img(C.paintedCliffs, 1600),
-    imageAlt: 'The Painted Cliffs on Maria Island',
+    image: img(C.wombatDrinking, 1600),
+    imageAlt: 'A wombat at the water, Maria Island',
     featured: false,
     content: [
       'The ferry leaves from Triabunna, south of the retreat. Half an hour across the water and you are on an island with no cars and no shops.',
@@ -55,8 +56,8 @@ const entries = [
     date: 'October 2026',
     title: 'What Summer Tastes Like',
     excerpt: 'Berries from Swansea, oysters from the bay, and a picnic hamper that goes to the beach.',
-    image: img(P.fishersFreycinet, 1600),
-    imageAlt: 'Fishers of Freycinet smoked mussels from the retreat pantry',
+    image: img(P.kettle, 1600),
+    imageAlt: 'Morning in the kitchen at Rocky Hills',
     featured: false,
     content: [
       'The provisions change with the season. In summer that means Tasmanian cherries, stone fruit and berries in the fruit box, and corn, tomatoes and basil in the vegetable box.',
@@ -90,8 +91,8 @@ const entries = [
     date: 'April 2026',
     title: 'The Solar System',
     excerpt: 'The off-grid solar system at Rocky Hills is about 15 years old. The batteries are at the end of their life. We are replacing them.',
-    image: interiorImg,
-    imageAlt: 'Rocky Hills interior, morning light',
+    image: rooflineImg,
+    imageAlt: 'The concrete roofline against the sky',
     featured: false,
     content: [
       'The off-grid solar system at Rocky Hills is about 15 years old. The original lead-acid batteries are at the end of their useful life and no longer holding charge reliably. We are replacing the battery bank this year.',
@@ -146,9 +147,9 @@ const entries = [
     featured: false,
     content: [
       'Rocky Hills is about 1.5 hours from Hobart. The drive is part of the arrival.',
-      'You leave the highway at Swansea and follow the coast north. The Tasman Highway runs right along the edge of Great Oyster Bay here, with the Freycinet Peninsula visible across the water. The turnoff to the property is easy to miss the first time.',
+      'From Hobart you follow the Tasman Highway up the coast. The last stretch runs along the edge of Great Oyster Bay, with the Freycinet Peninsula across the water. The turnoff to the property comes before Swansea and is easy to miss the first time.',
       'The driveway is gravel for the final stretch. Most guests arrive in the late afternoon. There is no one to meet you. That is deliberate. The property is set up so that within about ten minutes of walking through the door, there is nothing left to organise.',
-      'Swansea is 15 minutes south if you need anything. Most guests find they do not.',
+      'Swansea is 15 minutes north if you need anything. Most guests find they do not.',
     ],
     pullQuote: 'Within ten minutes of walking through the door, there is nothing left to organise.',
   },

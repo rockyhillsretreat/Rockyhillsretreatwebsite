@@ -5,7 +5,7 @@ import { img, P, C, V } from '../media';
 import { VideoLoop } from './VideoLoop';
 const heroImage = img(P.deckReading, 2400);
 const retreatImg = img(P.exteriorGums, 900);
-const experiencesImg = img(C.whiteSandBay, 900);
+const experiencesImg = img(C.bayOfFiresBoat, 900);
 const provisionsImg = img(P.fishersFreycinet, 900);
 const locationImg = img(P.bayDusk, 900);
 const tasmaniaImg = img(P.schoutenWindow, 1400);
@@ -52,19 +52,19 @@ export function HomePage() {
     {
       title: 'The Beach Picnic',
       summary: 'A hamper packed with Tasmanian produce, a rug, and a cove we will point you to. Back for the bath at sunset.',
-      image: img(C.whiteSandBay, 900),
+      image: img(C.bayOfFiresAerial, 900),
       link: '/experiences#beach-picnic',
     },
     {
       title: 'From the Water',
       summary: 'Half a day on Great Oyster Bay with a local skipper. Flathead and squid, cooked back at the retreat.',
-      image: img(C.offshoreIslands, 900),
+      image: img(C.freycinetSunsetRocks, 900),
       link: '/experiences#from-the-water',
     },
     {
       title: 'In the Air, Then at Rest',
       summary: 'Wineglass Bay and the Hazards from a helicopter, then a massage on the deck when you land.',
-      image: img(C.wineglassAerial, 900),
+      image: img(C.wineglassAerialClassic, 900),
       link: '/experiences#in-the-air',
     },
     {
@@ -377,7 +377,7 @@ export function HomePage() {
                   lineHeight: '1.8',
                 }}
               >
-                On the east coast of Tasmania, between Swansea and the sea. A hilltop position with views across Great
+                On Tasmania's east coast, fifteen minutes south of Swansea. A hilltop position with views across Great
                 Oyster Bay and the surrounding bushland.
               </p>
               <Link
@@ -413,6 +413,20 @@ export function HomePage() {
               />
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Wildlife: video band */}
+      <section className="relative overflow-hidden" style={{ height: '70vh', minHeight: '420px' }}>
+        <VideoLoop videoId={V.wallabiesGold} fallbackImage={img(C.wallabiesGold, 1920)} className="absolute inset-0 w-full h-full" />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(38,51,58,0.8) 0%, rgba(38,51,58,0.05) 60%)' }} />
+        <div className="relative h-full max-w-[1440px] mx-auto px-6 lg:px-12 flex flex-col justify-end pb-16">
+          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(2rem, 5vw, 3.25rem)', color: '#F4EFE8', lineHeight: '1.1', maxWidth: '760px' }}>
+            The neighbours come out at dusk.
+          </h2>
+          <p className="mt-4" style={{ fontFamily: "'Inter', sans-serif", fontSize: '1.1rem', color: '#EDE9E3', maxWidth: '620px', lineHeight: '1.7' }}>
+            Wallabies at the edge of the bush, echidnas in the afternoon, quolls and possums after dark. 250 acres of protected land, and they know it.
+          </p>
         </div>
       </section>
 

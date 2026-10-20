@@ -12,7 +12,7 @@ const signature = [
     id: "beach-picnic",
     title: "The Beach Picnic",
     kicker: "Add to any stay · Enquire for pricing",
-    image: img(C.whiteSandBay, 1400),
+    image: img(C.freycinetAerialBeach, 1400),
     description:
       "We pack a hamper from the producers we buy from all year, add a rug and a map with a cove marked on it, and leave it in the kitchen for the morning you want it. Swim, eat, fall asleep in the sun, drive back for the bath.",
     inclusions: [
@@ -25,7 +25,7 @@ const signature = [
     id: "from-the-water",
     title: "From the Water",
     kicker: "Add to any stay · Enquire for pricing",
-    image: img(C.offshoreIslands, 1400),
+    image: img(C.bichenoBoats, 1400),
     description:
       "Half a day on Great Oyster Bay and Schouten Passage with a local skipper. Flathead, squid, maybe a seal on the rocks. Your catch comes back to the retreat with a recipe written for this kitchen.",
     inclusions: [
@@ -52,7 +52,7 @@ const signature = [
     id: "the-long-lunch",
     title: "The Long Lunch",
     kicker: "Add to any stay · Enquire for pricing",
-    image: img(C.goldenPaddock, 1400),
+    image: img(P.dinnerNight, 1400),
     description:
       "Four East Coast cellar doors and lunch in the vines. You are picked up from the property and dropped back before dark.",
     inclusions: [
@@ -66,7 +66,7 @@ const signature = [
     id: "celebrate-here",
     title: "Celebrate Here",
     kicker: "Add to any stay · Enquire for pricing",
-    image: img(P.bathOnDeck, 1400),
+    image: img(P.bathExterior, 1400),
     description:
       "A proposal, an anniversary, a reason you made up. Tell us what you have in mind and we will have it ready when you arrive.",
     inclusions: [
@@ -93,37 +93,31 @@ const days: { heading: string; intro: string; items: { title: string; text: stri
         title: "Quiet coves near the retreat",
         text: "Swansea has a run of small beaches where you can have the water to yourself on a weekday. We will mark our favourites on your map.",
         cta: "Ask us for the map.",
-        image: img(C.beachWaves, 900),
+        image: img(C.lighthouseSunset, 900),
       },
       {
         title: "Beach picnic hamper",
         text: "Cheese, smoked fish, bread, fruit, something sweet. All from Tasmanian producers. Packed, ready, and in the fridge the morning you want it.",
         cta: "Add at booking. From $145.",
-        image: img(C.whiteSandBay, 900),
+        image: img(C.bayOfFiresLichenRocks, 900),
       },
     ],
   },
   {
     heading: "On the water",
-    intro: "Great Oyster Bay is in front of the deck. Getting out on it is easy.",
+    intro: "Great Oyster Bay is in front of the deck. For a day's fishing, see From the Water above.",
     items: [
-      {
-        title: "Fishing charter",
-        text: "Half or full day on Great Oyster Bay and Schouten Passage with a local skipper. Flathead, trumpeter, squid. Gear supplied.",
-        cta: "Ask us to arrange.",
-        image: img(C.bichenoBoats, 900),
-      },
       {
         title: "Wineglass Bay cruise",
         text: "Around the Freycinet Peninsula to the other side of Wineglass Bay. Dolphins are often seen, seals on the rocks, sea eagles overhead.",
         cta: "We'll book it for you.",
-        image: img(C.freycinetAerialBeach, 900),
+        image: img(C.wineglassView, 900),
       },
       {
         title: "Sea kayaking, Freycinet",
         text: "Guided paddles under the Hazards with an award-winning local operator. Calm summer mornings are the time.",
         cta: "We'll book it for you.",
-        image: img(C.hazardsAcrossBay, 900),
+        image: img(C.freycinetBay, 900),
       },
     ],
   },
@@ -141,13 +135,13 @@ const days: { heading: string; intro: string; items: { title: string; text: stri
         title: "Wildlife at dusk",
         text: "Wallabies come out of the bush as the light drops. Echidnas are busy in the warm weather. Quolls and possums after dark. You don't have to go anywhere.",
         cta: "Sit on the deck. Bring the binoculars.",
-        image: img(C.wallabiesGold, 900),
+        image: img(C.wallabyForest, 900),
       },
       {
         title: "Douglas-Apsley National Park",
         text: "Gorges, dry forest and the Apsley Waterhole, a swimming hole you can reach on a short walk. Good for a hot day.",
         cta: "We'll give you everything you need before you go.",
-        image: img(C.sunsetClouds, 900),
+        image: img(C.pademelonGrass, 900),
       },
     ],
   },
@@ -165,13 +159,13 @@ const days: { heading: string; intro: string; items: { title: string; text: stri
         title: "Self-guided stargazing",
         text: "No light pollution. Binoculars in the retreat, a guide sent to your phone, and a clearing past the shed where the house lights disappear.",
         cta: "Included with every stay.",
-        image: img(P.starsPortrait, 900),
+        image: img(P.duskTree, 900),
       },
       {
         title: "Cellar doors and the farm gate",
         text: "Devil's Corner and Milton are close. Freycinet Marine Farm sells oysters by the water. Kate's Berry Farm in Swansea is at its best in summer.",
         cta: "We'll suggest an order and where to have lunch.",
-        image: img(P.fishersFreycinet, 900),
+        image: img(C.sunsetClouds, 900),
       },
     ],
   },
@@ -265,7 +259,7 @@ export function ExperiencesPage() {
               <h2 style={{ fontFamily: serif, fontSize: "clamp(2rem, 4vw, 2.75rem)", color: "#EDE9E3" }}>{group.heading}</h2>
               <p className="mt-3" style={{ fontFamily: sans, fontSize: "1.05rem", color: "#B8AE9F", lineHeight: "1.8" }}>{group.intro}</p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className={`grid grid-cols-1 md:grid-cols-2 ${group.items.length === 2 ? "" : "lg:grid-cols-3"} gap-8`}>
               {group.items.map((item) => (
                 <div key={item.title} className="group flex flex-col">
                   <div className="overflow-hidden mb-5" style={{ borderRadius: "0.5rem" }}>

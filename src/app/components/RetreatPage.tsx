@@ -2,15 +2,15 @@ import { Bed, Bath, Flame, Utensils, Mountain, Sun, Droplets, Sparkles } from "l
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Link } from "react-router-dom";
 import { img, P } from '../media';
-const heroImg = img(P.exteriorGums, 2400);
-const interiorImg = img(P.facade, 1200);
+const heroImg = img(P.facade, 2400);
+const interiorImg = img(P.duskRoofline, 1200);
 const bedroomImg = img(P.bedToBath, 900);
-const bathImg = img(P.bathOnDeck, 900);
+const bathImg = img(P.diningView, 900);
 const livingImg = img(P.rainbowLiving, 900);
 const extraGallery = [
-  { src: img(P.diningView, 900), alt: 'Dining table facing the bay' },
-  { src: img(P.deckReading, 900), alt: 'Reading on the deck' },
-  { src: img(P.schoutenWindow, 900), alt: 'Schouten Island through the window' },
+  { src: img(P.livingPanorama, 900), alt: 'Living and dining, facing the bay' },
+  { src: img(P.robeWindow, 900), alt: 'Morning at the window' },
+  { src: img(P.books, 900), alt: 'The bookshelf' },
 ];
 
 export function RetreatPage() {
@@ -318,7 +318,7 @@ export function RetreatPage() {
             <div className="overflow-hidden" style={{ borderRadius: '0.5rem' }}>
               <ImageWithFallback
                 src={bathImg}
-                alt="Bath"
+                alt="The dining table and the view"
                 className="w-full h-[400px] object-cover hover:scale-105 transition-transform duration-500"
               />
             </div>

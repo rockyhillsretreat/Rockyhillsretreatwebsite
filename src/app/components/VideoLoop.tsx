@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { vid, poster as posterUrl, LOCAL_MEDIA } from '../media';
+import { vid, poster as posterUrl } from '../media';
 
 interface Props {
   videoId: string;
@@ -43,7 +43,7 @@ export function VideoLoop({ videoId, fallbackImage, className, style }: Props) {
 
   const posterSrc = fallbackImage ?? posterUrl(videoId);
 
-  if (reduceMotion || LOCAL_MEDIA) {
+  if (reduceMotion) {
     return <img src={posterSrc} alt="" className={className} style={{ objectFit: 'cover', ...style }} />;
   }
 

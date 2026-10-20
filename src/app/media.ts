@@ -7,37 +7,20 @@ const CLD = 'https://res.cloudinary.com/dfvjhslxp';
 // Preview builds (VITE_LOCAL_MEDIA=1) serve images from a local media/ folder
 // instead of Cloudinary, for the static mock-up only. Not used in production.
 export const LOCAL_MEDIA = Boolean(import.meta.env.VITE_LOCAL_MEDIA);
-const PREVIEW_STANDINS: Record<string, string> = {
-  'dining-table-view-commercial-01': 'living-dining-panorama-commercial-01',
-  'exterior-bushland-facade-commercial-01': 'rhr-g-house-gums',
-  'great-oyster-bay-view-dusk-lifestyle-01': 'dsc08106',
-  'outdoor-bath-view-lifestyle-01': 'rhr-b-outdoor-bath',
-  'binoculars-ocean-view-lifestyle-01': 'rhr-a-schouten-window',
-  'bedroom-night-commercial-01': 'bed-to-outdoor-bath-view-commercial-01',
-  'product-fishers-freycinet-01': 'dsc08158',
-  'wineglass-bay-aerial__unsplash-josh-fotheringham': 'freycinet-aerial-beach__unsplash-nadia-levenets',
-  'wineglass-bay-beach__unsplash-tim-lippis': 'white-sand-bay-beach-adobe-1990138623',
-  'wineglass-bay-lookout__unsplash-josh-fotheringham': 'freycinet-bay-mountains__unsplash-michael',
-  'wineglass-bay-view__unsplash-mitchell-lawler': 'freycinet-aerial-beach__unsplash-nadia-levenets',
-  'wineglass-bay-hilltop__unsplash-may-siew': 'freycinet-aerial-beach__unsplash-nadia-levenets',
-  'freycinet-hazards-across-bay__unsplash-nadia-levenets': 'freycinet-bay-mountains__unsplash-michael',
-  'bay-of-fires-boat-rocks__unsplash-laya-clode': 'bay-of-fires-lichen-rocks__unsplash-colin-and-meg',
-  'maria-island-wombats__unsplash-dalal': 'pademelon-forest-adobe-464173348',
-  'maria-island-coast__unsplash-fidel-fernando': 'maria-island-boat__unsplash-dalal',
-  'swansea-night-sky__unsplash-ken-cheung': 'freycinet-stargazing__unsplash-gino-hernandez-sanchez',
-};
+
 
 /** Optimised image URL: auto format, auto quality, resized to `w`. */
 export function img(publicId: string, w = 1600): string {
   if (LOCAL_MEDIA) {
     const base = publicId.split('/').pop()!;
-    return `media/${PREVIEW_STANDINS[base] ?? base}.jpg`;
+    return `media/${base}.jpg`;
   }
   return `${CLD}/image/upload/f_auto,q_auto,w_${w}/${publicId}`;
 }
 
 /** Optimised, muted-friendly web video URL. */
 export function vid(publicId: string, w = 1920): string {
+  if (LOCAL_MEDIA) return `media/${publicId.split('/').pop()}.mp4`;
   return `${CLD}/video/upload/q_auto,w_${w}/${publicId}.mp4`;
 }
 
@@ -75,6 +58,8 @@ export const P = {
   duskRoofline: `${RC}/dsc08075`,
   duskTree: `${RC}/dsc08077`,
   sunsetGums: `${RC}/dsc08106`,
+  bedroomFire: `${RC}/dsc08305`,
+  bedroomWide: `${RC}/dsc08310`,
   // Portrait crops
   bathPortrait: `${PR}/rhr-b-outdoor-bath`,
   deckChairPortrait: `${PR}/rhr-c-deck-chair`,
@@ -110,6 +95,18 @@ export const C = {
   mariaWombats: `${EC}/maria-island-wombats__unsplash-dalal`,
   freycinetWallaby: `${EC}/freycinet-wallaby__unsplash-alistair-king`,
   swanseaNightSky: `${EC}/swansea-night-sky__unsplash-ken-cheung`,
+  bayOfFiresAerial: `${EC}/bay-of-fires-aerial__unsplash-colin-and-meg`,
+  bayOfFiresLichenRocks: `${EC}/bay-of-fires-lichen-rocks__unsplash-colin-and-meg`,
+  bichenoCoastAerial: `${EC}/bicheno-coast-aerial__unsplash-richard-lin`,
+  lighthouseSunset: `${EC}/east-coast-lighthouse-sunset__unsplash-josh-chiodo`,
+  freycinetSunsetRocks: `${EC}/freycinet-sunset-rocks__unsplash-alistair-king`,
+  freycinetStargazing: `${EC}/freycinet-stargazing__unsplash-gino-hernandez-sanchez`,
+  wineglassAerialClassic: `${EC}/wineglass-bay__unsplash-lochie-riordan`,
+  wineglassFromAmos: `${EC}/wineglass-bay__unsplash-tim-hart`,
+  wallabyForest: `${EC}/tasmania-wallaby-forest__unsplash-re-walsh`,
+  pademelonGrass: `${EC}/tasmania-pademelon__unsplash-re-walsh`,
+  wombatDrinking: `${EC}/maria-island-wombat-drinking__unsplash-dalal`,
+  devils: `${EC}/tasmanian-devils__unsplash-david-clode`,
 };
 
 // Web video loops (muted, no audio track)

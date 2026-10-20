@@ -11,19 +11,19 @@ const nearby = [
     name: "Freycinet & Wineglass Bay",
     time: "45 min",
     text: "The Hazards, Wineglass Bay, Honeymoon Bay, Coles Bay for lunch. The obvious day out, and worth it.",
-    image: img(C.wineglassLookout, 900),
+    image: img(C.wineglassFromAmos, 900),
   },
   {
     name: "Maria Island",
     time: "Ferry from Triabunna",
     text: "No cars. Wombats on the lawns, the Painted Cliffs at low tide, and the old convict village at Darlington.",
-    image: img(C.paintedCliffs, 900),
+    image: img(C.mariaWombats, 900),
   },
   {
     name: "Swansea",
-    time: "Nearest town",
-    text: "Bakery, general store, fuel, a beach at the end of the main street. Kate's Berry Farm is just out of town.",
-    image: img(C.beachWaves, 900),
+    time: "15 min north",
+    text: "The nearest town. Bakery, general store, fuel, and beaches along the main street. Kate's Berry Farm is just out of town.",
+    image: img(C.swanseaNightSky, 900),
   },
   {
     name: "Cellar doors",
@@ -35,7 +35,7 @@ const nearby = [
     name: "Bicheno",
     time: "Up the coast",
     text: "Fishing boats in the Gulch, the blowhole, and penguins coming ashore at dusk.",
-    image: img(C.bichenoBoats, 900),
+    image: img(C.bichenoCoastAerial, 900),
   },
   {
     name: "Bay of Fires",
@@ -98,13 +98,13 @@ export function LocationPage() {
           <div>
             <h2 className="mb-6" style={{ fontFamily: serif, fontSize: "clamp(2rem, 4vw, 2.75rem)", color: "#EDE9E3" }}>One road in.</h2>
             <div className="space-y-5" style={{ fontFamily: sans, fontSize: "1.05rem", color: "#EDE9E3", lineHeight: "1.8", opacity: 0.9 }}>
-              <p>Rocky Hills sits on a hill between Swansea and the sea, ninety minutes up the coast from Hobart. From the deck you look across Great Oyster Bay to the Freycinet Peninsula and Schouten Island.</p>
+              <p>Rocky Hills sits on a hill fifteen minutes south of Swansea, ninety minutes up the coast from Hobart. From the deck you look across Great Oyster Bay to the Freycinet Peninsula and Schouten Island.</p>
               <p>It is close enough to everything on the East Coast to make a day of it, and far enough from all of it that you probably won't.</p>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
-            <img src={img(P.schoutenPortrait, 800)} alt="Schouten Island through the window" loading="lazy" className="w-full h-[460px] object-cover" style={{ borderRadius: "0.5rem" }} />
-            <img src={img(P.houseGumsPortrait, 800)} alt="The retreat in the gums" loading="lazy" className="w-full h-[460px] object-cover mt-12" style={{ borderRadius: "0.5rem" }} />
+            <img src={img(P.binoculars, 800)} alt="Binoculars by the window, the bay beyond" loading="lazy" className="w-full h-[460px] object-cover" style={{ borderRadius: "0.5rem" }} />
+            <img src={img(P.sunsetGums, 800)} alt="Sunset through the gums" loading="lazy" className="w-full h-[460px] object-cover mt-12" style={{ borderRadius: "0.5rem" }} />
           </div>
         </div>
       </section>
@@ -199,13 +199,12 @@ export function LocationPage() {
           <h2 className="mb-12" style={{ fontFamily: serif, fontSize: "clamp(2rem, 4vw, 2.75rem)", color: "#EDE9E3" }}>When to come</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { s: "Summer", m: "Dec to Feb", t: "Long light, warm days, cold clear water. Beaches, boats, the bath at sunset. Book early for January.", image: img(P.bathExterior, 700) },
-              { s: "Autumn", m: "Mar to May", t: "Settled weather, golden afternoons, quieter roads. Some of the best swimming of the year.", image: img(C.sunsetClouds, 700) },
-              { s: "Winter", m: "Jun to Aug", t: "Fire on, bath steaming, the Milky Way overhead. The retreat at its most private.", image: img(P.dinnerNight, 700) },
-              { s: "Spring", m: "Sep to Nov", t: "Wildflowers, wildlife with young, whales heading back south through the bay.", image: img(P.sunsetGums, 700) },
+              { s: "Summer", m: "Dec to Feb", t: "Long light, warm days, cold clear water. Beaches, boats, the bath at sunset. Book early for January." },
+              { s: "Autumn", m: "Mar to May", t: "Settled weather, golden afternoons, quieter roads. Some of the best swimming of the year." },
+              { s: "Winter", m: "Jun to Aug", t: "Fire on, bath steaming, the Milky Way overhead. The retreat at its most private." },
+              { s: "Spring", m: "Sep to Nov", t: "Wildflowers, wildlife with young, whales heading back south through the bay." },
             ].map((x) => (
               <div key={x.s} className="overflow-hidden" style={{ backgroundColor: "#2E3D45", borderRadius: "0.5rem", border: "1px solid rgba(143,169,179,0.2)" }}>
-                <img src={x.image} alt={x.s} loading="lazy" className="w-full h-[180px] object-cover" />
                 <div className="p-6">
                   <p style={{ fontFamily: sans, fontSize: "0.75rem", color: "#8FA9B3", letterSpacing: "0.12em", textTransform: "uppercase" }}>{x.m}</p>
                   <h3 className="mt-1 mb-3" style={{ fontFamily: serif, fontSize: "1.5rem", color: "#EDE9E3" }}>{x.s}</h3>
