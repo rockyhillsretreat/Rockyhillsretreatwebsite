@@ -345,8 +345,8 @@ export function BookingPage() {
       });
       const data = await res.json();
       if (res.ok) setQuoteData(data);
-      else setError(data.error||'Could not retrieve pricing. You can still proceed to payment.');
-    } catch(e){ setError('Could not retrieve pricing. You can still proceed to payment.'); }
+      else setError(data.error||'We couldn’t confirm these dates. Please go back and try again, or email stay@rockyhillsretreat.com.au.');
+    } catch(e){ setError('We couldn’t reach our booking system. Please try again in a moment, or email stay@rockyhillsretreat.com.au.'); }
     finally { setQuoteLoading(false); }
   };
 
@@ -380,10 +380,13 @@ export function BookingPage() {
 (window as any).dataLayer = (window as any).dataLayer || [];
             (window as any).dataLayer.push({ event: 'checkout_initiated', value: quoteData?.total || 0, currency: 'AUD' });
       
-            if (quoteData?.paymentUrl) {window.location.href = quoteData.paymentUrl;
-      } else {
-        window.location.href = `https://app.ownerrez.com/booking/${PROPERTY_ID}`;
+      if (!quoteData?.paymentUrl) {
+        // Never send guests to a dead link: without a quote there is nothing to pay.
+        setError('We couldn’t create your booking. Please go back and check your dates, or email stay@rockyhillsretreat.com.au.');
+        setSubmitting(false);
+        return;
       }
+      window.location.href = quoteData.paymentUrl;
     } catch(e:any){
       setError('Something went wrong. Please try again or contact us at stay@rockyhillsretreat.com.au');
       setSubmitting(false);
@@ -670,10 +673,11 @@ export function BookingPage() {
                 flex:1,padding:'0.875rem',backgroundColor:'transparent',color:S.muted,
                 border:`1px solid ${S.border}`,borderRadius:'0.375rem',fontFamily:S.inter,fontSize:'0.95rem',cursor:'pointer',
               }}>Back</button>
-              <button onClick={handleSubmit} disabled={submitting} style={{
+              <button onClick={handleSubmit} disabled={submitting||quoteLoading||!quoteData?.paymentUrl} style={{
                 flex:2,padding:'0.875rem',backgroundColor:S.accent,color:S.bgDark,
                 border:'none',borderRadius:'0.375rem',fontFamily:S.inter,fontSize:'0.95rem',fontWeight:600,
-                cursor:submitting?'not-allowed':'pointer',display:'flex',alignItems:'center',justifyContent:'center',gap:'0.5rem',
+                opacity:(quoteLoading||!quoteData?.paymentUrl)?0.45:1,
+                cursor:(submitting||quoteLoading||!quoteData?.paymentUrl)?'not-allowed':'pointer',display:'flex',alignItems:'center',justifyContent:'center',gap:'0.5rem',
               }}>
                 {submitting?<><Loader2 size={16} style={{animation:'spin 1s linear infinite'}}/>Processing...</>:'Proceed to Payment'}
               </button>

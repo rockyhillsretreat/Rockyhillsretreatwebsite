@@ -97,11 +97,20 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (!quoteResult.ok) {
       console.error('Quote creation failed:', quoteResult.status, quoteResult.raw.substring(0, 500));
       console.error('Quote body sent:', JSON.stringify(quoteBody));
-      // Give a user-friendly message for date conflict errors
-      const isConflict = quoteResult.raw.toLowerCase().includes('conflict') || quoteResult.raw.toLowerCase().includes('existing booking');
-      const userMessage = isConflict
-        ? 'These dates are no longer available. Please go back and select different dates.'
-        : 'Failed to create quote';
+      // Turn OwnerRez validation messages into something a guest can act on
+      const raw = quoteResult.raw.toLowerCase();
+      const orMessages: string[] = Array.isArray(quoteJson.messages) ? quoteJson.messages : [];
+      const minNights = raw.match(/minimum of (\d+) nights/);
+      let userMessage: string;
+      if (raw.includes('conflict') || raw.includes('existing booking')) {
+        userMessage = 'These dates are no longer available. Please go back and select different dates.';
+      } else if (minNights) {
+        userMessage = `These dates have a ${minNights[1]}-night minimum stay. Please go back and extend your stay.`;
+      } else if (orMessages.length) {
+        userMessage = `${orMessages.join(' ')} Please go back and adjust your booking.`;
+      } else {
+        userMessage = 'We couldn’t confirm these dates. Please go back and try again, or email stay@rockyhillsretreat.com.au.';
+      }
       return res.status(500).json({ error: userMessage, detail: quoteResult.raw });
     }
 
