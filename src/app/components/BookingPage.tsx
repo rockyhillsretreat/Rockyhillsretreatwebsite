@@ -270,7 +270,12 @@ export function BookingPage() {
     ? Math.round((new Date(checkOut).getTime()-new Date(checkIn).getTime())/(1000*60*60*24))
     : 0;
 
-  // Estimate total based on known rates (ex GST)
+  // Christmas season in OwnerRez ("xmas", recurring 20 Dec to 10 Jan):
+  // higher rates, and a 3-night minimum for arrivals in that window.
+  const inXmas = (ds: string) => { const md = ds.slice(5); return md >= '12-20' || md <= '01-10'; };
+  const minNights = checkIn && inXmas(checkIn) ? 3 : 2;
+
+  // Estimate total based on known rates (inc GST)
   const estimateTotal = () => {
     if (!checkIn || nights < 1) return null;
     let total = 0;
@@ -278,8 +283,10 @@ export function BookingPage() {
       const d = new Date(checkIn);
       d.setDate(d.getDate() + i);
       const day = d.getDay();
-      // Fri=5, Sat=6 are weekend nights at $800 inc GST ($727.27 ex)
-      total += (day === 5 || day === 6) ? 800 : 650;
+      const weekend = day === 5 || day === 6; // Fri and Sat nights
+      const ds = d.toISOString().slice(0, 10);
+      if (inXmas(ds)) total += weekend ? 1100 : 975;
+      else total += weekend ? 800 : 650;
     }
     return total;
   };
@@ -308,7 +315,7 @@ export function BookingPage() {
   const handleEmailBlur = () => { const email = form.email.trim(); if (!email || !/\S+@\S+\.\S+/.test(email) || email === lastCapturedEmail) return; setLastCapturedEmail(email); try { (window as any).klaviyo?.identify({ email, first_name: form.firstName || undefined, last_name: form.lastName || undefined, phone_number: form.phone || undefined }); } catch (e) {} fetch('/api/capture-lead', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ firstName: form.firstName, lastName: form.lastName, email, phone: form.phone, checkIn, checkOut, nights, guests }) }).catch(()=>{}); }; const goToReview = async () => {
     if (!tcAccepted){ setError('Please read and accept the Terms & Conditions to continue.'); return; }
     if (!checkIn||!checkOut){ setError('Please select your check-in and check-out dates.'); return; }
-    if (nights<2){ setError('Minimum stay is 2 nights.'); return; }
+    if (nights<minNights){ setError(minNights===3?'Arrivals between 20 December and 10 January have a 3-night minimum stay.':'Minimum stay is 2 nights.'); return; }
     if (!form.firstName||!form.lastName||!form.email){ setError('Please fill in your first name, last name, and email.'); return; }
     if (!/\S+@\S+\.\S+/.test(form.email)){ setError('Please enter a valid email address.'); return; }
     if (!form.phone||form.phone.replace(/[^0-9]/g,'').length<6){ setError('Please enter a valid phone number with country code (e.g. +61 400 000 000).'); return; }
@@ -404,7 +411,7 @@ export function BookingPage() {
 
         <div className="text-center mb-10">
           <h1 style={{fontFamily:S.playfair,fontSize:'clamp(2.5rem,5vw,3.5rem)',color:S.bone,letterSpacing:'-0.01em',marginBottom:'1rem'}}>Book Your Stay</h1>
-          <p style={{fontFamily:S.inter,fontSize:'1.05rem',color:S.muted}}>From $650 per weeknight, $800 weekends and holidays. Two-night minimum. Book direct for the best rate.</p>
+          <p style={{fontFamily:S.inter,fontSize:'1.05rem',color:S.muted}}>From $650 per weeknight, $800 weekends and holidays. Two-night minimum, or three for arrivals 20 December to 10 January. Book direct for the best rate.</p>
         </div>
 
         <StepIndicator step={step} />
@@ -448,14 +455,20 @@ export function BookingPage() {
 
             <Calendar unavailableDates={unavailableDates} checkIn={checkIn} checkOut={checkOut} onSelectDate={handleDateSelect} loading={availabilityLoading}/>
 
+            {checkIn&&!checkOut&&minNights===3&&(
+              <p style={{marginTop:'1rem',fontFamily:S.inter,fontSize:'0.85rem',color:S.accent}}>
+                Arrivals between 20 December and 10 January have a 3-night minimum stay.
+              </p>
+            )}
+
             {checkIn&&checkOut&&(
               <div style={{marginTop:'1rem',padding:'0.75rem 1rem',borderRadius:'0.375rem',backgroundColor:'rgba(143,169,179,0.08)',border:`1px solid rgba(143,169,179,0.2)`}}>
                 <div className="flex justify-between items-center">
                   <p style={{fontFamily:S.inter,fontSize:'0.875rem',color:S.accent}}>
                     {nights} night{nights!==1?'s':''} selected
-                    {nights<2&&<span style={{color:'#e87878',marginLeft:'0.5rem'}}>(minimum 2 nights)</span>}
+                    {nights<minNights&&<span style={{color:'#e87878',marginLeft:'0.5rem'}}>(minimum {minNights} nights{minNights===3?' over Christmas and New Year':''})</span>}
                   </p>
-                  {nights>=2&&estimateTotal()&&(
+                  {nights>=minNights&&estimateTotal()&&(
                                         <p id="rate-estimate" style={{fontFamily:S.playfair,fontSize:'1rem',color:S.bone}}>
                       Est. ${estimateTotal()?.toLocaleString()} AUD
                       <span style={{fontFamily:S.inter,fontSize:'0.7rem',color:S.muted,marginLeft:'0.25rem'}}>inc GST</span>

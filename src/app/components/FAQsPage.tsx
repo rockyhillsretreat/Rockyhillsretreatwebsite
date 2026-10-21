@@ -22,7 +22,7 @@ export function FAQsPage() {
         },
         {
           question: "What is the minimum stay?",
-          answer: "Two nights. We recommend three or more to settle in properly."
+          answer: "Two nights, or three nights for arrivals between 20 December and 10 January. We recommend three or more to settle in properly."
         },
         {
           question: "What time is check-in and check-out?",
