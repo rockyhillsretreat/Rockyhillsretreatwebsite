@@ -47,7 +47,7 @@ const neighbours = [
 
 const arrival = [
   { icon: Car, title: "Hire car", rows: [["From Hobart", "1.5 hours"], ["Final stretch", "Gravel driveway"]], note: "Directions sent when you book. Arrive before dark if you can, the wildlife is on the roads at dusk." },
-  { icon: Plane, title: "Private helicopter", rows: [["From Hobart", "35 minutes"], ["One-way", "AUD $3,000"]], note: "Land on the property. A hire car can be delivered for your stay. Weather dependent." },
+  { icon: Plane, title: "Private helicopter", rows: [["From Hobart", "35 minutes"], ["One-way", "AUD $3,500"]], note: "Land on the property. A hire car can be delivered for your stay. Weather dependent." },
   { icon: MapPin, title: "Car service", rows: [["From Hobart", "1.5 hours"], ["One-way", "AUD $850"]], note: "Professional driver, door to door. Ask us to arrange it when you book." },
 ];
 

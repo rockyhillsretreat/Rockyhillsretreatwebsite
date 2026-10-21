@@ -55,7 +55,7 @@ const arrival = [
   {
     icon: Plane,
     title: "Private Helicopter",
-    rows: [["From Hobart", "35 minutes"], ["From Launceston", "50 minutes"], ["Price (one-way)", "$3,000"]],
+    rows: [["From Hobart", "35 minutes"], ["From Launceston", "50 minutes"], ["Price (one-way)", "$3,500"]],
     note: "Land on the property. A hire car can be delivered for your stay. Weather dependent.",
   },
   {
