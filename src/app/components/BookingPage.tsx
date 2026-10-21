@@ -5,11 +5,13 @@ const MONTHS = ['January','February','March','April','May','June','July','August
 const DAYS = ['Su','Mo','Tu','We','Th','Fr','Sa'];
 const PROPERTY_ID = 485328;
 
+// Signature Experiences: add-ons to any stay (enquire for pricing). Mirrors ExperiencesPage.
 const packages = [
-  { id: 'in-the-air-then-at-rest', name: 'In the Air, Then at Rest', description: 'Scenic helicopter flight, couples massage, Huon pine bath. 3 nights.' },
-  { id: 'the-long-lunch', name: 'The Long Lunch', description: 'Guided wine trail, four cellar doors, lunch included, couples massage. 3 nights.' },
-  { id: 'from-the-water', name: 'From the Water', description: 'Half day fishing charter, catch returned to the retreat with recipe, couples massage. 3 nights.' },
-  { id: 'celebrate-here', name: 'Celebrate Here', description: 'Private photographer, beach picnic hamper, Huon pine bath. 3 nights.' },
+  { id: 'beach-picnic', name: 'The Beach Picnic', description: 'A hamper from Tasmanian producers, a map to a quiet cove, and the Huon pine bath ready when you get back.' },
+  { id: 'from-the-water', name: 'From the Water', description: 'Half a day fishing Great Oyster Bay with a local skipper, your catch returned with a recipe, and a couples massage.' },
+  { id: 'in-the-air-then-at-rest', name: 'In the Air, Then at Rest', description: 'Scenic helicopter flight over the Hazards and Wineglass Bay, couples massage on the deck, Huon pine bath.' },
+  { id: 'the-long-lunch', name: 'The Long Lunch', description: 'Guided wine trail, four cellar doors, lunch included, pickup and return, couples massage.' },
+  { id: 'celebrate-here', name: 'Celebrate Here', description: 'Private photographer for half a day, beach picnic hamper, Huon pine bath.' },
 ];
 
 const experiences = [
@@ -521,7 +523,7 @@ export function BookingPage() {
               All optional. Select anything you would like us to arrange. We will confirm and invoice separately before your arrival.
             </p>
 
-            <Concertina title="Signature Packages" subtitle="Curated multi-night experiences" selectedCount={selectedPackage?1:0}>
+            <Concertina title="Signature Experiences" subtitle="Add one to any stay. Enquire for pricing" selectedCount={selectedPackage?1:0}>
               {packages.map(pkg=>(
                 <CheckboxItem key={pkg.id} id={pkg.id} name={pkg.name} description={pkg.description}
                   checked={selectedPackage===pkg.id} onChange={()=>setSelectedPackage(selectedPackage===pkg.id?null:pkg.id)}/>

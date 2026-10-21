@@ -169,7 +169,7 @@ export function FromAucklandPage() {
       <section className="py-24 px-6 text-center" style={{ backgroundColor: "#2E3D45" }}>
         <h2 style={{ fontFamily: serif, fontSize: "clamp(2rem, 4vw, 2.75rem)", color: "#EDE9E3" }}>Pick your dates this summer</h2>
         <p className="mt-4 mx-auto max-w-[600px]" style={{ fontFamily: sans, fontSize: "1.05rem", color: "#B8AE9F", lineHeight: "1.8" }}>
-          Two nights minimum. Tell us what you'd like and we'll sort the rest, from the helicopter to dinner on the deck.
+          Two nights minimum, or three for arrivals 20 December to 10 January. Tell us what you'd like and we'll sort the rest, from the helicopter to dinner on the deck.
         </p>
         <div className="mt-8 flex flex-wrap gap-4 justify-center">
           <Link to="/booking" style={btnPrimary}>Check dates</Link>

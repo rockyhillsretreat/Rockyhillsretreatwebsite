@@ -535,7 +535,7 @@ export function HomePage() {
               color: '#B8AE9F',
             }}
           >
-            Two-night minimum.
+            Two-night minimum, or three for arrivals 20 December to 10 January.
           </p>
           <Link
             to="/booking"
